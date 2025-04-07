@@ -53,6 +53,7 @@ const addTask = () => {
   newTaskName.value = '';
 };
 
+// todo: save in account
 const removeTask = (index: number) => {
   tasks.value.splice(index, 1);
 };
