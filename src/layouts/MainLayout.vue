@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header elevated class="bg-pink-10">
       <q-toolbar>
         <q-btn
           flat
@@ -9,33 +9,29 @@
           icon="menu"
           aria-label="Menu"
           @click="toggleLeftDrawer"
+          class="bg-pink-10"
         />
 
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+        <q-toolbar-title> Lerni.app </q-toolbar-title>
+        <q-img class="user-icon" :src="authStore.photoURL" width="30px" height="30px"/>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
+    <q-drawer v-model="leftDrawerOpen" bordered class="bg-pink-10">
       <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
+        <q-item-label header class="text-white"> Lerni - your learning friend </q-item-label>
 
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
+        <q-list-label>stats</q-list-label>
+        <q-list-label>login</q-list-label>
+        <q-list-label>change language</q-list-label>
+        <q-list-label>customize</q-list-label>
+        <div>
+          <button v-if="!authStore.loggedIn" @click="login">Zaloguj się przez Google</button>
+          <div v-else>
+            <p>Witaj, {{ authStore.displayName }}</p>
+            <button @click="handleLogout">Wyloguj się</button>
+          </div>
+        </div>
       </q-list>
     </q-drawer>
 
@@ -47,56 +43,50 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import EssentialLink, { type EssentialLinkProps } from 'components/EssentialLink.vue';
-
-const linksList: EssentialLinkProps[] = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-];
+import { loginWithGoogle, logout, listenToAuthState } from '../service/firebase';
+import { usePreferencesStore } from '../stores/preferences';
+import { useAuthStore } from '../stores/auth';
+import type { User } from 'firebase/auth';
 
 const leftDrawerOpen = ref(false);
 
-function toggleLeftDrawer () {
+function toggleLeftDrawer() {
+  console.log('toggleLeftDrawer');
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
+
+const authStore = useAuthStore();
+const preferencesStore = usePreferencesStore();
+
+async function login() {
+  const user = await loginWithGoogle();
+  if (user?.uid) {
+    authStore.setUser(user);
+    await preferencesStore.init(user.uid);
+  }
+}
+
+async function handleLogout() {
+  await logout();
+  authStore.reset();
+  preferencesStore.$reset();
+}
+
+listenToAuthState(async (user: User) => {
+  console.log(leftDrawerOpen.value);
+  const authStore = useAuthStore();
+  const preferencesStore = usePreferencesStore();
+
+  authStore.setUser(user);
+  await preferencesStore.init(user.uid);
+});
 </script>
+
+
+<style scoped>
+
+.user-icon {
+  border-radius: 50%;
+}
+
+</style>

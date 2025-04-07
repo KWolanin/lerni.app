@@ -1,43 +1,46 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
+  <q-page class="bg-pink-2">
+    <div class="grid-stack" ref="gridContainer">
+      <div
+        v-for="(widget, index) in widgets"
+        :key="index"
+        class="grid-stack-item"
+        :gs-x="widget.x"
+        :gs-y="widget.y"
+        :gs-w="widget.w"
+        :gs-h="widget.h"
+      >
+        <div class="grid-stack-item-content">
+          <component :is="widget.name" />
+        </div>
+      </div>
+    </div>
   </q-page>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import type { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/ExampleComponent.vue';
+import { ref, onMounted } from 'vue';
 
-const todos = ref<Todo[]>([
-  {
-    id: 1,
-    content: 'ct1'
-  },
-  {
-    id: 2,
-    content: 'ct2'
-  },
-  {
-    id: 3,
-    content: 'ct3'
-  },
-  {
-    id: 4,
-    content: 'ct4'
-  },
-  {
-    id: 5,
-    content: 'ct5'
-  }
+import 'gridstack/dist/gridstack.min.css';
+import 'gridstack/dist/gridstack-extra.min.css';
+import { GridStack } from 'gridstack';
+
+
+// Lista komponentów
+const widgets = ref([
+  { name: 'PomodoroItem', x: 0, y: 0, w: 3, h: 3 },
+  { name: 'TimeSelector', x: 3, y: 0, w: 3, h: 3 },
+  { name: 'StartTodo', x: 6, y: 2, w: 6, h: 3 },
+  { name: 'MusicPlayer', x: 0, y: 2, w: 3, h: 2 },
+  { name: 'UserNote', x: 3, y: 2, w: 3, h: 2 },
+  { name: 'UserTodo', x: 6, y: 2, w: 6, h: 4 },
 ]);
 
-const meta = ref<Meta>({
-  totalCount: 1200
+const gridContainer = ref<HTMLDivElement | null>(null);
+
+onMounted(() => {
+  if (gridContainer.value) {
+    GridStack.init({}, gridContainer.value);
+  }
 });
 </script>
