@@ -25,6 +25,7 @@ type AudioOption = {
   value: string;
 };
 
+// todo: add copyright free music
 const options = [
   { label: 'Rain', value: 'rain.mp3' },
   { label: 'Lofi', value: 'lofi.mp3' },
