@@ -34,3 +34,4 @@ yarn-error.log*
 
 # firebase creditials
 fbConfig.ts
+public/audio/*.mp3
