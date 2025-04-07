@@ -1,0 +1,14 @@
+
+rain:
+<a href="https://freesound.org/people/csengeri/sounds/398201/">20170724eso.mp3</a> by <a href="https://freesound.org/people/csengeri/">csengeri</a> | License: <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons 0</a>
+
+20170724eso.mp3 by csengeri -- https://freesound.org/s/398201/ -- License: Creative Commons 0
+
+todo: 
+create a site with credits for all the music, libraries etc.
+
+
+restaurant:
+Restaurant Sounds (Sunny Point Cafe) by Hitrison -- https://freesound.org/s/190941/ -- License: Creative Commons 0
+
+<a href="https://freesound.org/people/Hitrison/sounds/190941/">Restaurant Sounds (Sunny Point Cafe)</a> by <a href="https://freesound.org/people/Hitrison/">Hitrison</a> | License: <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons 0</a>

@@ -28,7 +28,7 @@ type AudioOption = {
 // todo: add copyright free music
 const options = [
   { label: 'Rain', value: 'rain.mp3' },
-  { label: 'Lofi', value: 'lofi.mp3' },
+  {label: 'Restaurant', value: 'restaurant.mp3'}
 ];
 
 const currentlyPlayed = ref<AudioOption>(options[0]!);

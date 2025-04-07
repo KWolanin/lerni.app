@@ -30,7 +30,7 @@ import { GridStack } from 'gridstack';
 const widgets = ref([
   { name: 'PomodoroItem', x: 0, y: 0, w: 3, h: 3 },
   { name: 'TimeSelector', x: 3, y: 0, w: 3, h: 3 },
-  { name: 'StartTodo', x: 6, y: 2, w: 6, h: 3 },
+  { name: 'StartTodo', x: 8, y: 0, w: 4, h: 4 },
   { name: 'MusicPlayer', x: 0, y: 2, w: 3, h: 2 },
   { name: 'UserNote', x: 3, y: 2, w: 3, h: 2 },
   { name: 'UserTodo', x: 6, y: 2, w: 6, h: 4 },

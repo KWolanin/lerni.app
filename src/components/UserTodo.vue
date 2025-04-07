@@ -1,5 +1,5 @@
 <template>
-  <q-card class="q-pa-sm bg-pink-12 flex column justify-center radius-15">
+  <q-card class="q-pa-sm bg flex column justify-center radius-15">
     <h6 class="q-ma-sm text-italic text-white">{{ $t('todo') }}</h6>
     <q-list dense>
       <q-item dense clickable v-ripple v-for="(task, index) in tasks" :key="index">
@@ -24,7 +24,7 @@
         v-model="newTaskName"
         :label="$t('new_task')"
         dense
-        class="q-mt-sm q-mb-sm"
+        class="q-mt-sm q-mb-sm text-white"
         standout="bg-pink-14 text-pink-12"
         @keyup.enter="addTask"
       />
@@ -61,10 +61,13 @@ const removeTask = (index: number) => {
 
 <style scoped>
 ::v-deep(.q-checkbox--dense) {
-  color: #841e4c;
+  color: white;
 }
 
 .strike {
   text-decoration: line-through;
+}
+.bg {
+background: linear-gradient(43deg, rgba(131,58,180,1) 0%, rgba(253,29,29,0.5226541300113796) 50%, rgba(252,176,69,1) 100%);
 }
 </style>
