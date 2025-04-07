@@ -4,7 +4,13 @@ Your friend to help to focus and learn things!
 
 **Lerni.app** is your personal dashboard for daily studing. Stay focused with Pomodoro, organize tasks with a to-do list, and learn with your favorite music – all in one place. Drag, drop, and arrange your tools the way you want. Lerni.app adapts to you, not the other way around. Maximum focus, minimal distractions, fully customizable.
 
-**Work-In-Progress** Dashboard app for daily work and study, built with Vue 3, TypeScript, and the Quasar Framework. Currently in prototype mode.
+**For anyone who:**
+- struggles to get started with work
+- has trouble focusing
+- wants everything in one place
+- enjoys using aesthetic tools tailored to their personal taste
+
+**Work-In-Progress** Dashboard app for daily work and study, Material Design app built with Vue 3, TypeScript, Quasar Framework and Firebase. **Currently in prototype mode**. ⚙
 
 **Currently, users can:**
 
@@ -42,3 +48,6 @@ quasar build
 
 ### Customize the configuration
 See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+
+![Screenshot Tool by cloudHQ 7 04 2025 10_20_30](https://github.com/user-attachments/assets/d6a7941e-4b71-4aeb-92c2-c9816ffd0613)
+
