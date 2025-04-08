@@ -51,7 +51,6 @@ import type { User } from 'firebase/auth';
 const leftDrawerOpen = ref(false);
 
 function toggleLeftDrawer() {
-  console.log('toggleLeftDrawer');
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
 
@@ -73,7 +72,6 @@ async function handleLogout() {
 }
 
 listenToAuthState(async (user: User) => {
-  console.log(leftDrawerOpen.value);
   const authStore = useAuthStore();
   const preferencesStore = usePreferencesStore();
 

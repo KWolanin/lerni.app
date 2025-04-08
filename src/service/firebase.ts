@@ -53,6 +53,18 @@ export const saveStarters = async (uid: string, starters: Record<string, boolean
   await setDoc(startersDoc, starters, { merge: true })
 }
 
+export const loadTodo = async (uid:string) : Promise<DocumentData | null> => {
+  const todo = doc(db, 'users', uid, 'todos', 'todos')
+  const docSnap = await getDoc(todo)
+  return docSnap.exists() ? docSnap.data() : null
+}
+
+export const saveTodo = async (uid: string, todo: Record<string, boolean>) => {
+  if (!uid) return
+  const todoDoc = doc(db, 'users', uid, 'todos', 'todos')
+  await setDoc(todoDoc, todo, { merge: false })
+}
+
 export const listenToAuthState = (onUser: { (user: User): Promise<void>; (arg0: User): void; }) => {
   onAuthStateChanged(auth, (user) => {
     if (user) void onUser(user)

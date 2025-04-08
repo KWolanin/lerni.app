@@ -264,5 +264,13 @@ const centerColor = computed((): string => {
   margin: 0 auto;
 }
 
+.bg {
+  background: linear-gradient(
+    43deg,
+    rgba(131, 58, 180, 1) 0%,
+    rgba(253, 29, 29, 0.5226541300113796) 50%,
+    rgba(252, 176, 69, 1) 100%
+  );
+}
 
 </style>

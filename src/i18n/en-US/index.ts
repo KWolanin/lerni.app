@@ -8,14 +8,15 @@ export default {
   work_time: 'work time',
   relax_time: 'relax time',
   longer_relax_time: 'longer relax time',
-  set_preferences: 'set your preferences',
+  set_preferences: 'set pomodoro',
   limit: 'max work cycles',
   starter: 'easy start',
   some_music: 'some music?',
   user_note: 'quick note?',
   todo: 'today to do',
   new_task: 'new task',
-  add: 'add'
+  add: 'add',
+  nothing_here: 'add something ➕'
 };
 
 
