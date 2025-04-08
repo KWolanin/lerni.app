@@ -1,5 +1,5 @@
 <template>
-  <q-page class="bg-pink-2">
+  <q-page class="bg">
     <div class="grid-stack" ref="gridContainer">
       <div
         v-for="(widget, index) in widgets"
@@ -33,7 +33,7 @@ const widgets = ref([
   { name: 'UserTodo', x: 5, y: 0, w: 3, h: 4 },
   { name: 'StartTodo', x: 8, y: 0, w: 4, h: 4 },
   { name: 'MusicPlayer', x: 0, y: 8, w: 3, h: 2 },
-  { name: 'UserNote', x: 0, y: 8, w: 3, h: 2 },
+  { name: 'UserNote', x: 0, y: 8, w: 3, h: 3 },
 ]);
 
 const gridContainer = ref<HTMLDivElement | null>(null);
@@ -44,3 +44,15 @@ onMounted(() => {
   }
 });
 </script>
+
+<style scoped>
+.bg {
+  background: linear-gradient(
+    43deg,
+    rgba(131, 58, 180, 1) 0%,
+    rgba(253, 29, 29, 0.5226541300113796) 50%,
+    rgba(252, 176, 69, 1) 100%
+  );
+}
+
+</style>

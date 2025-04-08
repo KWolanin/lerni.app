@@ -1,5 +1,5 @@
 <template>
-  <q-card class="q-pa-sm flex column justify-center radius-15 bg">
+  <q-card class="q-pa-sm flex column justify-center bg radius-15">
     <div class="flex row">
       <h6 class="q-ma-sm text-italic text-white">{{ $t('starter') }}</h6>
       <q-space />
@@ -26,13 +26,13 @@
         flat
         disabled
       >
-      <q-tooltip
+        <q-tooltip
           class="text-pink-14 transparent text-weight-bold"
           anchor="top right"
           self="center right"
           >customize</q-tooltip
         >
-    </q-btn>
+      </q-btn>
     </div>
     <q-scroll-area style="height: 50vh; max-width: 100%">
       <q-list v-if="starters" dense>
@@ -49,7 +49,7 @@
               :class="{ strike: checked }"
               dense
               keep-color
-              color="pink-14"
+              color="white"
               v-model="starters[label]"
               :label="label"
               :value="checked"
@@ -115,8 +115,8 @@ const sortedStarters = computed(() => {
 
 const clear = () => {
   for (const property in starters.value) {
-  starters.value[property] = false
-}
+    starters.value[property] = false;
+  }
 };
 </script>
 
@@ -129,11 +129,15 @@ const clear = () => {
 }
 
 .bg {
-  background: linear-gradient(
+  /* background: linear-gradient(
     43deg,
     rgba(131, 58, 180, 1) 0%,
     rgba(253, 29, 29, 0.5226541300113796) 50%,
     rgba(252, 176, 69, 1) 100%
-  );
+  ); */
+  background: rgba(255, 255, 255, 0.2) !important;
+  /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 </style>

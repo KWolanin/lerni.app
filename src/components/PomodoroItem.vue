@@ -1,13 +1,13 @@
 <template>
-  <div class="flex column justify-center" >
+  <q-card class="flex column justify-center bg radius-15 q-pa-sm" >
     <q-circular-progress
       show-value
-      class="text-white q-ma-md q-pb-sm center"
+      class=" q-ma-sm q-pb-sm q-pt-sm center custom"
       size="15rem"
       :thickness="0.2"
-      :color="color"
-      :center-color="centerColor"
-      :track-color="trackColor"
+      :style="{ color: 'rgba(255, 255, 255, 0.4)',
+            '--q-circular-progress-track-color': 'rgba(255, 255, 255, 0.2)'
+       }"
       :min="0"
       :max="duration"
       :value="remainingTime"
@@ -31,11 +31,12 @@
         </div>
       </div>
     </q-circular-progress>
-    <div class="flex row justify-center">
+    <div class="flex row justify-center q-mb-md">
       <q-btn
         @click="startTimer"
         icon="play_circle"
-        :color="color"
+        color="white"
+        outline
         :disabled="isRunning"
         class="q-mr-sm"
       >
@@ -44,29 +45,28 @@
       <q-btn
         @click="stopTimer"
         icon="stop_circle"
-        :color="color"
+        outline
+        color="white"
         :disabled="!isRunning"
         class="q-mr-sm"
       >
         <q-tooltip>{{ $t('stop') }} pomodoro</q-tooltip>
       </q-btn>
-      <q-btn @click="resetTimer" icon="restart_alt" :color="color" class="q-mr-sm">
+      <q-btn @click="resetTimer" icon="restart_alt" outline color="white" class="q-mr-sm">
         <q-tooltip>{{ $t('restart') }} pomodoro</q-tooltip>
       </q-btn>
-      <q-btn @click="nextCycle" icon="next_plan" :color="color">
+      <q-btn outline @click="nextCycle" icon="next_plan" color="white">
         <q-tooltip>{{ $t('skip') }}</q-tooltip>
       </q-btn>
     </div>
-  </div>
+  </q-card>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue';
-import { useI18n } from 'vue-i18n';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const { t } = useI18n();
 import { usePreferencesStore } from '../stores/preferences'
 import { useAuthStore } from '../stores/auth'
+import {colors} from 'quasar'
 
 
 const preferencesStore = usePreferencesStore()
@@ -245,16 +245,18 @@ const formattedTime = computed(() => {
 });
 
 const color = computed((): string => {
-  return 'pink-12';
+  console.log(colors.changeAlpha('#ffffff', -1))
+  return colors.changeAlpha('#ffffff', -0.3) ;
 });
 
-const trackColor = computed((): string => {
-  return 'pink-10';
-});
+  // const trackColor = computed((): string => {
+  //   return colors.changeAlpha('#ffffff', -0.3)  ;
+  // });
 
-const centerColor = computed((): string => {
-  return 'pink-11';
-});
+  // const centerColor = computed((): string => {
+  //   return colors.changeAlpha('#ffffff', -0.3)  ;
+  // });
+
 
 </script>
 
@@ -264,13 +266,30 @@ const centerColor = computed((): string => {
   margin: 0 auto;
 }
 
-.bg {
+/* .bg {
   background: linear-gradient(
     43deg,
     rgba(131, 58, 180, 1) 0%,
     rgba(253, 29, 29, 0.5226541300113796) 50%,
     rgba(252, 176, 69, 1) 100%
   );
+} */
+
+.bg {
+  /* background: linear-gradient(
+    43deg,
+    rgba(131, 58, 180, 1) 0%,
+    rgba(253, 29, 29, 0.5226541300113796) 50%,
+    rgba(252, 176, 69, 1) 100%
+  ); */
+  background: rgba(255, 255, 255, 0.2) !important;
+  /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
+
+/* .q-circular-progress__svg circle {
+  stroke: rgba(255, 255, 255, 0.5) !important;
+} */
 
 </style>
