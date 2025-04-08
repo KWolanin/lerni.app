@@ -49,5 +49,5 @@ quasar build
 ### Customize the configuration
 See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
 
-![Screenshot Tool by cloudHQ 8 04 2025 14_07_29](https://github.com/user-attachments/assets/f878daeb-e88e-44be-9966-5b7fdcc578fa)
+![Screenshot Tool by cloudHQ 8 04 2025 17_47_39](https://github.com/user-attachments/assets/a61240a3-c9c3-4122-ad6e-bbf7c1455764)
 
