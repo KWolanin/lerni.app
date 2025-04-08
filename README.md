@@ -17,11 +17,12 @@ Your friend to help to focus and learn things!
 * Log in with a Google account
 * Use a Pomodoro timer and customize work/break durations to suit their needs (settings saved per account)
 * Move components around on the dashboard
+* Use Todo list
+* Use Starter (aka 'Easy start') list
 
 **Planned features include:**
 
 * Full color theme customization
-* Todo list functionality
 * Starter List – a customizable pre-work preparation checklist
 * Music playback – either local files or via YouTube/Spotify integration
 * Quick notes for personal reminders
