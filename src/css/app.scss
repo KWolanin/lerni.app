@@ -10,3 +10,9 @@ h6 {
 .bg-transparent {
     background: #ffffff33 !important;
 }
+
+.bg {
+    background: rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }

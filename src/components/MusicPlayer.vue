@@ -1,6 +1,24 @@
 <template>
   <q-card dense class="q-pa-md flex column justify-center radius-15 bg">
-    <h6 class="q-ma-sm text-italic text-white">{{ $t('some_music') }}</h6>
+    <div class="flex row">
+      <h6 class="q-ma-sm text-italic text-white">{{ $t('some_music') }}</h6>
+      <q-space />
+      <q-btn
+        size="sm"
+        icon="settings"
+        color="white"
+        class="q-ml-sm q-pl-sm q-pr-sm q-mt-sm q-mb-sm"
+        flat
+        disabled
+      >
+        <q-tooltip
+          class="text-pink-14 transparent text-weight-bold"
+          anchor="center left"
+          self="center right"
+          >{{$t('customize')}}</q-tooltip
+        >
+      </q-btn>
+    </div>
     <q-select
       standout="transparent text-pink-12"
       v-model="currentlyPlayed"
@@ -55,27 +73,6 @@ watch(getAudio, () => {
 
 .audio {
   width: 100%;
-}
-
-/* .bg {
-  background: linear-gradient(
-    43deg,
-    rgba(131, 58, 180, 1) 0%,
-    rgba(253, 29, 29, 0.5226541300113796) 50%,
-    rgba(252, 176, 69, 1) 100%
-  );
-} */
-.bg {
-  /* background: linear-gradient(
-    43deg,
-    rgba(131, 58, 180, 1) 0%,
-    rgba(253, 29, 29, 0.5226541300113796) 50%,
-    rgba(252, 176, 69, 1) 100%
-  ); */
-  background: rgba(255, 255, 255, 0.2) !important;
-  /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
 }
 
 ::v-deep(.q-field__native) {

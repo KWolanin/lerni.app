@@ -16,7 +16,8 @@ export default {
   todo: 'today to do',
   new_task: 'new task',
   add: 'add',
-  nothing_here: 'add something ➕'
+  nothing_here: 'add something ➕',
+  your_notes: 'your notes',
 };
 
 
