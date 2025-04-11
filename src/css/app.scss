@@ -1,18 +1,17 @@
-
 .radius-15 {
-    border-radius: 15px;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
 }
 
 h6 {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
-.bg-transparent {
-    background: #ffffff33 !important;
-}
 
 .bg {
-    background: rgba(255, 255, 255, 0.2) !important;
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-  }
+  background: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+

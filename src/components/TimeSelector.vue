@@ -41,19 +41,18 @@
         rounded
         dense
       ></q-input>
-      <q-btn class="q-mt-md" outline color="pink-14" text-color="white" type="submit">save</q-btn>
+      <q-btn class="q-mt-md" outline color="pink-14" text-color="white" type="submit">
+        {{ $t('save') }}
+      </q-btn>
     </q-form>
   </q-card>
 </template>
 
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { useI18n } from 'vue-i18n';
 import { useAuthStore } from '../stores/auth';
 import { usePreferencesStore } from '../stores/preferences';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const { t } = useI18n();
 const authStore = useAuthStore();
 const preferencesStore = usePreferencesStore();
 
@@ -82,7 +81,7 @@ watch(
       try {
         await loadPreferences();
       } catch (error) {
-        console.error('Błąd ładowania preferencji:', error);
+        console.error('Preferences load error', error);
       }
     }
   },

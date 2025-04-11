@@ -13,18 +13,34 @@
           label="Theme"
           class="q-ma-sm"
         />
+        <q-select
+          v-model="locale"
+          :options="localeOptions"
+          label="Language"
+          label-color="white"
+          dense
+          emit-value
+          map-options
+          standout="transparent text-pink-12"
+          class="q-ma-sm"
+        />
 
         <q-img class="user-icon" :src="authStore.photoURL" width="30px" height="30px" />
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" class="glass-panel">
-      <q-list bordered padding style="height: 100%" class="text-white flex column items-center justify-evenly">
-        <q-item class="q-pa-md" clickable v-ripple>
+    <q-drawer :width="200" v-model="leftDrawerOpen" class="glass-panel">
+      <q-list
+        bordered
+        padding
+        style="height: 100%"
+        class="text-white flex column items-center justify-evenly"
+      >
+        <q-item clickable v-ripple>
           <q-item-section avatar>
-            <q-icon name="inbox" />
+            <q-icon name="settings" />
           </q-item-section>
-          <q-item-section> Stats </q-item-section>
+          <q-item-section> Staticstics </q-item-section>
         </q-item>
         <q-item clickable v-ripple>
           <q-item-section avatar>
@@ -32,11 +48,11 @@
           </q-item-section>
           <q-item-section> Settings </q-item-section>
         </q-item>
-        <q-space/>
+        <q-space />
         <q-item class="flex justify-center">
           <q-btn outline v-if="!authStore.loggedIn" @click="login">Login via Google Account</q-btn>
           <div v-else class="flex column justify-center">
-            <p>Hello, {{ authStore.displayName }}</p>
+            <p>{{ authStore.displayName }}</p>
             <q-btn outline @click="handleLogout">Logout</q-btn>
           </div>
         </q-item>
@@ -50,11 +66,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { loginWithGoogle, logout, listenToAuthState } from '../service/firebase';
 import { usePreferencesStore } from '../stores/preferences';
 import { useAuthStore } from '../stores/auth';
 import type { User } from 'firebase/auth';
+import { loadTheme, saveTheme } from '../service/firebase';
+import { debounce, isEqual } from 'lodash';
+
+import { useI18n } from 'vue-i18n'
+const { locale } = useI18n({ useScope: 'global' })
+
+const localeOptions = [
+  { value: 'en-US', label: 'English' },
+  { value: 'pl', label: 'Polski' },
+  {value: 'de', label: 'Deutsch'}
+]
 
 const leftDrawerOpen = ref(false);
 
@@ -82,12 +109,12 @@ async function handleLogout() {
 listenToAuthState(async (user: User) => {
   const authStore = useAuthStore();
   const preferencesStore = usePreferencesStore();
-
   authStore.setUser(user);
   await preferencesStore.init(user.uid);
+  console.log('listenToAuthState');
 });
 
-const currentTheme = ref<string>('Sunset');
+const currentTheme = ref<string>('');
 
 const themes = [
   'Sunset',
@@ -101,13 +128,10 @@ const themes = [
 ];
 
 const gradientBackground = computed(() => {
-  console.log('computed');
   switch (currentTheme.value) {
     case 'Morning sky':
-      console.log('gradient-3');
       return 'bg-gradient-3';
     case 'Intensive':
-      console.log('gradient-2');
       return 'bg-gradient-2';
     case 'Sunset':
       return 'bg-gradient-default';
@@ -124,6 +148,41 @@ const gradientBackground = computed(() => {
   }
   return 'bg-gradient-default';
 });
+
+watch(
+  currentTheme,
+  (newVal) => {
+    if (!newVal) return;
+    if (!isEqual(previous, newVal)) {
+      debouncedSave(newVal);
+      previous = newVal;
+    }
+  },
+  { deep: true },
+);
+
+const debouncedSave = debounce((newData: string) => {
+  saveTheme(authStore.uid, newData).catch((err) => console.error(err));
+}, 1000);
+
+watch(
+  () => authStore.uid,
+  (newUid) => {
+    if (newUid) {
+      loadTheme(newUid)
+        .then((data) => {
+          currentTheme.value = data ? data.theme : 'Sunset';
+        })
+        .catch((err) => {
+          console.error(err);
+          currentTheme.value = 'Sunset';
+        });
+    }
+  },
+  { immediate: true },
+);
+
+let previous: string | null = null;
 </script>
 
 <style scoped>

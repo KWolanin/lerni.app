@@ -15,7 +15,7 @@
           class="text-pink-14 transparent text-weight-bold"
           anchor="center left"
           self="center right"
-          >clear list</q-tooltip
+          >{{$t('clear_list')}}</q-tooltip
         >
       </q-btn>
       <q-btn
@@ -30,7 +30,7 @@
           class="text-pink-14 transparent text-weight-bold"
           anchor="top right"
           self="center right"
-          >mark all done / undone</q-tooltip
+          >{{ $t('mark_as') }}</q-tooltip
         >
       </q-btn>
     </div>

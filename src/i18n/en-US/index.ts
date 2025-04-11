@@ -18,6 +18,12 @@ export default {
   add: 'add',
   nothing_here: 'add something ➕',
   your_notes: 'your notes',
+  mark_as: 'mark all done / undone',
+  clear_list: 'clear list',
+  now_playing: 'now playing',
+  save: 'save',
+  work: 'work',
+  relax: 'relax',
 };
 
 

@@ -65,6 +65,31 @@ export const saveTodo = async (uid: string, todo: Record<string, boolean>) => {
   await setDoc(todoDoc, todo, { merge: false })
 }
 
+export const loadTheme = async (uid:string) : Promise<DocumentData | null> => {
+  const theme = doc(db, 'users', uid, 'defaults', 'theme')
+  const docSnap = await getDoc(theme)
+  console.log('theme', docSnap)
+  return docSnap.exists() ? docSnap.data() : null
+}
+
+export const saveTheme = async (uid: string, theme: string) => {
+  if (!uid) return
+  const themeDoc = doc(db, 'users', uid, 'defaults', 'theme')
+  await setDoc(themeDoc, {theme: theme}, { merge: true })
+}
+
+export const loadNote = async (uid: string) :Promise<string | null> => {
+  const note = doc(db, 'users', uid)
+  const docSnap = await getDoc(note)
+  return docSnap.exists() ? docSnap.data().note : null
+}
+
+export const saveNote = async (uid: string, note: string) => {
+  if (!uid) return
+  const themeDoc = doc(db, 'users', uid)
+  await setDoc(themeDoc, {note: note}, { merge: true })
+}
+
 export const listenToAuthState = (onUser: { (user: User): Promise<void>; (arg0: User): void; }) => {
   onAuthStateChanged(auth, (user) => {
     if (user) void onUser(user)

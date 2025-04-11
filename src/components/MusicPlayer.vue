@@ -25,7 +25,7 @@
       dense
       label-color="white"
       :options="options"
-      label="Now playing"
+      :label="$t('now_playing')"
       class="q-mb-sm"
     />
     <vue-plyr class="flex row q-mb-sm justify-center">
@@ -62,7 +62,7 @@ watch(getAudio, () => {
   if (audioRef.value) {
     audioRef.value.load();
     audioRef.value.play().catch((err) => {
-      console.warn('Nie udało się odtworzyć audio:', err);
+      console.warn('Audio playing error', err);
     });
   }
 });
