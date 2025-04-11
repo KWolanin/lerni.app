@@ -24,6 +24,7 @@ export default {
   save: 'zapisz',
   work: 'pracę',
   relax: 'przerwę',
+  must_be_positive: 'number must be positive',
 };
 
 

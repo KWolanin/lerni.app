@@ -82,6 +82,7 @@ watch(
         })
         .catch((err) => {
           console.error(err);
+          starters.value = null;
         });
     }
   },

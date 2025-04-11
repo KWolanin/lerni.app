@@ -1,7 +1,7 @@
 <template>
   <q-card dense class="q-pa-md flex column justify-center radius-15 bg">
     <h6 class="q-ma-sm text-italic text-white">{{ $t('user_note') }}</h6>
-    <q-editor v-model="note" min-height="5rem"
+    <q-editor v-model="note" min-height="5rem" max-height="30vh"
     :toolbar="[
         ['bold', 'italic', 'strike', 'underline'],
         ['unordered', 'ordered'],
@@ -30,6 +30,7 @@ watch(
         })
         .catch((err) => {
           console.error(err);
+          note.value = '';
         });
     }
   },

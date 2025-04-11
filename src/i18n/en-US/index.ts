@@ -24,6 +24,7 @@ export default {
   save: 'save',
   work: 'work',
   relax: 'relax',
+  must_be_positive: 'number must be positive',
 };
 
 

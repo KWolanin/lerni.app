@@ -10,6 +10,8 @@
         label-color="white"
         class="q-mb-sm"
         rounded
+        hide-bottom-space
+        :rules="[(val) => val > 0 || $t('must_be_positive')]"
         dense
       ></q-input>
       <q-input
@@ -20,6 +22,8 @@
         label-color="white"
         class="q-mb-sm"
         rounded
+        hide-bottom-space
+        :rules="[(val) => val > 0 || $t('must_be_positive')]"
         dense
       ></q-input>
       <q-input
@@ -29,6 +33,8 @@
         label-color="white"
         type="number"
         class="q-mb-sm"
+        hide-bottom-space
+        :rules="[(val) => val > 0 || $t('must_be_positive')]"
         rounded
         dense
       ></q-input>
@@ -38,6 +44,8 @@
         v-model="preferences.limit"
         label-color="white"
         type="number"
+        hide-bottom-space
+        :rules="[(val) => val > 0 || $t('must_be_positive')]"
         rounded
         dense
       ></q-input>
@@ -81,6 +89,7 @@ watch(
       try {
         await loadPreferences();
       } catch (error) {
+        preferences.value = { ...defaultPreferences };
         console.error('Preferences load error', error);
       }
     }

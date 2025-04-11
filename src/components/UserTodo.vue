@@ -130,6 +130,7 @@ const debouncedSave = debounce((newData: Record<string, boolean>) => {
   saveTodo(authStore.uid, newData).catch((err) => console.error(err));
 }, 1000);
 
+// todo: map -> object with date to be able to sort by last added
 const addTask = () => {
   if (newTaskName.value.trim() === '') return;
   if (!tasks.value) {

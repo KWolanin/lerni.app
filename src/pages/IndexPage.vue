@@ -9,6 +9,10 @@
         :gs-y="widget.y"
         :gs-w="widget.w"
         :gs-h="widget.h"
+        :gs-min-w="widget.w"
+        :gs-min-h="widget.h"
+        :gs-max-w="widget.w"
+        :gs-max-h="widget.h"
       >
         <div class="grid-stack-item-content">
           <component :is="widget.name" />
@@ -25,8 +29,6 @@ import 'gridstack/dist/gridstack.min.css';
 import 'gridstack/dist/gridstack-extra.min.css';
 import { GridStack } from 'gridstack';
 
-
-// Lista komponentów
 const widgets = ref([
   { name: 'PomodoroItem', x: 0, y: 0, w: 3, h: 3 },
   { name: 'TimeSelector', x: 3, y: 0, w: 2, h: 3 },
@@ -34,17 +36,32 @@ const widgets = ref([
   { name: 'StartTodo', x: 8, y: 0, w: 4, h: 4 },
   { name: 'MusicPlayer', x: 0, y: 8, w: 3, h: 2 },
   { name: 'UserNote', x: 0, y: 8, w: 3, h: 3 },
-  // { name: 'UserNotes', x: 3, y: 8, w: 3, h: 3 },
 ]);
 
 const gridContainer = ref<HTMLDivElement | null>(null);
 
 onMounted(() => {
   if (gridContainer.value) {
-    GridStack.init({}, gridContainer.value);
+    GridStack.init(
+      {
+        resizable: {
+          handles: 'none',
+        },
+      },
+      gridContainer.value,
+    );
   }
 });
-
-
 </script>
 
+<style scoped>
+.grid-stack-item-content {
+  height: 100%;
+  width: 100%;
+  /* display: flex;
+  align-items: center; */
+  /* justify-content: center; */
+  /* box-sizing: border-box; */
+  /* overflow: hidden; */
+}
+</style>

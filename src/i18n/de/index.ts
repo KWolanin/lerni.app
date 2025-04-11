@@ -24,4 +24,6 @@ export default {
   save: 'speichern',
   work: 'Arbait',
   relax: 'Entspannung',
+  must_be_positive: 'number must be positive',
+
 }
