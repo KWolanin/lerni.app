@@ -5,7 +5,8 @@
       <q-card
         v-for="(position, index) in cardPositions"
         :key="index"
-        class="placeholder-card bg"
+        class="placeholder-card"
+        :class="index % 2 === 0 ? 'bg' : 'bg-black'"
         :style="{ top: `${position.top}%`, left: `${position.left}%`, position: 'absolute' }"
       >
       </q-card>
@@ -51,7 +52,7 @@ function generateUniquePositions(count: number, cardSize: number) {
 
     do {
       isOverlapping = false
-      const top = Math.random() * (100 - cardSize) // Upewnij się, że kafelek mieści się w obszarze
+      const top = Math.random() * (100 - cardSize)
       const left = Math.random() * (100 - cardSize)
 
       position = { top, left }
@@ -102,7 +103,8 @@ const cardPositions = generateUniquePositions(20, 10)
 .login-card {
   position: relative;
   z-index: 1;
-  width: 30vw;
+  width: 400px;
+  max-width: 90%;
 }
 
 .icon-wrapper {
@@ -122,5 +124,20 @@ const cardPositions = generateUniquePositions(20, 10)
 .icon-lightbulb {
   border-radius: 50%;
   padding: 10px;
+}
+
+@media (max-width: 600px) {
+  .login-card {
+    width: 90%;
+    padding: 16px;
+  }
+
+  .icon-wrapper {
+    margin-top: -50px;
+  }
+
+  .icon-center {
+    padding: 8px;
+  }
 }
 </style>
