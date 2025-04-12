@@ -30,6 +30,11 @@ Your friend to help to focus and learn things!
 
 
 
+![Screenshot Tool by cloudHQ 12 04 2025 17_39_33](https://github.com/user-attachments/assets/143709b6-cba2-4392-a31b-7e11c5755a30)
+![Screenshot Tool by cloudHQ 12 04 2025 17_40_48](https://github.com/user-attachments/assets/cb23c7ba-02d7-4588-9b9b-45144b025e47)
+
+
+
 ## Install the dependencies
 ```bash
 yarn
@@ -49,6 +54,3 @@ quasar build
 
 ### Customize the configuration
 See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
-
-![Screenshot Tool by cloudHQ 8 04 2025 17_47_39](https://github.com/user-attachments/assets/a61240a3-c9c3-4122-ad6e-bbf7c1455764)
-
