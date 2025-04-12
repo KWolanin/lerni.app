@@ -12,7 +12,7 @@
         disabled
       >
         <q-tooltip
-          class="text-pink-14 transparent text-weight-bold"
+          class="bg-blur text-weight-bold"
           anchor="center left"
           self="center right"
           >{{$t('customize')}}</q-tooltip

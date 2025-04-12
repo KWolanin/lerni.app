@@ -4,7 +4,7 @@ export default {
   stop: 'stop',
   restart: 'restart',
   skip: 'skip to next',
-  pomo_end: 'Pomodoro end! Be pround of yourself!',
+  pomo_end: 'Done! Be pround of yourself!',
   work_time: 'work time',
   relax_time: 'relax time',
   longer_relax_time: 'longer relax time',
@@ -25,6 +25,7 @@ export default {
   work: 'work',
   relax: 'relax',
   must_be_positive: 'number must be positive',
+  ping_sound_enable: "play sound when timer ends",
 };
 
 

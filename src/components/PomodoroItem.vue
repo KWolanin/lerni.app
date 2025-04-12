@@ -2,13 +2,17 @@
   <q-card class="flex column justify-center bg radius-15 q-pa-sm">
     <div class="flex row">
       <q-space />
-      <q-btn size="sm" icon="music_off" color="white" class="q-mr-sm q-pr-sm" flat disabled>
-        <q-tooltip
-          class="text-pink-14 transparent text-weight-bold"
-          anchor="top right"
-          self="center right"
-          >customize</q-tooltip
-        >
+      <q-btn
+        size="sm"
+        :icon="pingEnabled ? 'music_note' : 'music_off'"
+        color="white"
+        class="q-mr-sm q-pr-sm"
+        flat
+        @click="pingEnabled = !pingEnabled"
+      >
+        <q-tooltip anchor="center left" self="center right" class="bg-blur text-weight-bold">{{
+          $t('ping_sound_enable')
+        }}</q-tooltip>
       </q-btn>
     </div>
     <q-circular-progress
@@ -17,9 +21,10 @@
       size="15rem"
       :thickness="0.2"
       :style="{
-        color: 'rgba(255, 255, 255, 0.4)',
+        color: 'rgba(255, 255, 255, 0.3)',
         '--q-circular-progress-track-color': 'rgba(255, 255, 255, 0.2)',
       }"
+      track-color="gray-1"
       :min="0"
       :max="duration"
       :value="remainingTime"
@@ -28,9 +33,9 @@
       <div class="flex column justify-center">
         <h3 class="q-ma-sm text-center text-weight-bolder">{{ formattedTime }}</h3>
         <h6 v-if="wholeCycle < preferences.limit" class="q-ma-sm text-center text-italic">
-          {{ $t('time_for') }} {{ currentCycle =='work' ? $t('work') : $t('relax') }}
+          {{ $t('time_for') }} {{ currentCycle == 'work' ? $t('work') : $t('relax') }}
         </h6>
-        <h6 v-else class="q-ma-sm text-cente text-italic">{{ $t('pomo_end') }}</h6>
+        <h6 v-else class="q-ma-sm text-center text-italic wrap">{{ $t('pomo_end') }}</h6>
         <div class="flex row wrap justify-center">
           <q-icon
             v-for="i in workCycles"
@@ -52,7 +57,9 @@
         :disabled="isRunning"
         class="q-mr-sm"
       >
-        <q-tooltip>{{ $t('start') }} pomodoro</q-tooltip>
+        <q-tooltip class="bg-blur text-weight-bold" anchor="center left" self="center right"
+          >{{ $t('start') }} pomodoro</q-tooltip
+        >
       </q-btn>
       <q-btn
         @click="stopTimer"
@@ -62,13 +69,19 @@
         :disabled="!isRunning"
         class="q-mr-sm"
       >
-        <q-tooltip>{{ $t('stop') }} pomodoro</q-tooltip>
+        <q-tooltip class="bg-blur text-weight-bold" anchor="center left" self="center right"
+          >{{ $t('stop') }} pomodoro</q-tooltip
+        >
       </q-btn>
       <q-btn @click="resetTimer" icon="restart_alt" outline color="white" class="q-mr-sm">
-        <q-tooltip>{{ $t('restart') }} pomodoro</q-tooltip>
+        <q-tooltip class="bg-blur text-weight-bold" anchor="center left" self="center right"
+          >{{ $t('restart') }} pomodoro</q-tooltip
+        >
       </q-btn>
       <q-btn outline @click="nextCycle" icon="next_plan" color="white">
-        <q-tooltip>{{ $t('skip') }}</q-tooltip>
+        <q-tooltip class="bg-blur text-weight-bold" anchor="center left" self="center right">{{
+          $t('skip')
+        }}</q-tooltip>
       </q-btn>
     </div>
   </q-card>
@@ -79,6 +92,9 @@ import { ref, computed, watch, onMounted } from 'vue';
 import { usePreferencesStore } from '../stores/preferences';
 import { useAuthStore } from '../stores/auth';
 import { colors } from 'quasar';
+import winkSound from '/audio/wink.mp3';
+
+const pingEnabled = ref<boolean>(true);
 
 const preferencesStore = usePreferencesStore();
 const authStore = useAuthStore();
@@ -140,6 +156,11 @@ watch(
 
 const preferencesLoaded = ref(false);
 
+const playSound = async () => {
+  const audio = new Audio(winkSound);
+  await audio.play();
+};
+
 const startTimer = (): void => {
   if (isRunning.value || !preferencesLoaded.value) return;
 
@@ -147,18 +168,17 @@ const startTimer = (): void => {
 
   timerId = setInterval(() => {
     remainingTime.value--;
-
     minutes.value = Math.floor(remainingTime.value / 60);
     seconds.value = remainingTime.value % 60;
 
     if (remainingTime.value <= 0) {
+      if (pingEnabled.value) void playSound();
       if (currentCycle.value === 'work') {
         if (workCycles.value < 4) {
           workCycles.value++;
           wholeCycle.value++;
         }
         if (wholeCycle.value >= preferences.value.limit) {
-          alert('reset!');
           resetTimer();
           // todo: save completed session to stats!
           return;
@@ -239,7 +259,6 @@ const nextCycle = (): void => {
   } else {
     currentCycle.value = 'work';
     duration = preferences.value.workTime * 60;
-    // workCycles.value = 0; // to się nie powinno zerować;
   }
 
   remainingTime.value = duration;

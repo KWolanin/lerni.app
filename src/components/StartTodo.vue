@@ -12,7 +12,7 @@
         @click="clear"
       >
         <q-tooltip
-          class="text-pink-14 transparent text-weight-bold"
+        class="bg-blur text-weight-bold"
           anchor="center left"
           self="center right"
           >clear all</q-tooltip
@@ -27,8 +27,8 @@
         disabled
       >
         <q-tooltip
-          class="text-pink-14 transparent text-weight-bold"
-          anchor="top right"
+        class="bg-blur text-weight-bold"
+          anchor="center left"
           self="center right"
           >customize</q-tooltip
         >
@@ -53,6 +53,8 @@
               v-model="starters[label]"
               :label="label"
               :value="checked"
+              checked-icon="check_circle"
+              unchecked-icon="radio_button_unchecked"
             />
           </q-item-section>
         </q-item>

@@ -12,7 +12,7 @@
         @click="clear"
       >
         <q-tooltip
-          class="text-pink-14 transparent text-weight-bold"
+        class="bg-blur text-weight-bold"
           anchor="center left"
           self="center right"
           >{{$t('clear_list')}}</q-tooltip
@@ -27,8 +27,8 @@
         @click="switchMarks"
       >
         <q-tooltip
-          class="text-pink-14 transparent text-weight-bold"
-          anchor="top right"
+        class="bg-blur text-weight-bold"
+          anchor="center left"
           self="center right"
           >{{ $t('mark_as') }}</q-tooltip
         >
@@ -46,6 +46,8 @@
               :class="{ strike: checked }"
               v-model="tasks[label]"
               :label="label"
+              checked-icon="check_circle"
+              unchecked-icon="radio_button_unchecked"
             />
           </q-item-section>
           <q-item-section side>
