@@ -16,9 +16,12 @@
       <div class="icon-wrapper">
         <q-icon name="person" size="50px" class="icon-center" />
       </div>
-      <h3 class="text-center text-white">Welcome to Lerni.app</h3>
-      <h6 class="text-center text-white">Your daily study dashboard</h6>
-      <p class="text-center text-white">Please log in to continue.</p>
+      <h3 class="text-center text-white text-h3 text-weight-bolder">Welcome to Lerni.app</h3>
+      <h6 class="text-center text-white text-h6">Your daily study dashboard</h6>
+      <div class="icon-wrapper">
+        <q-icon name="dashboard" size="10rem" color="blur" class="icon-lightbulb" />
+      </div>
+      <p class="text-center text-white text-description">Please log in to continue.</p>
       <div class="flex row justify-center">
         <q-btn outline size="lg" class="q-ma-md" color="white" @click="login">Login via Google</q-btn>
       </div>
@@ -105,7 +108,7 @@ const cardPositions = generateUniquePositions(20, 10)
 .icon-wrapper {
   display: flex;
   justify-content: center;
-  margin-top: -25px;
+  margin-top: -50px;
 }
 
 .icon-center {
@@ -114,5 +117,10 @@ const cardPositions = generateUniquePositions(20, 10)
   padding: 10px;
   color: #333;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.icon-lightbulb {
+  border-radius: 50%;
+  padding: 10px;
 }
 </style>
