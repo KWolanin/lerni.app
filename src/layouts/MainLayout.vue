@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf" :class="gradientBackground">
-    <q-header elevated class="glass-panel">
+    <q-header v-if="authStore.loggedIn" elevated class="glass-panel">
       <q-toolbar>
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
         <q-toolbar-title> Lerni.app </q-toolbar-title>
@@ -29,7 +29,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer :width="200" v-model="leftDrawerOpen" class="glass-panel">
+    <q-drawer v-if="authStore.loggedIn" :width="200" v-model="leftDrawerOpen" class="glass-panel">
       <q-list
         bordered
         padding
@@ -75,6 +75,8 @@ import { loadTheme, saveTheme } from '../service/firebase';
 import { debounce, isEqual } from 'lodash';
 
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router';
+const router = useRouter();
 const { locale } = useI18n({ useScope: 'global' })
 
 const localeOptions = [
@@ -101,9 +103,14 @@ async function login() {
 }
 
 async function handleLogout() {
-  await logout();
-  authStore.reset();
-  preferencesStore.$reset();
+  await logout()
+  authStore.reset()
+  //preferencesStore.reset()
+  try {
+    await router.push('/login') // Obsługa błędów nawigacji
+  } catch (error) {
+    console.error('Navigation error:', error)
+  }
 }
 
 listenToAuthState(async (user: User) => {
