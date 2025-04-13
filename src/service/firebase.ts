@@ -68,7 +68,6 @@ export const saveTodo = async (uid: string, todo: Record<string, boolean>) => {
 export const loadTheme = async (uid:string) : Promise<DocumentData | null> => {
   const theme = doc(db, 'users', uid, 'defaults', 'theme')
   const docSnap = await getDoc(theme)
-  console.log('theme', docSnap)
   return docSnap.exists() ? docSnap.data() : null
 }
 

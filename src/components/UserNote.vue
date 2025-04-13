@@ -25,7 +25,6 @@ watch(
     if (newUid) {
       loadNote(newUid)
         .then((data) => {
-          console.log(typeof data)
           note.value = data ? data : '';
         })
         .catch((err) => {

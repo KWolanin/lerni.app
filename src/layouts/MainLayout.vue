@@ -66,11 +66,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import { loginWithGoogle, logout, listenToAuthState } from '../service/firebase';
 import { usePreferencesStore } from '../stores/preferences';
 import { useAuthStore } from '../stores/auth';
-import type { User } from 'firebase/auth';
+import { getAuth, type User } from 'firebase/auth';
 import { loadTheme, saveTheme } from '../service/firebase';
 import { debounce, isEqual } from 'lodash';
 
@@ -84,6 +84,15 @@ const localeOptions = [
   { value: 'pl', label: 'Polski' },
   {value: 'de', label: 'Deutsch'}
 ]
+
+
+onMounted(() => {
+  const auth = getAuth()
+  const user = auth.currentUser
+  if (user) {
+    authStore.setUser(user)
+  }
+})
 
 const leftDrawerOpen = ref(false);
 
@@ -105,9 +114,8 @@ async function login() {
 async function handleLogout() {
   await logout()
   authStore.reset()
-  //preferencesStore.reset()
   try {
-    await router.push('/login') // Obsługa błędów nawigacji
+    await router.push('/login')
   } catch (error) {
     console.error('Navigation error:', error)
   }
@@ -118,7 +126,6 @@ listenToAuthState(async (user: User) => {
   const preferencesStore = usePreferencesStore();
   authStore.setUser(user);
   await preferencesStore.init(user.uid);
-  console.log('listenToAuthState');
 });
 
 const currentTheme = ref<string>('');
