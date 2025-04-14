@@ -67,32 +67,49 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue';
-import { loginWithGoogle, logout, listenToAuthState } from '../service/firebase';
+import {
+  loginWithGoogle,
+  logout,
+  listenToAuthState,
+  loadLanguage,
+  saveLanguage,
+} from '../service/firebase';
 import { usePreferencesStore } from '../stores/preferences';
 import { useAuthStore } from '../stores/auth';
 import { getAuth, type User } from 'firebase/auth';
 import { loadTheme, saveTheme } from '../service/firebase';
 import { debounce, isEqual } from 'lodash';
 
-import { useI18n } from 'vue-i18n'
+import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 const router = useRouter();
-const { locale } = useI18n({ useScope: 'global' })
+const { locale } = useI18n({ useScope: 'global' });
+
+watch(
+  locale,
+  (newVal) => {
+    if (!newVal) return;
+    debounce((newData: string) => {
+      console.log('Saving language:', newData);
+      saveLanguage(authStore.uid, newData).catch((err) => console.error(err));
+    }, 1000)(newVal);
+  },
+  { immediate: true }
+);
 
 const localeOptions = [
   { value: 'en-US', label: 'English' },
   { value: 'pl', label: 'Polski' },
-  {value: 'de', label: 'Deutsch'}
-]
-
+  { value: 'de', label: 'Deutsch' },
+];
 
 onMounted(() => {
-  const auth = getAuth()
-  const user = auth.currentUser
+  const auth = getAuth();
+  const user = auth.currentUser;
   if (user) {
-    authStore.setUser(user)
+    authStore.setUser(user);
   }
-})
+});
 
 const leftDrawerOpen = ref(false);
 
@@ -112,12 +129,12 @@ async function login() {
 }
 
 async function handleLogout() {
-  await logout()
-  authStore.reset()
+  await logout();
+  authStore.reset();
   try {
-    await router.push('/login')
+    await router.push('/login');
   } catch (error) {
-    console.error('Navigation error:', error)
+    console.error('Navigation error:', error);
   }
 }
 
@@ -179,6 +196,7 @@ const debouncedSave = debounce((newData: string) => {
   saveTheme(authStore.uid, newData).catch((err) => console.error(err));
 }, 1000);
 
+
 watch(
   () => authStore.uid,
   (newUid) => {
@@ -190,6 +208,14 @@ watch(
         .catch((err) => {
           console.error(err);
           currentTheme.value = 'Sunset';
+        });
+      loadLanguage(newUid)
+        .then((data) => {
+          locale.value = data ? data.language : 'en-US';
+        })
+        .catch((err) => {
+          console.error(err);
+          locale.value = 'en-US';
         });
     }
   },
@@ -214,7 +240,6 @@ let previous: string | null = null;
   color: white;
 }
 
-/* default style * zacyztać gradient z konta usera, jak nie ma, dać defualt*/
 .bg-gradient-default {
   background: linear-gradient(
     43deg,
@@ -223,8 +248,6 @@ let previous: string | null = null;
     rgba(252, 176, 69, 1) 100%
   );
 }
-
-/* test styles */
 
 .bg-gradient-2 {
   background: linear-gradient(

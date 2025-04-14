@@ -77,6 +77,18 @@ export const saveTheme = async (uid: string, theme: string) => {
   await setDoc(themeDoc, {theme: theme}, { merge: true })
 }
 
+export const loadLanguage = async (uid:string) : Promise<DocumentData | null> => {
+  const language = doc(db, 'users', uid, 'defaults', 'language')
+  const docSnap = await getDoc(language)
+  return docSnap.exists() ? docSnap.data() : null
+}
+
+export const saveLanguage = async (uid: string, language: string) => {
+  if (!uid) return
+  const langDoc = doc(db, 'users', uid, 'defaults', 'language')
+  await setDoc(langDoc, {language: language}, { merge: true })
+}
+
 export const loadNote = async (uid: string) :Promise<string | null> => {
   const note = doc(db, 'users', uid)
   const docSnap = await getDoc(note)
