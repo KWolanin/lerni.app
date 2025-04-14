@@ -1,5 +1,5 @@
 <template>
-  <q-card class="flex column justify-center bg radius-15 q-pa-sm">
+  <q-card class="fit flex column justify-between bg radius-15 q-pa-sm">
     <div class="flex row">
       <q-space />
       <q-btn
@@ -15,10 +15,11 @@
         }}</q-tooltip>
       </q-btn>
     </div>
+    <div ref="wrapper" class="progress-wrapper">
     <q-circular-progress
       show-value
       class="q-ma-sm q-pb-sm q-pt-sm center"
-      size="15rem"
+      :size="progressSize + 'px'"
       :thickness="0.2"
       :style="{
         color: 'rgba(255, 255, 255, 0.3)',
@@ -48,6 +49,9 @@
         </div>
       </div>
     </q-circular-progress>
+
+      </div>
+
     <div class="flex row justify-center q-mb-md">
       <q-btn
         @click="startTimer"
@@ -88,7 +92,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue';
 import { usePreferencesStore } from '../stores/preferences';
 import { useAuthStore } from '../stores/auth';
 import { colors } from 'quasar';
@@ -106,6 +110,13 @@ const workCycles = ref<number>(0);
 let timerId: unknown = null;
 
 const isRunning = ref<boolean>(false);
+
+
+let resizeObserver: ResizeObserver
+const wrapper = ref(null)
+const progressSize = ref(0)
+
+
 
 const defaultPreferences = {
   workTime: 25,
@@ -136,9 +147,20 @@ const loadPreferences = async () => {
 };
 
 onMounted(async () => {
-  if (!authStore.uid) return;
   await loadPreferences();
+  if (wrapper.value) {
+    resizeObserver = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        progressSize.value = Math.min(entry.contentRect.width, entry.contentRect.height)
+      }
+    })
+    resizeObserver.observe(wrapper.value)
+  }
 });
+
+onBeforeUnmount(() => {
+  resizeObserver.disconnect()
+})
 
 watch(
   () => authStore.uid,
@@ -282,4 +304,20 @@ const color = computed((): string => {
   display: block;
   margin: 0 auto;
 }
+
+.fit {
+  width: 100%;
+  height: 100%;
+}
+
+
+.progress-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin: 0 auto;
+}
+
 </style>

@@ -19,8 +19,6 @@ export default defineConfig((ctx) => {
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#css
     css: [
       'app.scss',
-      '~gridstack/dist/gridstack.min.css', // Dodanie stylów GridStack
-      '~gridstack/dist/gridstack-extra.min.css' // Dodanie dodatkowych stylów
     ],
 
     // https://github.com/quasarframework/quasar/tree/dev/extras

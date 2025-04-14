@@ -1,127 +1,159 @@
 <template>
   <q-page>
-    <div class="grid-stack" ref="gridContainer">
-      <div
-        v-for="(widget, index) in widgets"
-        :key="index"
-        class="grid-stack-item"
-        :gs-x="widget.x"
-        :gs-y="widget.y"
-        :gs-w="widget.w"
-        :gs-min-w="widget.w"
-        :gs-max-w="widget.w"
-        :gs-max-h="widget.h"
+    <GridLayout
+      :ref="setRef"
+      id="grid-layout-test"
+      :margin="[Number(state.marginX), Number(state.marginY)]"
+      v-model:layout="state.layout"
+      :col-num="Number(state.colNum)"
+      :row-height="state.rowHeight"
+      :is-draggable="state.draggable"
+      :is-resizable="state.resizable"
+      :is-mirrored="state.mirrored"
+      :is-bounded="state.bounded"
+      :prevent-collision="state.preventCollision"
+      :vertical-compact="state.compact"
+      :restore-on-drag="state.restoreOnDrag"
+      :use-css-transforms="true"
+      :responsive="state.responsive"
+      :transform-scale="state.transformScale"
+    >
+      <GridItem
+        v-for="item in state.layout"
+        :key="item.i"
+        :static="item.static"
+        :x="item.x"
+        :y="item.y"
+        :w="item.w"
+        :h="item.h"
+        :i="item.i"
+        :min-w="item.minW"
+        :max-w="item.maxW"
+        :min-x="item.minX"
+        :max-x="item.maxX"
+        :min-y="item.minY"
+        :max-y="item.maxY"
+        :preserve-aspect-ratio="item.preserveAspectRatio"
       >
-        <div class="grid-stack-item-content">
-          <component :is="widget.name" />
-        </div>
-      </div>
-    </div>
+        <component :is="item.name" class="grid-item-content" />
+      </GridItem>
+    </GridLayout>
   </q-page>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, nextTick } from 'vue';
+import { onMounted, reactive } from 'vue';
+// @ts-expect-error('no types')
+import { GridLayout, GridItem } from 'vue-grid-layout-v3';
 
-import 'gridstack/dist/gridstack.min.css';
-import 'gridstack/dist/gridstack-extra.min.css';
-import { GridStack } from 'gridstack';
+const widgets = [
+  {
+    name: 'PomodoroItem',
+    x: 0,
+    y: 0,
+    w: 3,
+    h: 5.5,
+    i: '0',
+    resizable: false,
+    draggable: true,
+    static: false,
+    minW: 3,
+    minH: 5.5,
+  },
+  {
+    name: 'TimeSelector',
+    x: 3,
+    y: 0,
+    w: 2,
+    h: 5.5,
+    i: '1',
+    resizable: false,
+    draggable: true,
+    static: false,
+  },
+  {
+    name: 'UserTodo',
+    x: 5,
+    y: 0,
+    w: 3,
+    h: 8,
+    i: '2',
+    resizable: false,
+    draggable: true,
+    static: false,
+  },
+  {
+    name: 'StartTodo',
+    x: 8,
+    y: 0,
+    w: 4,
+    h: 9,
+    i: '3',
+    resizable: false,
+    draggable: true,
+    static: false,
+  },
+  {
+    name: 'MusicPlayer',
+    x: 0,
+    y: 6,
+    w: 2,
+    h: 4,
+    i: '4',
+    resizable: false,
+    draggable: true,
+    static: false,
+  },
+  {
+    name: 'UserNote',
+    x: 2,
+    y: 6,
+    w: 3,
+    h: 3.5,
+    i: '5',
+    resizable: false,
+    draggable: true,
+    static: false,
+  },
+];
 
-const widgets = ref([
-  { name: 'PomodoroItem', x: 0, y: 0, w: 3, h: 3 },
-  { name: 'TimeSelector', x: 3, y: 0, w: 2, h: 3 },
-  { name: 'UserTodo', x: 5, y: 0, w: 3, h: 4 },
-  { name: 'StartTodo', x: 8, y: 0, w: 4, h: 4 },
-  { name: 'MusicPlayer', x: 0, y: 3, w: 3, h: 2 },
-  { name: 'UserNote', x: 0, y: 3, w: 3, h: 3 },
-]);
+const state = reactive({
+  layout: JSON.parse(JSON.stringify(widgets)),
+  layout2: JSON.parse(JSON.stringify(widgets)),
+  draggable: true,
+  resizable: false,
+  mirrored: false,
+  responsive: true,
+  bounded: false,
+  transformScale: 1,
+  preventCollision: false,
+  compact: true,
+  restoreOnDrag: true,
+  rowHeight: 50,
+  colNum: 12,
+  index: 0,
+  marginX: 15,
+  marginY: 15,
+});
 
-const gridContainer = ref<HTMLDivElement | null>(null);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+let layoutRef;
 
 onMounted(() => {
-  if (gridContainer.value) {
-    const grid = GridStack.init(
-      {
-        disableResize: true,
-        column: 12,
-        cellHeight: 150,
-        placeholderClass: 'grid-test',
-        sizeToContent: true,
-        float: true
-      },
-      gridContainer.value,
-    );
-
-    const updateColumns = () => {
-      const width = window.innerWidth;
-      if (width < 768) {
-        grid.column(1);
-      } else if (width < 1024) {
-        grid.column(6);
-      } else {
-        grid.column(12);
-      }
-    };
-
-    updateColumns();
-    window.addEventListener('resize', updateColumns);
-
-    const adjustHeightToContent = async () => {
-      await nextTick()
-      grid.engine.nodes.forEach((node) => {
-        const content = node.el!.querySelector('.grid-stack-item-content')
-        if (content) {
-          const contentHeight = content.scrollHeight
-          grid.update(node.el!, { h: contentHeight })
-        }
-      })
-    }
-
-    void adjustHeightToContent();
-
-    grid.on('change', () => {
-      void adjustHeightToContent();
-    });
-    grid.on('dragstop', () => {
-      void adjustHeightToContent();
-    });
-
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    const observer = new MutationObserver(adjustHeightToContent);
-    grid.engine.nodes.forEach((node) => {
-      const content = node.el!.querySelector('.grid-stack-item-content');
-      if (content) {
-        observer.observe(content, { childList: true, subtree: true, characterData: true });
-      }
-    });
-
-    onUnmounted(() => {
-      observer.disconnect();
-      window.removeEventListener('resize', updateColumns);
-      grid.off('change');
-      grid.off('dragstop');
-    });
-  }
+  state.index = state.layout.length;
 });
+
+function setRef(e: object) {
+  layoutRef = e;
+}
 </script>
 
 <style scoped>
-
-.grid-stack > .grid-stack-item>.grid-stack-item-content {
-  height: max-content !important;
-}
-
-.grid-stack-item  {
-  height: max-content !important;
-}
-
-.grid-stack-item-content {
-  height: auto !important;
-  margin: 0;
-  padding: 0;
-  overflow: visible;
+:deep(.grid-item-content) {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
+  overflow: hidden;
 }
-
-
 </style>

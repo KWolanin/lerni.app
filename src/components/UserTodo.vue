@@ -1,43 +1,46 @@
 <template>
-  <q-card class="q-pa-sm bg flex column justify-center radius-15">
-    <div class="flex row">
+  <q-card class="q-pa-sm bg flex column fit justify-between radius-15">
+
+    <!-- HEADER -->
+    <div class="flex row items-center q-mb-sm">
       <h6 class="q-ma-sm text-italic text-white">{{ $t('todo') }}</h6>
       <q-space />
       <q-btn
         size="sm"
         icon="delete"
         color="white"
-        class="q-ml-sm q-pl-sm q-pr-sm q-mt-sm q-mb-sm"
         flat
+        class="q-ml-sm"
         @click="clear"
       >
-        <q-tooltip
-        class="bg-blur text-weight-bold"
-          anchor="center left"
-          self="center right"
-          >{{$t('clear_list')}}</q-tooltip
-        >
+        <q-tooltip class="bg-blur text-weight-bold" anchor="center left" self="center right">
+          {{ $t('clear_list') }}
+        </q-tooltip>
       </q-btn>
       <q-btn
         size="sm"
         icon="done"
         color="white"
-        class="q-ml-sm q-pl-sm q-pr-sm q-mt-sm q-mb-sm"
         flat
+        class="q-ml-sm"
         @click="switchMarks"
       >
-        <q-tooltip
-        class="bg-blur text-weight-bold"
-          anchor="center left"
-          self="center right"
-          >{{ $t('mark_as') }}</q-tooltip
-        >
+        <q-tooltip class="bg-blur text-weight-bold" anchor="center left" self="center right">
+          {{ $t('mark_as') }}
+        </q-tooltip>
       </q-btn>
     </div>
 
-    <q-scroll-area style="height: 30vh; max-width: 100%">
+    <!-- TASK LIST -->
+    <q-scroll-area class="q-mb-md" style="flex: 1 1 auto; min-height: 100px;">
       <q-list dense v-if="tasks && Object.keys(tasks).length">
-        <q-item dense clickable v-ripple v-for="([label, checked], index) in Object.entries(tasks)" :key="index">
+        <q-item
+          dense
+          clickable
+          v-ripple
+          v-for="([label, checked], index) in Object.entries(tasks)"
+          :key="index"
+        >
           <q-item-section>
             <q-checkbox
               dense
@@ -55,17 +58,19 @@
           </q-item-section>
         </q-item>
       </q-list>
-      <div v-else class="text-caption text-grey-3 flex items-center justify-center" style="height: 30vh">
+      <div v-else class="text-caption text-grey-3 flex items-center justify-center" style="height: 100px">
         {{ $t('nothing_here') }}
       </div>
     </q-scroll-area>
-    <div class="q-ma-md flex column justify-center">
+
+    <!-- ADD NEW TASK -->
+    <div class="q-mt-sm column full-width">
       <q-input
         v-model="newTaskName"
         :label="$t('new_task')"
         dense
-        class="q-mt-sm q-mb-sm text-white"
         standout="transparent text-pink-12"
+        class="q-mb-sm text-white"
         @keyup.enter="addTask"
       />
       <q-btn
@@ -74,11 +79,12 @@
         @click="addTask"
         color="pink-14"
         text-color="white"
-        class="q-mt-sm"
+        class="q-mb-sm"
       />
     </div>
   </q-card>
 </template>
+
 
 <script setup lang="ts">
 import { ref, watch } from 'vue';
@@ -169,4 +175,11 @@ const switchMarks = () => {
 .strike {
   text-decoration: line-through;
 }
+
+.fit {
+  width: 100%;
+  height: 100%;
+}
+
+
 </style>

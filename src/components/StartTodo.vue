@@ -1,40 +1,38 @@
 <template>
-  <q-card class="q-pa-sm flex column justify-center bg radius-15">
-    <div class="flex row">
+  <q-card class="q-pa-sm flex column bg radius-15" style="height: 100%;">
+
+    <!-- HEADER -->
+    <div class="flex row items-center q-mb-sm">
       <h6 class="q-ma-sm text-italic text-white">{{ $t('starter') }}</h6>
       <q-space />
       <q-btn
         size="sm"
         icon="delete"
         color="white"
-        class="q-ml-sm q-pl-sm q-pr-sm q-mt-sm q-mb-sm"
         flat
+        class="q-ml-sm"
         @click="clear"
       >
-        <q-tooltip
-        class="bg-blur text-weight-bold"
-          anchor="center left"
-          self="center right"
-          >clear all</q-tooltip
-        >
+        <q-tooltip class="bg-blur text-weight-bold" anchor="center left" self="center right">
+          clear all
+        </q-tooltip>
       </q-btn>
       <q-btn
         size="sm"
         icon="settings"
         color="white"
-        class="q-mr-sm q-pr-sm q-pl-sm q-mt-sm q-mb-sm"
         flat
+        class="q-ml-sm"
         disabled
       >
-        <q-tooltip
-        class="bg-blur text-weight-bold"
-          anchor="center left"
-          self="center right"
-          >customize</q-tooltip
-        >
+        <q-tooltip class="bg-blur text-weight-bold" anchor="center left" self="center right">
+          customize
+        </q-tooltip>
       </q-btn>
     </div>
-    <q-scroll-area style="height: 50vh; max-width: 100%">
+
+    <!-- SCROLLABLE LIST -->
+    <q-scroll-area class="q-mt-sm" style="flex: 1 1 auto; min-height: 100px;">
       <q-list v-if="starters" dense>
         <q-item
           dense
@@ -52,7 +50,6 @@
               color="white"
               v-model="starters[label]"
               :label="label"
-              :value="checked"
               checked-icon="check_circle"
               unchecked-icon="radio_button_unchecked"
             />
@@ -62,6 +59,7 @@
     </q-scroll-area>
   </q-card>
 </template>
+
 
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue';
