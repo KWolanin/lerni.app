@@ -24,8 +24,11 @@ export default {
   save: 'zapisz',
   work: 'pracę',
   relax: 'przerwę',
-  must_be_positive: 'number must be positive',
+  must_be_positive: 'musi być na plusie',
   ping_sound_enable: "enable / disable ping sound when timer ends",
+  customize_dashboard: 'dostosuj dashboard',
+  language: 'język',
+  theme: 'motyw'
 };
 
 

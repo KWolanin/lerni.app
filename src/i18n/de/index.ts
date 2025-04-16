@@ -26,5 +26,7 @@ export default {
   relax: 'Entspannung',
   must_be_positive: 'number must be positive',
   ping_sound_enable: "enable / disable ping sound when timer ends",
-
+  customize_dashboard: 'customize dashboard',
+    language: 'language',
+  theme: 'theme'
 }

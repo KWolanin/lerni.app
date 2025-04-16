@@ -26,6 +26,9 @@ export default {
   relax: 'relax',
   must_be_positive: 'number must be positive',
   ping_sound_enable: "play sound when timer ends",
+  customize_dashboard: 'customize dashboard',
+  language: 'language',
+  theme: 'theme'
 };
 
 

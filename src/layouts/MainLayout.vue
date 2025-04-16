@@ -4,19 +4,24 @@
       <q-toolbar>
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
         <q-toolbar-title> Lerni.app </q-toolbar-title>
+        <q-btn
+          icon="dashboard"
+          flat
+          @click="openSelector = !openSelector"
+        />
         <q-select
           standout="transparent text-pink-12"
           v-model="currentTheme"
           dense
           label-color="white"
           :options="themes"
-          label="Theme"
+          :label="$t('theme')"
           class="q-ma-sm"
         />
         <q-select
           v-model="locale"
           :options="localeOptions"
-          label="Language"
+          :label="$t('language')"
           label-color="white"
           dense
           emit-value
@@ -62,6 +67,7 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+    <widget-selector v-model="openSelector" />
   </q-layout>
 </template>
 
@@ -78,23 +84,25 @@ import { usePreferencesStore } from '../stores/preferences';
 import { useAuthStore } from '../stores/auth';
 import { getAuth, type User } from 'firebase/auth';
 import { loadTheme, saveTheme } from '../service/firebase';
+import WidgetSelector from 'src/components/WidgetSelector.vue';
 import { debounce, isEqual } from 'lodash';
-
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
+
 const router = useRouter();
 const { locale } = useI18n({ useScope: 'global' });
+
+const openSelector = ref<boolean>(false);
 
 watch(
   locale,
   (newVal) => {
     if (!newVal) return;
     debounce((newData: string) => {
-      console.log('Saving language:', newData);
       saveLanguage(authStore.uid, newData).catch((err) => console.error(err));
     }, 1000)(newVal);
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 const localeOptions = [
@@ -156,6 +164,8 @@ const themes = [
   'Pure lust',
   'Rainbow',
   'Mint fresh',
+  'Sunkiss',
+  'Mirage',
 ];
 
 const gradientBackground = computed(() => {
@@ -176,6 +186,10 @@ const gradientBackground = computed(() => {
       return 'bg-gradient-7';
     case 'Mint fresh':
       return 'bg-gradient-8';
+    case 'Sunkiss':
+      return 'bg-gradient-9';
+    case 'Mirage':
+      return 'bg-gradient-10';
   }
   return 'bg-gradient-default';
 });
@@ -195,7 +209,6 @@ watch(
 const debouncedSave = debounce((newData: string) => {
   saveTheme(authStore.uid, newData).catch((err) => console.error(err));
 }, 1000);
-
 
 watch(
   () => authStore.uid,
@@ -274,20 +287,19 @@ let previous: string | null = null;
 }
 
 .bg-gradient-7 {
-  background: linear-gradient(
-    to right,
-    #40e0d0,
-    #ff8c00,
-    #ff0080
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #40e0d0, #ff8c00, #ff0080);
 }
 
 .bg-gradient-8 {
-  background: linear-gradient(
-    to right,
-    #11998e,
-    #38ef7d
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #11998e, #38ef7d);
+}
+
+.bg-gradient-9 {
+  background: linear-gradient(to right, #f2994a, #f2c94c);
+}
+
+.bg-gradient-10 {
+  background: linear-gradient(to right, #16222a, #3a6073);
 }
 
 .glass-panel {

@@ -4,6 +4,7 @@ import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore"
 import { firebaseConfig } from '../fbConfig.js';
 import type { DocumentData } from 'firebase/firestore'
 import type {User } from 'firebase/auth'
+import type { Widget } from "src/types.js";
 
 interface Preferences {
   [key: string]: unknown
@@ -99,6 +100,36 @@ export const saveNote = async (uid: string, note: string) => {
   if (!uid) return
   const themeDoc = doc(db, 'users', uid)
   await setDoc(themeDoc, {note: note}, { merge: true })
+}
+
+export const loadLayout = async (uid: string) : Promise<Widget[] | null>  => {
+  const layout = doc(db, 'users', uid, 'layouts', 'layout')
+  const docSnap = await getDoc(layout)
+  return docSnap.exists() ? docSnap.data().layout : null
+}
+
+export const saveLayout = async (uid: string, layout: Widget[]) => {
+  if (!uid) return
+  const layoutDoc = doc(db, 'users', uid, 'layouts', 'layout')
+  await setDoc(layoutDoc, {layout: layout}, { merge: true })
+}
+
+export const loadSelectedWidgets = async (uid: string): Promise<string[] | null> => {
+  const selectedRef = doc(db, 'users', uid, 'layouts', 'selected')
+  const docSnap = await getDoc(selectedRef)
+  if (docSnap.exists()) {
+    const data = docSnap.data()
+    return data.widgets ?? []
+  }
+
+  return null
+}
+
+
+export const saveSelectedWidgets = async (uid: string, widgets: string[]) => {
+  if (!uid) return
+  const widgetsDoc = doc(db, 'users', uid, 'layouts', 'selected')
+  await setDoc(widgetsDoc, {widgets: widgets}, { merge: true })
 }
 
 export const listenToAuthState = (onUser: { (user: User): Promise<void>; (arg0: User): void; }) => {
