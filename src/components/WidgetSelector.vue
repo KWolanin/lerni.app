@@ -39,7 +39,6 @@ import { saveSelectedWidgets, loadSelectedWidgets } from 'src/service/firebase';
 import { useAuthStore } from 'src/stores/auth';
 import eventBus from '../eventBus'
 
-
 const authStore = useAuthStore();
 
 const dialog = ref(false);
@@ -51,8 +50,8 @@ const availableWidgets = [
   { label: 'Simple start', widgetName: 'StartTodo', desc: 'Predefinied to do before work' },
   { label: 'Set pomodoro', widgetName: 'TimeSelector', desc: 'Dustomize your pomodoro' },
   { label: 'Quick note', widgetName: 'UserNote', desc: 'Use it as post-in(?)' },
-  { label: 'Notes', widgetName: 'UserNotes', desc: 'Show your all notes' },
   { label: 'Todo', widgetName: 'UserTodo', desc: 'Your todolist' },
+  {label: 'Kanban', widgetName: 'KanbanTable', desc: 'Your kanban board'},
 ];
 
 const saveSelected = () => {

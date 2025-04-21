@@ -1,7 +1,7 @@
 <template>
-  <q-card dense class="q-pa-md flex column justify-center radius-15 bg" style="height: 100%">
+  <q-card  class="q-pa-sm flex column justify-between radius-15 bg" style="height: 100%">
     <h6 class="q-ma-sm text-italic text-white">{{ $t('user_note') }}</h6>
-    <q-editor v-model="note" min-height="5rem" max-height="30vh"
+    <q-editor v-model="note" min-height="5.7rem" class="q-mb-sm q-mr-sm q-ml-sm q-mt-sm"
     :toolbar="[
         ['bold', 'italic', 'strike', 'underline'],
         ['unordered', 'ordered'],

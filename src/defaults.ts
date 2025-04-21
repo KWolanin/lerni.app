@@ -67,6 +67,17 @@ const widgets = [
     resizable: false,
     draggable: true,
     static: false,
+  },
+  {
+    name: 'KanbanTable',
+    x: 0,
+    y: 0,
+    w: 6,
+    h: 7,
+    i: '6',
+    resizable: false,
+    draggable: true,
+    static: false,
   }
 ];
 

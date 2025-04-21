@@ -28,5 +28,6 @@ export default {
   ping_sound_enable: "enable / disable ping sound when timer ends",
   customize_dashboard: 'customize dashboard',
     language: 'language',
-  theme: 'theme'
+  theme: 'theme',
+  customize_theme: 'select background theme'
 }

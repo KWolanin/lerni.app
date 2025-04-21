@@ -8,7 +8,6 @@ h6 {
   font-size: 1rem;
 }
 
-
 .bg {
   background: rgba(255, 255, 255, 0.2) !important;
   backdrop-filter: blur(2px) saturate(100%) contrast(95%) brightness(100%);
@@ -29,4 +28,11 @@ h6 {
 
 .text-blur {
   color: rgba(255, 255, 255, 0.4) !important;
+}
+
+// grid placeholder override
+
+.vue-grid-item.vue-grid-placeholder {
+  background: rgba(255, 255, 255, 0.4) !important;
+  border-radius: 15px !important;
 }

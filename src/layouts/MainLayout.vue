@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf" :class="gradientBackground">
+  <q-layout view="lHh Lpr lFf" :style="gradientBackground">
     <q-header v-if="authStore.loggedIn" elevated class="glass-panel">
       <q-toolbar>
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
@@ -7,9 +7,18 @@
         <q-btn
           icon="dashboard"
           flat
-          @click="openSelector = !openSelector"
+          @click="openWidgetSelector = !openWidgetSelector"
         />
-        <q-select
+        <q-btn
+          icon="palette"
+          flat
+          @click="openThemeSelector = !openThemeSelector"
+        />
+        <q-btn
+          icon="translate"
+          flat
+        />
+<!--         <q-select
           standout="transparent text-pink-12"
           v-model="currentTheme"
           dense
@@ -17,7 +26,7 @@
           :options="themes"
           :label="$t('theme')"
           class="q-ma-sm"
-        />
+        /> -->
         <q-select
           v-model="locale"
           :options="localeOptions"
@@ -67,7 +76,8 @@
     <q-page-container>
       <router-view />
     </q-page-container>
-    <widget-selector v-model="openSelector" />
+    <widget-selector v-model="openWidgetSelector" />
+    <theme-selector v-model="openThemeSelector" :current-theme="currentTheme" @change-theme="changeTheme" />
   </q-layout>
 </template>
 
@@ -85,14 +95,17 @@ import { useAuthStore } from '../stores/auth';
 import { getAuth, type User } from 'firebase/auth';
 import { loadTheme, saveTheme } from '../service/firebase';
 import WidgetSelector from 'src/components/WidgetSelector.vue';
+import ThemeSelector from 'src/components/ThemeSelector.vue';
 import { debounce, isEqual } from 'lodash';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
+import { themes } from 'src/themes';
 
 const router = useRouter();
 const { locale } = useI18n({ useScope: 'global' });
 
-const openSelector = ref<boolean>(false);
+const openWidgetSelector = ref<boolean>(false);
+const openThemeSelector = ref<boolean>(false);
 
 watch(
   locale,
@@ -155,43 +168,9 @@ listenToAuthState(async (user: User) => {
 
 const currentTheme = ref<string>('');
 
-const themes = [
-  'Sunset',
-  'Morning sky',
-  'Intensive',
-  'Purple night',
-  'Ocean',
-  'Pure lust',
-  'Rainbow',
-  'Mint fresh',
-  'Sunkiss',
-  'Mirage',
-];
-
 const gradientBackground = computed(() => {
-  switch (currentTheme.value) {
-    case 'Morning sky':
-      return 'bg-gradient-3';
-    case 'Intensive':
-      return 'bg-gradient-2';
-    case 'Sunset':
-      return 'bg-gradient-default';
-    case 'Purple night':
-      return 'bg-gradient-4';
-    case 'Ocean':
-      return 'bg-gradient-5';
-    case 'Pure lust':
-      return 'bg-gradient-6';
-    case 'Rainbow':
-      return 'bg-gradient-7';
-    case 'Mint fresh':
-      return 'bg-gradient-8';
-    case 'Sunkiss':
-      return 'bg-gradient-9';
-    case 'Mirage':
-      return 'bg-gradient-10';
-  }
-  return 'bg-gradient-default';
+  const t = themes.find(t => t.name === currentTheme.value)
+  return 'background: ' + t?.css_background + ';'
 });
 
 watch(
@@ -236,6 +215,13 @@ watch(
 );
 
 let previous: string | null = null;
+
+
+const changeTheme = (theme: string) => {
+  openThemeSelector.value = false;
+  currentTheme.value = theme;
+};
+
 </script>
 
 <style scoped>
@@ -251,55 +237,6 @@ let previous: string | null = null;
 
 ::v-deep(.q-field__native) {
   color: white;
-}
-
-.bg-gradient-default {
-  background: linear-gradient(
-    43deg,
-    rgba(131, 58, 180, 1) 0%,
-    rgba(253, 29, 29, 0.5226541300113796) 50%,
-    rgba(252, 176, 69, 1) 100%
-  );
-}
-
-.bg-gradient-2 {
-  background: linear-gradient(
-    328deg,
-    rgba(246, 90, 143, 0.7943628134847689) 42%,
-    rgba(105, 230, 255, 1) 72%
-  );
-}
-
-.bg-gradient-3 {
-  background: linear-gradient(90deg, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
-}
-
-.bg-gradient-4 {
-  background: linear-gradient(to right, #ad5389, #3c1053);
-}
-
-.bg-gradient-5 {
-  background: linear-gradient(to right, #a8c0ff, #3f2b96);
-}
-
-.bg-gradient-6 {
-  background: linear-gradient(to right, #333333, #dd1818);
-}
-
-.bg-gradient-7 {
-  background: linear-gradient(to right, #40e0d0, #ff8c00, #ff0080);
-}
-
-.bg-gradient-8 {
-  background: linear-gradient(to right, #11998e, #38ef7d);
-}
-
-.bg-gradient-9 {
-  background: linear-gradient(to right, #f2994a, #f2c94c);
-}
-
-.bg-gradient-10 {
-  background: linear-gradient(to right, #16222a, #3a6073);
 }
 
 .glass-panel {

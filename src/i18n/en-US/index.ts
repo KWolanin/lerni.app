@@ -28,7 +28,8 @@ export default {
   ping_sound_enable: "play sound when timer ends",
   customize_dashboard: 'customize dashboard',
   language: 'language',
-  theme: 'theme'
+  theme: 'theme',
+  customize_theme: 'select background theme'
 };
 
 
