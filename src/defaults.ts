@@ -72,12 +72,13 @@ const widgets = [
     name: 'KanbanTable',
     x: 0,
     y: 0,
-    w: 6,
-    h: 7,
+    w: 8,
+    h: 8,
     i: '6',
     resizable: false,
     draggable: true,
     static: false,
+    dragIgnoreFrom: 'VueDraggable, .draggable, input'
   }
 ];
 

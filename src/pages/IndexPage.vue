@@ -35,6 +35,7 @@
         :min-y="item.minY"
         :max-y="item.maxY"
         :preserve-aspect-ratio="item.preserveAspectRatio"
+        :drag-ignore-from="item.dragIgnoreFrom"
       >
         <component :is="item.name" class="grid-item-content" />
       </GridItem>

@@ -1,37 +1,32 @@
 <template>
   <q-card class="q-pa-md bg radius-15" style="height: 100%">
     <div class="row q-col-gutter-md">
-      <div
-        v-for="column in columns"
-        :key="column.id"
-        class="col-12 col-sm-6 col-md-3"
-      >
+      <div v-for="column in columns" :key="column.id" class="col-4">
         <q-card flat bordered class="bg radius-15">
           <q-card-section class="text-white">
-            <div class="text-h6">{{ column.title }}</div>
+            <div class="text-h6">{{ getTitle(column) }}</div>
           </q-card-section>
-
           <q-separator />
-
           <q-card-section>
-            <div
-              v-for="task in column.tasks"
-              :key="task.id"
-              class="q-mb-sm"
+            <VueDraggable
+              v-model="column.tasks"
+              group="tasks"
+              @end="onDragEnd"
+              item-key="id"
+              class="q-mb-sm draggable"
             >
-              <q-card class="q-pa-sm bg-grey-3">
+              <q-card flat v-for="task in column.tasks" :key="task.id" class="q-pa-sm q-ma-sm bg">
                 <div>{{ task.title }}</div>
               </q-card>
-            </div>
+            </VueDraggable>
 
-            <q-btn
-              flat
-              color="primary"
-              icon="add"
-              label="Dodaj zadanie"
-              @click="addTask(column.id)"
-              class="q-mt-sm"
-              size="sm"
+            <q-input
+            v-model="newTaskTitles[column.id]"
+            :label="$t('new_task_placeholder')"
+              class="q-mb-sm input"
+              dense
+              standout="transparent"
+              @keyup.enter="addTask(column.id, newTaskTitles[column.id]!)"
             />
           </q-card-section>
         </q-card>
@@ -41,52 +36,79 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue';
+import { VueDraggable } from 'vue-draggable-plus';
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 interface Task {
-  id: string
-  title: string
+  id: string;
+  title: string;
 }
 
 interface Column {
-  id: string
-  title: string
-  tasks: Task[]
+  id: string;
+  tasks: Task[];
 }
+
+const newTaskTitles = ref<Record<string, string>>({})
+
+onMounted(() => {
+  columns.value.forEach((column) => {
+    newTaskTitles.value[column.id] = '';
+  });
+});
+
+
+const getTitle = (column: Column) => {
+  switch (column.id) {
+    case 'todo':
+      return t('todo');
+    case 'inprogress':
+      return t('inprogress');
+    case 'done':
+      return t('done');
+    default:
+      return '';
+  }
+};
 
 const columns = ref<Column[]>([
   {
     id: 'todo',
-    title: 'Do zrobienia',
-    tasks: [
-      { id: '1', title: 'Zadanie A' },
-      { id: '2', title: 'Zadanie B' }
-    ]
+    tasks: [],
   },
   {
     id: 'inprogress',
-    title: 'W trakcie',
-    tasks: [
-      { id: '3', title: 'Zadanie C' }
-    ]
+    tasks: [],
   },
   {
     id: 'done',
-    title: 'Gotowe',
-    tasks: [
-      { id: '4', title: 'Zadanie D' }
-    ]
-  }
-])
+    tasks: [],
+  },
+]);
 
-function addTask(columnId: string) {
-  const column = columns.value.find(c => c.id === columnId)
-  if (!column) return
+function addTask(columnId: string, task: string) {
+  console.log('Dodano zadanie do kolumny:', columnId, task);
+  const column = columns.value.find((c) => c.id === columnId);
+  if (!column) return;
 
-  const newId = Date.now().toString()
+  const newId = Date.now().toString();
   column.tasks.push({
     id: newId,
-    title: 'Nowe zadanie'
-  })
+    title: task,
+  });
+  newTaskTitles.value[columnId] = ''
+}
+
+function onDragEnd(event: Event) {
+  console.log('Przeniesiono zadanie:', event);
 }
 </script>
+
+<style scoped>
+::v-deep(.q-field__label) {
+  color: white;
+}
+</style>

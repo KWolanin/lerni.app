@@ -69,7 +69,7 @@
         v-model="newTaskName"
         :label="$t('new_task')"
         dense
-        standout="transparent text-pink-12"
+        standout="transparent"
         class="q-mb-sm text-white"
         @keyup.enter="addTask"
       />

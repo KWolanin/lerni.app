@@ -29,7 +29,10 @@ export default {
   customize_dashboard: 'dostosuj dashboard',
   language: 'język',
   theme: 'motyw',
-  customize_theme: 'wybierz motyw tła'
+  customize_theme: 'wybierz motyw tła',
+  new_task_placeholder: 'nowe zadanie',
+  inprogress: 'w trakcie',
+  done: 'gotowe',
 };
 
 

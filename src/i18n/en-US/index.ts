@@ -13,7 +13,7 @@ export default {
   starter: 'easy start',
   some_music: 'some music?',
   user_note: 'quick note?',
-  todo: 'today to do',
+  todo: 'to do',
   new_task: 'new task',
   add: 'add',
   nothing_here: 'add something ➕',
@@ -29,7 +29,10 @@ export default {
   customize_dashboard: 'customize dashboard',
   language: 'language',
   theme: 'theme',
-  customize_theme: 'select background theme'
+  customize_theme: 'select background theme',
+  new_task_placeholder: 'new task',
+  inprogress: 'in progress',
+  done: 'done',
 };
 
 
