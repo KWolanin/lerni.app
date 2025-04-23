@@ -1,4 +1,3 @@
-// todo: make this as user settings
 const widgets = [
   {
     name: 'PomodoroItem',

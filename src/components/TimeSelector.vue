@@ -1,6 +1,6 @@
 <template>
   <q-card class="q-pa-sm flex column justify-center radius-15 bg">
-    <p class="q-ma-sm text-italic user-font">{{ $t('set_preferences') }}</p>
+    <p class="q-ma-sm text-italic text-bold user-font">{{ $t('set_preferences') }}</p>
     <q-form class="q-ma-sm flex column justify-center" @submit.prevent="savePreferences">
       <q-input
         standout="transparent text-user-font"

@@ -31,7 +31,8 @@
     "vue-grid-layout-v3": "^3.1.2",
     "vue-i18n": "^11.0.0",
     "vue-music-flow": "^0.2.8",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.12",
+    "vue3-audio-player": "^1.0.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",
