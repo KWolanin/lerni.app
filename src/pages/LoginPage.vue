@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="flex flex-center default-bg">
     <div class="background-grid">
       <!-- Placeholder cards -->
       <q-card
@@ -140,4 +140,9 @@ const cardPositions = generateUniquePositions(20, 10)
     padding: 8px;
   }
 }
+
+.default-bg {
+  background: linear-gradient(43deg,rgba(131, 58, 180, 1) 0%,rgba(253, 29, 29, 0.5226541300113796) 50%,rgba(252, 176, 69, 1) 100%);
+}
+
 </style>

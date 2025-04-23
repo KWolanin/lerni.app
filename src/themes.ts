@@ -69,5 +69,10 @@ export const themes : Theme[] = [
     name: 'Under the lake',
     preview: 'themes/under-the-lake.jpg',
     css_background: `linear-gradient(to bottom, #093028, #237a57)`
+  },
+  {
+    name: 'Honey dew',
+    preview: 'themes/honey-dew.jpg',
+    css_background: `linear-gradient(to bottom, #43c6ac, #f8ffae)`
   }
 ];

@@ -23,7 +23,7 @@ export default defineRouter(function () {
 
   Router.beforeEach(async (to, from, next) => {
     const user = await getCurrentUser()
-    const requiresAuth = to.matched.some(record => record.meta.auth)
+    const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
     const isLoginPage = to.path === '/login'
 
     if (requiresAuth && !user) {
