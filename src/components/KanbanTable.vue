@@ -2,8 +2,8 @@
   <q-card class="q-pa-md bg radius-15" style="height: 100%">
     <div class="row q-col-gutter-md">
       <div v-for="column in columns" :key="column.id" class="col-4">
-        <q-card flat bordered class="bg radius-15">
-          <q-card-section class="text-white">
+        <q-card flat class="radius-15 bg-second-transparent">
+          <q-card-section class="user-font">
             <div class="text-h6">{{ getTitle(column) }}</div>
           </q-card-section>
           <q-separator />
@@ -21,8 +21,8 @@
             </VueDraggable>
 
             <q-input
-            v-model="newTaskTitles[column.id]"
-            :label="$t('new_task_placeholder')"
+              v-model="newTaskTitles[column.id]"
+              :label="$t('new_task_placeholder')"
               class="q-mb-sm input"
               dense
               standout="transparent"
@@ -38,9 +38,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { VueDraggable } from 'vue-draggable-plus';
-import { useI18n } from 'vue-i18n'
+import { useI18n } from 'vue-i18n';
 
-const { t } = useI18n()
+const { t } = useI18n();
 
 interface Task {
   id: string;
@@ -52,14 +52,13 @@ interface Column {
   tasks: Task[];
 }
 
-const newTaskTitles = ref<Record<string, string>>({})
+const newTaskTitles = ref<Record<string, string>>({});
 
 onMounted(() => {
   columns.value.forEach((column) => {
     newTaskTitles.value[column.id] = '';
   });
 });
-
 
 const getTitle = (column: Column) => {
   switch (column.id) {
@@ -99,7 +98,7 @@ function addTask(columnId: string, task: string) {
     id: newId,
     title: task,
   });
-  newTaskTitles.value[columnId] = ''
+  newTaskTitles.value[columnId] = '';
 }
 
 function onDragEnd(event: Event) {
@@ -109,6 +108,9 @@ function onDragEnd(event: Event) {
 
 <style scoped>
 ::v-deep(.q-field__label) {
-  color: white;
+  color: var(--user-font-color);
+}
+::v-deep(.q-field__native) {
+  color: var(--user-font-color);
 }
 </style>

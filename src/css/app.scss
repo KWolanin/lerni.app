@@ -21,9 +21,14 @@ h6 {
 }
 
 .bg-blur {
-  background: rgba(255, 255, 255, 0.2) !important;
+  background: color-mix(in srgb, var(--user-font-color) 20%, transparent);
+  color: color-mix(in srgb, var(--user-font-color) 90%, transparent);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
+}
+
+.bg-second-transparent {
+  background: color-mix(in srgb, var(--user-font-color) 10%, transparent);
 }
 
 .text-blur {
@@ -36,3 +41,17 @@ h6 {
   background: rgba(255, 255, 255, 0.4) !important;
   border-radius: 15px !important;
 }
+
+:root {
+  --user-font-color: white; 
+}
+
+.user-font {
+  color: var(--user-font-color);
+}
+
+.text-user-font {
+  color: var(--user-font-color);
+}
+
+

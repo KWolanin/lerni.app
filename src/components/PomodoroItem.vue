@@ -5,7 +5,7 @@
       <q-btn
         size="sm"
         :icon="pingEnabled ? 'music_note' : 'music_off'"
-        color="white"
+        color="user-font"
         class="q-mr-sm q-pr-sm"
         flat
         @click="pingEnabled = !pingEnabled"
@@ -22,7 +22,7 @@
       :size="progressSize + 'px'"
       :thickness="0.2"
       :style="{
-        color: 'rgba(255, 255, 255, 0.3)',
+        color: 'color-mix(in srgb, var(--user-font-color) 30%, transparent)',
         '--q-circular-progress-track-color': 'rgba(255, 255, 255, 0.2)',
       }"
       track-color="gray-1"
@@ -32,11 +32,11 @@
       rounded
     >
       <div class="flex column justify-center">
-        <h3 class="q-ma-sm text-center text-weight-bolder">{{ formattedTime }}</h3>
-        <h6 v-if="wholeCycle < preferences.limit" class="q-ma-sm text-center text-italic">
+        <h3 class="q-ma-sm text-center user-font text-weight-bolder">{{ formattedTime }}</h3>
+        <h6 v-if="wholeCycle < preferences.limit" class="q-ma-sm text-center text-italic user-font">
           {{ $t('time_for') }} {{ currentCycle == 'work' ? $t('work') : $t('relax') }}
         </h6>
-        <h6 v-else class="q-ma-sm text-center text-italic wrap">{{ $t('pomo_end') }}</h6>
+        <h6 v-else class="q-ma-sm text-center user-font text-italic wrap">{{ $t('pomo_end') }}</h6>
         <div class="flex row wrap justify-center">
           <q-icon
             v-for="i in workCycles"
@@ -44,7 +44,7 @@
             size="sm"
             name="favorite"
             class="self-center"
-            :color="color"
+            color="user-font"
           />
         </div>
       </div>
@@ -56,7 +56,7 @@
       <q-btn
         @click="startTimer"
         icon="play_circle"
-        color="white"
+        color="user-font"
         outline
         :disabled="isRunning"
         class="q-mr-sm"
@@ -69,7 +69,7 @@
         @click="stopTimer"
         icon="stop_circle"
         outline
-        color="white"
+        color="user-font"
         :disabled="!isRunning"
         class="q-mr-sm"
       >
@@ -77,12 +77,12 @@
           >{{ $t('stop') }} pomodoro</q-tooltip
         >
       </q-btn>
-      <q-btn @click="resetTimer" icon="restart_alt" outline color="white" class="q-mr-sm">
+      <q-btn @click="resetTimer" icon="restart_alt" outline color="user-font" class="q-mr-sm">
         <q-tooltip class="bg-blur text-weight-bold" anchor="center left" self="center right"
           >{{ $t('restart') }} pomodoro</q-tooltip
         >
       </q-btn>
-      <q-btn outline @click="nextCycle" icon="next_plan" color="white">
+      <q-btn outline @click="nextCycle" icon="next_plan" color="user-font">
         <q-tooltip class="bg-blur text-weight-bold" anchor="center left" self="center right">{{
           $t('skip')
         }}</q-tooltip>
@@ -95,7 +95,7 @@
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue';
 import { usePreferencesStore } from '../stores/preferences';
 import { useAuthStore } from '../stores/auth';
-import { colors } from 'quasar';
+// import { colors } from 'quasar';
 import winkSound from '/audio/wink.mp3';
 
 const pingEnabled = ref<boolean>(true);
@@ -294,9 +294,9 @@ const formattedTime = computed(() => {
   return `${formattedMinutes}:${formattedSeconds}`;
 });
 
-const color = computed((): string => {
-  return colors.changeAlpha('#ffffff', -0.3);
-});
+// const color = computed((): string => {
+//   return colors.changeAlpha('#ffffff', -0.3);
+// });
 </script>
 
 <style scoped>

@@ -3,12 +3,12 @@
 
     <!-- HEADER -->
     <div class="flex row items-center q-mb-sm">
-      <h6 class="q-ma-sm text-italic text-white">{{ $t('starter') }}</h6>
+      <h6 class="q-ma-sm text-italic user-font">{{ $t('starter') }}</h6>
       <q-space />
       <q-btn
         size="sm"
         icon="delete"
-        color="white"
+        color="user-font"
         flat
         class="q-ml-sm"
         @click="clear"
@@ -20,7 +20,7 @@
       <q-btn
         size="sm"
         icon="settings"
-        color="white"
+        color="user-font"
         flat
         class="q-ml-sm"
         disabled
@@ -43,11 +43,11 @@
         >
           <q-item-section>
             <q-checkbox
-              class="text-caption text-white"
+              class="text-caption user-font"
               :class="{ strike: checked }"
               dense
               keep-color
-              color="white"
+              color="user-font"
               v-model="starters[label]"
               :label="label"
               checked-icon="check_circle"
@@ -122,9 +122,7 @@ const clear = () => {
 </script>
 
 <style scoped>
-::v-deep(.q-checkbox--dense) {
-  color: #841e4c;
-}
+
 .strike {
   text-decoration: line-through;
 }

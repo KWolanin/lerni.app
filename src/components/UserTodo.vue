@@ -3,12 +3,12 @@
 
     <!-- HEADER -->
     <div class="flex row items-center q-mb-sm">
-      <h6 class="q-ma-sm text-italic text-white">{{ $t('todo') }}</h6>
+      <h6 class="q-ma-sm text-italic user-font">{{ $t('todo') }}</h6>
       <q-space />
       <q-btn
         size="sm"
         icon="delete"
-        color="white"
+        color="user-font"
         flat
         class="q-ml-sm"
         @click="clear"
@@ -20,7 +20,7 @@
       <q-btn
         size="sm"
         icon="done"
-        color="white"
+        color="user-font"
         flat
         class="q-ml-sm"
         @click="switchMarks"
@@ -45,7 +45,7 @@
             <q-checkbox
               dense
               keep-color
-              color="white"
+              color="user-font"
               :class="{ strike: checked }"
               v-model="tasks[label]"
               :label="label"
@@ -54,7 +54,7 @@
             />
           </q-item-section>
           <q-item-section side>
-            <q-btn icon="delete" size="sm" flat round color="white" @click="removeTask(label)" />
+            <q-btn icon="delete" size="sm" flat round color="user-font" @click="removeTask(label)" />
           </q-item-section>
         </q-item>
       </q-list>
@@ -70,16 +70,8 @@
         :label="$t('new_task')"
         dense
         standout="transparent"
-        class="q-mb-sm text-white"
+        class="q-mb-sm user-font"
         @keyup.enter="addTask"
-      />
-      <q-btn
-        :label="$t('add')"
-        outline
-        @click="addTask"
-        color="pink-14"
-        text-color="white"
-        class="q-mb-sm"
       />
     </div>
   </q-card>
@@ -165,11 +157,14 @@ const switchMarks = () => {
 
 <style scoped>
 ::v-deep(.q-checkbox--dense) {
-  color: white;
-}
+  color: var(--user-font-color);}
+
 
 ::v-deep(.q-field__label) {
-  color: white;
+  color: var(--user-font-color);
+}
+::v-deep(.q-field__native) {
+  color: var(--user-font-color);
 }
 
 .strike {

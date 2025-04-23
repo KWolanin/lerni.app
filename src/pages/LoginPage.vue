@@ -17,12 +17,12 @@
       <div class="icon-wrapper">
         <q-icon name="person" size="50px" class="icon-center" />
       </div>
-      <h3 class="text-center text-white text-h3 text-weight-bolder">Welcome to Lerni.app</h3>
-      <h6 class="text-center text-white text-h6">Your daily study dashboard</h6>
+      <h3 class="text-center user-font text-h3 text-weight-bolder">Welcome to Lerni.app</h3>
+      <h6 class="text-center user-font text-h6">Your daily study dashboard</h6>
       <div class="icon-wrapper">
         <q-icon name="dashboard" size="10rem" color="blur" class="icon-lightbulb" />
       </div>
-      <p class="text-center text-white text-description">Please log in to continue.</p>
+      <p class="text-center user-font text-description">Please log in to continue.</p>
       <div class="flex row justify-center">
         <q-btn outline size="lg" class="q-ma-md" color="white" @click="login">Login via Google</q-btn>
       </div>

@@ -1,12 +1,12 @@
 <template>
   <q-card class="q-pa-md bg radius-15 flex column" style="height: 100%">
     <div class="flex row items-center q-mb-sm">
-      <h6 class="q-ma-sm text-italic text-white">{{ $t('some_music') }}</h6>
+      <h6 class="q-ma-sm text-italic user-font">{{ $t('some_music') }}</h6>
       <q-space />
       <q-btn
         size="sm"
         icon="settings"
-        color="white"
+        color="user-font"
         flat
         class="q-mr-sm q-mt-sm q-mb-sm"
         disabled
@@ -22,10 +22,10 @@
     </div>
 
     <q-select
-      standout="transparent text-pink-12"
+      standout="transparent user-font"
       v-model="currentlyPlayed"
       dense
-      label-color="white"
+      label-color="user-font"
       :options="options"
       :label="$t('now_playing')"
       class="q-mb-md"
@@ -92,7 +92,8 @@ watch(getAudio, () => {
 }
 
 ::v-deep(.q-field__native) {
-  color: white;
+  color: var(--user-font-color);
 }
+
 
 </style>

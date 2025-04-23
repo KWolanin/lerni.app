@@ -15,27 +15,23 @@
           @click="openThemeSelector = !openThemeSelector"
         />
         <q-btn
+          icon="format_color_text"
+          flat
+          @click="openColorSelector = !openColorSelector"
+        />
+        <q-btn
           icon="translate"
           flat
         />
-<!--         <q-select
-          standout="transparent text-pink-12"
-          v-model="currentTheme"
-          dense
-          label-color="white"
-          :options="themes"
-          :label="$t('theme')"
-          class="q-ma-sm"
-        /> -->
         <q-select
           v-model="locale"
           :options="localeOptions"
           :label="$t('language')"
-          label-color="white"
+          label-color="user-font"
           dense
           emit-value
           map-options
-          standout="transparent text-pink-12"
+          standout="transparent text-user-font"
           class="q-ma-sm"
         />
 
@@ -48,7 +44,7 @@
         bordered
         padding
         style="height: 100%"
-        class="text-white flex column items-center justify-evenly"
+        class="user-font flex column items-center justify-evenly"
       >
         <q-item clickable v-ripple>
           <q-item-section avatar>
@@ -78,6 +74,7 @@
     </q-page-container>
     <widget-selector v-model="openWidgetSelector" />
     <theme-selector v-model="openThemeSelector" :current-theme="currentTheme" @change-theme="changeTheme" />
+    <color-selector v-model="openColorSelector"/>
   </q-layout>
 </template>
 
@@ -96,16 +93,22 @@ import { getAuth, type User } from 'firebase/auth';
 import { loadTheme, saveTheme } from '../service/firebase';
 import WidgetSelector from 'src/components/WidgetSelector.vue';
 import ThemeSelector from 'src/components/ThemeSelector.vue';
+import ColorSelector from 'src/components/ColorSelector.vue';
 import { debounce, isEqual } from 'lodash';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { themes } from 'src/themes';
+import { useFontColorStore } from 'stores/fontColor'
+
+const fontStore = useFontColorStore()
 
 const router = useRouter();
 const { locale } = useI18n({ useScope: 'global' });
 
 const openWidgetSelector = ref<boolean>(false);
 const openThemeSelector = ref<boolean>(false);
+const openColorSelector = ref<boolean>(false);
+
 
 watch(
   locale,
@@ -130,6 +133,7 @@ onMounted(() => {
   if (user) {
     authStore.setUser(user);
   }
+  fontStore.initFontColor();
 });
 
 const leftDrawerOpen = ref(false);
@@ -236,7 +240,8 @@ const changeTheme = (theme: string) => {
 }
 
 ::v-deep(.q-field__native) {
-  color: white;
+  /* color: user-font; */
+  color: var(--user-font-color);
 }
 
 .glass-panel {

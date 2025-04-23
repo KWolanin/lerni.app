@@ -39,7 +39,7 @@ const widgets = [
     name: 'StartTodo',
     x: 8,
     y: 0,
-    w: 4,
+    w: 3,
     h: 9,
     i: '3',
     resizable: false,

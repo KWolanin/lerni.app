@@ -1,7 +1,7 @@
 <template>
   <q-dialog v-model="dialog" backdrop-filter="blur(4px) saturate(150%) brightness(50%)">
     <q-card class="bg radius-15 q-pa-sm">
-      <q-card-section class="row items-center q-pb-none text-h6 text-white">
+      <q-card-section class="row items-center q-pb-none text-h6 user-font">
         {{ $t('customize_dashboard') }}
       </q-card-section>
 
@@ -11,7 +11,7 @@
             <q-item-section avatar>
               <q-checkbox
                 keep-color
-                color="white"
+                color="user-font"
                 checked-icon="check_circle"
                 unchecked-icon="radio_button_unchecked"
                 v-model="widgets"
@@ -19,15 +19,15 @@
               />
             </q-item-section>
             <q-item-section>
-              <q-item-label class="text-white text-bold">{{ widget.label }}</q-item-label>
-              <q-item-label class="text-white" caption>{{ widget.desc }}</q-item-label>
+              <q-item-label class="user-font text-bold">{{ widget.label }}</q-item-label>
+              <q-item-label class="user-font" caption>{{ widget.desc }}</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
       </q-card-section>
 
       <q-card-actions align="right">
-        <q-btn flat label="Close" color="white" @click="saveSelected" v-close-popup />
+        <q-btn flat label="Close" color="user-font" @click="saveSelected" v-close-popup />
       </q-card-actions>
     </q-card>
   </q-dialog>
