@@ -1,6 +1,6 @@
 <template>
   <q-card class="q-pa-sm flex column justify-center radius-15 bg">
-    <h6 class="q-ma-sm text-italic user-font">{{ $t('set_preferences') }}</h6>
+    <p class="q-ma-sm text-italic user-font">{{ $t('set_preferences') }}</p>
     <q-form class="q-ma-sm flex column justify-center" @submit.prevent="savePreferences">
       <q-input
         standout="transparent text-user-font"
@@ -8,9 +8,7 @@
         v-model="preferences.workTime"
         type="number"
         label-color="user-font"
-        class="q-mb-sm"
         rounded
-        hide-bottom-space
         :rules="[(val) => val > 0 || $t('must_be_positive')]"
         dense
       ></q-input>
@@ -20,9 +18,7 @@
         v-model="preferences.relaxTime"
         type="number"
         label-color="user-font"
-        class="q-mb-sm"
         rounded
-        hide-bottom-space
         :rules="[(val) => val > 0 || $t('must_be_positive')]"
         dense
       ></q-input>
@@ -32,8 +28,6 @@
         v-model="preferences.longerRelaxTime"
         label-color="user-font"
         type="number"
-        class="q-mb-sm"
-        hide-bottom-space
         :rules="[(val) => val > 0 || $t('must_be_positive')]"
         rounded
         dense
@@ -44,12 +38,11 @@
         v-model="preferences.limit"
         label-color="user-font"
         type="number"
-        hide-bottom-space
         :rules="[(val) => val > 0 || $t('must_be_positive')]"
         rounded
         dense
       ></q-input>
-      <q-btn class="q-mt-md" outline text-color="user-font" type="submit">
+      <q-btn dense outline text-color="user-font" type="submit">
         {{ $t('save') }}
       </q-btn>
     </q-form>
@@ -111,6 +104,16 @@ const savePreferences = async () => {
   color: var(--user-font-color);
 }
 
+::v-deep(.q-field--error .q-field__bottom) {
+  color: var(--user-font-color);
+}
+::v-deep(.q-field--highlighted .q-field__label) {
+  color: var(--user-font-color);
+}
+::v-deep(.q-field--standout.q-field--highlighted .q-field__control) {
+  background: color-mix(in srgb, var(--user-font-color) 10%, transparent);
+
+}
 
 
 </style>
