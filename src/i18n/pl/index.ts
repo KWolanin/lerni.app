@@ -33,6 +33,8 @@ export default {
   new_task_placeholder: 'nowe zadanie',
   inprogress: 'w trakcie',
   done: 'gotowe',
+  change_font_color: 'zmień kolor czcionki',
+  customize_language: 'wybierz język',
 };
 
 

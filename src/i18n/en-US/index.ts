@@ -33,6 +33,9 @@ export default {
   new_task_placeholder: 'new task',
   inprogress: 'in progress',
   done: 'done',
+  change_font_color: 'change font color',
+  customize_language: 'select language',
+
 };
 
 

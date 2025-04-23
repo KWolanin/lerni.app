@@ -22,20 +22,9 @@
         <q-btn
           icon="translate"
           flat
+          @click="openLanguageSelector = !openLanguageSelector"
         />
-        <q-select
-          v-model="locale"
-          :options="localeOptions"
-          :label="$t('language')"
-          label-color="user-font"
-          dense
-          emit-value
-          map-options
-          standout="transparent text-user-font"
-          class="q-ma-sm"
-        />
-
-        <q-img class="user-icon" :src="authStore.photoURL" width="30px" height="30px" />
+        <q-img class="user-icon q-ml-sm" :src="authStore.photoURL" width="30px" height="30px" />
       </q-toolbar>
     </q-header>
 
@@ -75,6 +64,7 @@
     <widget-selector v-model="openWidgetSelector" />
     <theme-selector v-model="openThemeSelector" :current-theme="currentTheme" @change-theme="changeTheme" />
     <color-selector v-model="openColorSelector"/>
+    <language-selector v-model="openLanguageSelector" @change-language="changeLanguage" />
   </q-layout>
 </template>
 
@@ -94,6 +84,7 @@ import { loadTheme, saveTheme } from '../service/firebase';
 import WidgetSelector from 'src/components/WidgetSelector.vue';
 import ThemeSelector from 'src/components/ThemeSelector.vue';
 import ColorSelector from 'src/components/ColorSelector.vue';
+import LanguageSelector from 'src/components/LanguageSelector.vue';
 import { debounce, isEqual } from 'lodash';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
@@ -108,24 +99,20 @@ const { locale } = useI18n({ useScope: 'global' });
 const openWidgetSelector = ref<boolean>(false);
 const openThemeSelector = ref<boolean>(false);
 const openColorSelector = ref<boolean>(false);
+const openLanguageSelector = ref<boolean>(false);
 
 
 watch(
   locale,
   (newVal) => {
     if (!newVal) return;
+    console.log('newval', newVal)
     debounce((newData: string) => {
       saveLanguage(authStore.uid, newData).catch((err) => console.error(err));
     }, 1000)(newVal);
   },
   { immediate: true },
 );
-
-const localeOptions = [
-  { value: 'en-US', label: 'English' },
-  { value: 'pl', label: 'Polski' },
-  { value: 'de', label: 'Deutsch' },
-];
 
 onMounted(() => {
   const auth = getAuth();
@@ -225,6 +212,11 @@ const changeTheme = (theme: string) => {
   openThemeSelector.value = false;
   currentTheme.value = theme;
 };
+
+const changeLanguage = (language: string) => {
+  openLanguageSelector.value = false;
+  locale.value = language
+}
 
 </script>
 
