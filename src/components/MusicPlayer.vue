@@ -6,15 +6,12 @@
         v-model="currentlyPlayed"
         dense
         label-color="user-font"
-        :options="options"
+        :options="sounds"
         :label="$t('now_playing')"
       />
-      <div class="flex justify-center">
-        <div style="width: 100%; max-width: 200px">
-          <AudioPlayer
-            :option="audioOptions"
-            class="full-width"
-          />
+      <div class="flex justify-center q-mb-sm q-mr-sm q-ml-sm">
+        <div class="full-width">
+          <AudioPlayer :option="audioOptions" />
         </div>
       </div>
     </div>
@@ -22,26 +19,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
+import { ref, computed } from 'vue';
 // @ts-expect-error('no types')
 import AudioPlayer from 'vue3-audio-player';
 import 'vue3-audio-player/dist/style.css';
 import { useFontColorStore } from 'src/stores/fontColor';
+import { sounds } from 'src/sounds';
+import type { Sound } from 'src/sounds';
 
-const fontColor = useFontColorStore()
+const fontColor = useFontColorStore();
 
-type AudioOption = {
-  label: string;
-  value: string;
-};
-
-// todo: add copyright free music
-const options = [
-  { label: 'Rain', value: 'rain.mp3' },
-  { label: 'Restaurant', value: 'restaurant.mp3' },
-];
-
-const currentlyPlayed = ref<AudioOption>(options[0]!);
+const currentlyPlayed = ref<Sound>(sounds[0]!);
 
 const getAudio = computed(() => {
   return `/audio/${currentlyPlayed.value.value}`;
@@ -51,27 +39,14 @@ const getTitle = computed(() => {
   return currentlyPlayed.value.label;
 });
 
-const audioRef = ref<HTMLAudioElement | null>(null);
-
-watch(getAudio, () => {
-  if (audioRef.value) {
-    audioRef.value.load();
-    audioRef.value.play().catch((err) => {
-      console.warn('Audio playing error', err);
-    });
-  }
-});
-
 const audioOptions = computed(() => {
   return {
-  src: getAudio,
-  title: getTitle,
-  progressBarColor: fontColor.fontColor,
-  indicatorColor: fontColor.fontColor
-}
-})
-
-
+    src: getAudio,
+    title: getTitle,
+    progressBarColor: fontColor.fontColor,
+    indicatorColor: fontColor.fontColor,
+  };
+});
 </script>
 
 <style scoped>
@@ -95,5 +70,4 @@ const audioOptions = computed(() => {
 ::v-deep(.audio__player-progress-container) {
   width: 100%;
 }
-
 </style>

@@ -106,7 +106,6 @@ watch(
   locale,
   (newVal) => {
     if (!newVal) return;
-    console.log('newval', newVal)
     debounce((newData: string) => {
       saveLanguage(authStore.uid, newData).catch((err) => console.error(err));
     }, 1000)(newVal);

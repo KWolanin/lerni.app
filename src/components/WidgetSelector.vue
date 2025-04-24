@@ -20,7 +20,7 @@
             </q-item-section>
             <q-item-section>
               <q-item-label class="user-font text-bold">{{ widget.label }}</q-item-label>
-              <q-item-label class="user-font" caption>{{ widget.desc }}</q-item-label>
+              <q-item-label class="user-font" caption>{{ getWidgetDescI18n(widget.label) }}</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
@@ -38,21 +38,15 @@ import { ref, watch } from 'vue';
 import { saveSelectedWidgets, loadSelectedWidgets } from 'src/service/firebase';
 import { useAuthStore } from 'src/stores/auth';
 import eventBus from '../eventBus'
+import { availableWidgets } from 'src/availableWidgets';
+import { useI18n } from 'vue-i18n';
+
+const { locale } = useI18n({ useScope: 'global' });
 
 const authStore = useAuthStore();
 
 const dialog = ref(false);
 const widgets = ref<string[]>([]);
-
-const availableWidgets = [
-  { label: 'Pomodoro', widgetName: 'PomodoroItem', desc: 'Simple pomodoro app' },
-  { label: 'Music player', widgetName: 'MusicPlayer', desc: 'Play music' },
-  { label: 'Simple start', widgetName: 'StartTodo', desc: 'Predefinied to do before work' },
-  { label: 'Set pomodoro', widgetName: 'TimeSelector', desc: 'Dustomize your pomodoro' },
-  { label: 'Quick note', widgetName: 'UserNote', desc: 'Use it as post-in(?)' },
-  { label: 'Todo', widgetName: 'UserTodo', desc: 'Your todolist' },
-  {label: 'Kanban', widgetName: 'KanbanTable', desc: 'Your kanban board'},
-];
 
 const saveSelected = () => {
   saveSelectedWidgets(authStore.uid, widgets.value).catch((err) => console.error(err));
@@ -72,4 +66,18 @@ watch(
   },
   { immediate: true },
 );
+
+const getWidgetDescI18n = (label: string) => {
+  switch (locale.value) {
+    case 'en_US':
+      return availableWidgets.find((widget) => widget.label === label)?.desc_EN;
+    case 'de':
+    return availableWidgets.find((widget) => widget.label === label)?.desc_DE;
+    case 'pl':
+    return availableWidgets.find((widget) => widget.label === label)?.desc_PL;
+    default:
+    return availableWidgets.find((widget) => widget.label === label)?.desc_EN;
+  }
+};
+
 </script>

@@ -1,0 +1,46 @@
+{
+  "sounds": [
+    {
+      "sound_url": "https://freesound.org/people/KevinSonger/sounds/690328/",
+      "sound_name": "Five Hours Midnight Chill Frog Melody; Southern Cricket and Frogs Pig frogs",
+      "author_url": "https://freesound.org/people/KevinSonger/",
+      "author_name": "KevinSonger",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "license_name": "Attribution 4.0"
+    },
+    {
+      "sound_url": "https://freesound.org/people/Hitrison/sounds/190941/",
+      "sound_name": "Restaurant Sounds (Sunny Point Cafe)",
+      "author_url": "https://freesound.org/people/Hitrison/",
+      "author_name": "Hitrison",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/",
+      "license_name": "Creative Commons 0"
+    },
+    {
+      "sound_url": "https://freesound.org/people/csengeri/sounds/398201/",
+      "sound_name": "20170724eso.mp3",
+      "author_url": "https://freesound.org/people/csengeri/",
+      "author_name": "csengeri",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/",
+      "license_name": "Creative Commons 0"
+    },
+    {
+      "sound_url": "https://freesound.org/people/assett1/sounds/403326/",
+      "sound_name": "60 Minutes of Ultra-Soft Noise (V2)",
+      "author_url": "https://freesound.org/people/assett1/",
+      "author_name": "assett1",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/",
+      "license_name": "Creative Commons 0"
+    }
+  ],
+  "notification_sounds": [
+    {
+      "sound_url": "https://freesound.org/people/stevielematt/sounds/707836/",
+      "sound_name": "WINK_44100",
+      "author_url": "https://freesound.org/people/stevielematt/",
+      "author_name": "stevielematt",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/",
+      "license_name": "Creative Commons 0"
+    }
+  ]
+}

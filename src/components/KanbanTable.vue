@@ -89,7 +89,6 @@ const columns = ref<Column[]>([
 ]);
 
 function addTask(columnId: string, task: string) {
-  console.log('Dodano zadanie do kolumny:', columnId, task);
   const column = columns.value.find((c) => c.id === columnId);
   if (!column) return;
 
@@ -102,7 +101,7 @@ function addTask(columnId: string, task: string) {
 }
 
 function onDragEnd(event: Event) {
-  console.log('Przeniesiono zadanie:', event);
+  console.log(event);
 }
 </script>
 
