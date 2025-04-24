@@ -10,6 +10,12 @@ interface Preferences {
   [key: string]: unknown
 }
 
+type Task = {
+  date: string;
+  label: string;
+  checked: boolean;
+}
+
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const db = getFirestore(app)
@@ -54,17 +60,23 @@ export const saveStarters = async (uid: string, starters: Record<string, boolean
   await setDoc(startersDoc, starters, { merge: true })
 }
 
-export const loadTodo = async (uid:string) : Promise<DocumentData | null> => {
-  const todo = doc(db, 'users', uid, 'todos', 'todos')
-  const docSnap = await getDoc(todo)
-  return docSnap.exists() ? docSnap.data() : null
+export const loadTodo = async (uid: string): Promise<Task[] | null> => {
+  if (!uid) return null
+  const todoDoc = doc(db, 'users', uid, 'todos', 'todos')
+  const docSnap = await getDoc(todoDoc)
+  if (docSnap.exists()) {
+    const data = docSnap.data()
+    return data?.list ?? []
+  }
+  return null
 }
 
-export const saveTodo = async (uid: string, todo: Record<string, boolean>) => {
+export const saveTodo = async (uid: string, todo: Task[]) => {
   if (!uid) return
   const todoDoc = doc(db, 'users', uid, 'todos', 'todos')
-  await setDoc(todoDoc, todo, { merge: false })
+  await setDoc(todoDoc, { list: todo }, { merge: true })
 }
+
 
 export const loadTheme = async (uid:string) : Promise<DocumentData | null> => {
   const theme = doc(db, 'users', uid, 'defaults', 'theme')

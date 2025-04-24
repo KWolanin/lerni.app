@@ -32,13 +32,13 @@
     </div>
 
     <!-- TASK LIST -->
-    <q-scroll-area class="q-mb-md" style="flex: 1 1 auto; min-height: 100px;">
-      <q-list dense v-if="tasks && Object.keys(tasks).length">
+      <q-scroll-area class="q-mb-md" style="flex: 1 1 auto; min-height: 100px; position: relative;">
+      <q-list dense v-if="sortedTask && sortedTask.length">
         <q-item
           dense
           clickable
           v-ripple
-          v-for="([label, checked], index) in Object.entries(tasks)"
+          v-for="(task, index) in sortedTask"
           :key="index"
         >
           <q-item-section>
@@ -46,20 +46,21 @@
               dense
               keep-color
               color="user-font"
-              :class="{ strike: checked }"
-              v-model="tasks[label]"
-              :label="label"
+              :class="{ strike: task.checked }"
+              v-model="task.checked"
+              :label="task.label"
               checked-icon="check_circle"
               unchecked-icon="radio_button_unchecked"
             />
           </q-item-section>
           <q-item-section side>
-            <q-btn icon="delete" size="sm" flat round color="user-font" @click="removeTask(label)" />
+            <q-btn icon="delete" size="sm" flat round color="user-font" @click="removeTask(task.date)" />
           </q-item-section>
         </q-item>
       </q-list>
-      <div v-else class="text-caption text-grey-3 flex items-center justify-center" style="height: 100px">
-        {{ $t('nothing_here') }}
+      <div v-else
+      class="text-caption user-font flex items-center justify-center absolute-top-left full-height full-width">
+      {{ $t('nothing_here') }}
       </div>
     </q-scroll-area>
 
@@ -79,18 +80,22 @@
 
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { loadTodo, saveTodo } from '../service/firebase';
-import type { DocumentData } from 'firebase/firestore';
 import { useAuthStore } from '../stores/auth';
 import { debounce, isEqual } from 'lodash';
 
-
 const authStore = useAuthStore();
 
-const tasks = ref<DocumentData | null>(null);
+const tasks = ref<Task[] | null>(null);
 
 const newTaskName = ref('');
+
+type Task = {
+  date: string;
+  label: string;
+  checked: boolean;
+}
 
 watch(
   () => authStore.uid,
@@ -99,7 +104,7 @@ watch(
       loadTodo(newUid)
         .then((data) => {
           if (!tasks.value) {
-            tasks.value = {};
+            tasks.value = [];
           }
           tasks.value = data;
         })
@@ -111,48 +116,60 @@ watch(
   { immediate: true },
 );
 
-let previous: Record<string, boolean> | null = null;
+let previous: Task[] | null = null;
 
 watch(
   tasks,
   (newVal) => {
     if (!newVal) return;
     if (!isEqual(previous, newVal)) {
-      debouncedSave({ ...newVal });
-      previous = { ...newVal };
+      debouncedSave(newVal)
+      previous = JSON.parse(JSON.stringify(newVal))
     }
-
   },
-  { deep: true },
-);
+  { deep: true }
+)
 
-const debouncedSave = debounce((newData: Record<string, boolean>) => {
+
+const debouncedSave = debounce((newData: Task[]) => {
   saveTodo(authStore.uid, newData).catch((err) => console.error(err));
 }, 1000);
 
-// todo: map -> object with date to be able to sort by last added
 const addTask = () => {
   if (newTaskName.value.trim() === '') return;
   if (!tasks.value) {
-    tasks.value = {};
+    tasks.value = [];
   }
-  tasks.value[newTaskName.value.trim()] = false
+  const newTask: Task = {
+    date: new Date().toISOString(),
+    label: newTaskName.value,
+    checked: false,
+  };
+  tasks.value.push(newTask)
   newTaskName.value = '';
 };
 
-const removeTask = (label: string) => {
-  delete tasks.value![label];
+const removeTask = (date: string) => {
+  tasks.value = tasks.value?.filter(task => task.date !== date) || null;
 };
 
 const clear = () => {
-  tasks.value = {};
+  tasks.value = [];
 };
 
 const switchMarks = () => {
-  for (const task in tasks.value) {
-  tasks.value[task] = !tasks.value[task]
-}
+tasks.value?.forEach(task => {
+  task.checked = !task.checked;
+});
 };
+
+const sortedTask = computed((): Task[] => {
+  if (tasks.value?.length) {
+    return tasks.value.slice().sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+  }
+  return []
+})
+
 </script>
 
 <style scoped>

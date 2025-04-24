@@ -8,9 +8,10 @@
         label-color="user-font"
         :options="sounds"
         :label="$t('now_playing')"
+        :option-label="getLabelField"
       />
       <div class="flex justify-center q-mb-sm q-mr-sm q-ml-sm">
-        <div class="full-width">
+        <div class="full-width q-mt-sm">
           <AudioPlayer :option="audioOptions" />
         </div>
       </div>
@@ -26,7 +27,9 @@ import 'vue3-audio-player/dist/style.css';
 import { useFontColorStore } from 'src/stores/fontColor';
 import { sounds } from 'src/sounds';
 import type { Sound } from 'src/sounds';
+import { useI18n } from 'vue-i18n';
 
+const { locale } = useI18n({ useScope: 'global' });
 const fontColor = useFontColorStore();
 
 const currentlyPlayed = ref<Sound>(sounds[0]!);
@@ -36,7 +39,33 @@ const getAudio = computed(() => {
 });
 
 const getTitle = computed(() => {
-  return currentlyPlayed.value.label;
+  switch (locale.value) {
+    case 'en-US':
+      return sounds.find((s) => s.value == currentlyPlayed.value.value)?.label_EN;
+    case 'pl':
+      return sounds.find((s) => s.value == currentlyPlayed.value.value)?.label_PL;
+    case 'de':
+      return sounds.find((s) => s.value == currentlyPlayed.value.value)?.label_DE;
+    case 'ua':
+      return sounds.find((s) => s.value == currentlyPlayed.value.value)?.label_UA;
+    default:
+      return sounds.find((s) => s.value == currentlyPlayed.value.value)?.label_EN;
+  }
+});
+
+const getLabelField = computed(() => {
+  switch (locale.value) {
+    case 'en-US':
+      return 'label_EN';
+    case 'pl':
+      return 'label_PL';
+    case 'de':
+      return 'label_DE';
+    case 'ua':
+      return 'label_UA';
+    default:
+    return 'label_EN';
+  }
 });
 
 const audioOptions = computed(() => {

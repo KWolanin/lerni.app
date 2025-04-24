@@ -19,6 +19,11 @@ export const languages :Language[] = [
     name: 'Deutsch',
     value: 'de',
     flag: 'flags/germany.png'
+  },
+  {
+    name: 'Ukrainian',
+    value: 'ua',
+    flag: 'flags/ukraine.png'
   }
 ]
 

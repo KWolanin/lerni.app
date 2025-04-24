@@ -55,6 +55,7 @@ const widgets = [
     resizable: false,
     draggable: true,
     static: false,
+    dragIgnoreFrom: '.audio__player-progress-point, .audio__player-progress-container, audio'
   },
   {
     name: 'UserNote',

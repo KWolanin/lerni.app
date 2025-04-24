@@ -13,7 +13,7 @@ export default {
   starter: 'łatwy start',
   some_music: 'muzyka?',
   user_note: 'szybka notatka?',
-  todo: 'dzisiaj do zrobienia',
+  todo: 'do zrobienia',
   new_task: 'nowe zadanie',
   add: 'dodaj',
   nothing_here: 'dodaj coś ➕',

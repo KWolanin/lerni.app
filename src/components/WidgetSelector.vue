@@ -72,11 +72,13 @@ const getWidgetDescI18n = (label: string) => {
     case 'en_US':
       return availableWidgets.find((widget) => widget.label === label)?.desc_EN;
     case 'de':
-    return availableWidgets.find((widget) => widget.label === label)?.desc_DE;
+      return availableWidgets.find((widget) => widget.label === label)?.desc_DE;
     case 'pl':
-    return availableWidgets.find((widget) => widget.label === label)?.desc_PL;
+      return availableWidgets.find((widget) => widget.label === label)?.desc_PL;
+    case 'ua':
+      return availableWidgets.find((widget) => widget.label === label)?.desc_UA;
     default:
-    return availableWidgets.find((widget) => widget.label === label)?.desc_EN;
+      return availableWidgets.find((widget) => widget.label === label)?.desc_EN;
   }
 };
 
