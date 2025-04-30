@@ -38,8 +38,9 @@ h6 {
 // grid placeholder override
 
 .vue-grid-item.vue-grid-placeholder {
-  background: rgba(255, 255, 255, 0.4) !important;
-  border-radius: 15px !important;
+  // background: rgba(255, 255, 255, 0.4) !important;
+  background: none !important;
+  // border-radius: 15px !important;
 }
 
 :root {
@@ -53,5 +54,6 @@ h6 {
 .text-user-font {
   color: var(--user-font-color);
 }
+
 
 

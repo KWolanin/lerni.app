@@ -11,6 +11,7 @@ const widgets = [
     static: false,
     minW: 3,
     minH: 5.5,
+    responsive: true,
   },
   {
     name: 'TimeSelector',
@@ -22,6 +23,7 @@ const widgets = [
     resizable: false,
     draggable: true,
     static: false,
+    responsive: true,
   },
   {
     name: 'UserTodo',
@@ -33,6 +35,7 @@ const widgets = [
     resizable: false,
     draggable: true,
     static: false,
+    responsive: true,
   },
   {
     name: 'StartTodo',
@@ -44,6 +47,7 @@ const widgets = [
     resizable: false,
     draggable: true,
     static: false,
+    responsive: true,
   },
   {
     name: 'MusicPlayer',
@@ -55,7 +59,8 @@ const widgets = [
     resizable: false,
     draggable: true,
     static: false,
-    dragIgnoreFrom: '.audio__player-progress-point, .audio__player-progress-container, audio'
+    dragIgnoreFrom: '.audio__player-progress-point, .audio__player-progress-container, audio',
+    responsive: true,
   },
   {
     name: 'UserNote',
@@ -67,6 +72,9 @@ const widgets = [
     resizable: false,
     draggable: true,
     static: false,
+    responsive: true,
+    dragIgnoreFrom: '.q-editor__content',
+
   },
   {
     name: 'KanbanTable',
@@ -78,7 +86,8 @@ const widgets = [
     resizable: false,
     draggable: true,
     static: false,
-    dragIgnoreFrom: 'VueDraggable, .draggable, input'
+    dragIgnoreFrom: 'VueDraggable, .draggable, input',
+    responsive: true,
   }
 ];
 

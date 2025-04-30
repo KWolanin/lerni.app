@@ -36,6 +36,7 @@
         :max-y="item.maxY"
         :preserve-aspect-ratio="item.preserveAspectRatio"
         :drag-ignore-from="item.dragIgnoreFrom"
+        :breakpoints="state.breakpoints"
       >
         <component :is="item.name" class="grid-item-content" />
       </GridItem>
@@ -66,7 +67,7 @@ const state = reactive({
   resizable: false,
   mirrored: false,
   responsive: true,
-  bounded: false,
+  bounded: true,
   transformScale: 1,
   preventCollision: false,
   compact: true,
@@ -76,6 +77,8 @@ const state = reactive({
   index: 0,
   marginX: 15,
   marginY: 15,
+  breakpoints: { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 },
+  useCssTransforms: true,
 });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -134,6 +137,7 @@ function setLayout(newUid: string) {
       });
 
       widgets.value = allWidgets;
+      console.log('widgets', widgets.value);
       state.layout = JSON.parse(JSON.stringify(allWidgets));
       state.index = allWidgets.length;
     })
