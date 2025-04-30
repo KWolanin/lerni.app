@@ -17,3 +17,33 @@ export interface Widget {
   minY?: number;
   maxY?: number;
 }
+
+export type Task = {
+  id: string;
+  title: string;
+}
+
+export type Column = {
+  id: string;
+  tasks: Task[];
+}
+
+export type KanbanTask = {
+  id: string;
+  title: string;
+}
+
+export type KanbanColumn = {
+  id: string;
+  tasks: KanbanTask[];
+}
+
+export type TodoTask = {
+  date: string;
+  label: string;
+  checked: boolean;
+}
+
+export type Preferences = {
+  [key: string]: unknown
+}

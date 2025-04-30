@@ -11,11 +11,10 @@
             <VueDraggable
               v-model="column.tasks"
               group="tasks"
-              @end="onDragEnd"
               item-key="id"
-              class="q-mb-sm draggable"
+              class="q-mb-md draggable"
             >
-              <q-card flat v-for="task in column.tasks" :key="task.id" class="q-pa-sm q-ma-sm bg">
+              <q-card flat v-for="task in column.tasks" :key="task.id" class="q-pa-sm q-ma-sm radius-15 bg-more user-font">
                 <div>{{ task.title }}</div>
               </q-card>
             </VueDraggable>
@@ -23,7 +22,7 @@
             <q-input
               v-model="newTaskTitles[column.id]"
               :label="$t('new_task_placeholder')"
-              class="q-mb-sm input"
+              class="q-mb-sm q-mt-sm"
               dense
               standout="transparent"
               @keyup.enter="addTask(column.id, newTaskTitles[column.id]!)"
@@ -36,29 +35,52 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { ref, watch } from 'vue';
 import { VueDraggable } from 'vue-draggable-plus';
 import { useI18n } from 'vue-i18n';
+import { saveKanbanTasks, loadKanban } from '../service/firebase';  // Importujemy metodę
+import { useAuthStore } from '../stores/auth';
+import { debounce } from 'lodash';
+import type { Column } from 'src/types';
+const authStore = useAuthStore();
 
 const { t } = useI18n();
 
-interface Task {
-  id: string;
-  title: string;
-}
-
-interface Column {
-  id: string;
-  tasks: Task[];
-}
-
 const newTaskTitles = ref<Record<string, string>>({});
 
-onMounted(() => {
-  columns.value.forEach((column) => {
-    newTaskTitles.value[column.id] = '';
+const columns = ref<Column[]>([
+  { id: 'todo', tasks: [] },
+  { id: 'inprogress', tasks: [] },
+  { id: 'done', tasks: [] },
+]);
+
+watch(
+  () => authStore.uid,
+  (newUid) => {
+    if (newUid) {
+      loadKanban(newUid).then((data) => {
+        columns.value.forEach((column) => {
+          column.tasks = data ? data[column.id] ?? [] : [];
+        });
+      }).catch((err) => {
+        console.error(err);
+      });
+    }
+  },
+  { immediate: true }
+);
+
+function addTask(columnId: string, task: string) {
+  const column = columns.value.find((c) => c.id === columnId);
+  if (!column) return;
+
+  const newId = Date.now().toString();
+  column.tasks.push({
+    id: newId,
+    title: task,
   });
-});
+  newTaskTitles.value[columnId] = '';
+}
 
 const getTitle = (column: Column) => {
   switch (column.id) {
@@ -73,36 +95,23 @@ const getTitle = (column: Column) => {
   }
 };
 
-const columns = ref<Column[]>([
-  {
-    id: 'todo',
-    tasks: [],
-  },
-  {
-    id: 'inprogress',
-    tasks: [],
-  },
-  {
-    id: 'done',
-    tasks: [],
-  },
-]);
+let previousTasksState = JSON.stringify(columns.value);
 
-function addTask(columnId: string, task: string) {
-  const column = columns.value.find((c) => c.id === columnId);
-  if (!column) return;
+const debouncedSave = debounce((newData: Column[]) => {
+  saveKanbanTasks(authStore.uid, newData).catch((err) => console.error(err));
+}, 1000);
 
-  const newId = Date.now().toString();
-  column.tasks.push({
-    id: newId,
-    title: task,
-  });
-  newTaskTitles.value[columnId] = '';
-}
-
-function onDragEnd(event: Event) {
-  console.log(event);
-}
+watch(
+  columns,
+  (newVal) => {
+    const newState = JSON.stringify(newVal);
+    if (newState !== previousTasksState) {
+      debouncedSave(newVal);
+      previousTasksState = newState;
+    }
+  },
+  { deep: true }
+);
 </script>
 
 <style scoped>

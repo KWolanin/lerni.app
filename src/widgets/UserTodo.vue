@@ -84,18 +84,13 @@ import { computed, ref, watch } from 'vue';
 import { loadTodo, saveTodo } from '../service/firebase';
 import { useAuthStore } from '../stores/auth';
 import { debounce, isEqual } from 'lodash';
+import type { TodoTask } from 'src/types';
 
 const authStore = useAuthStore();
 
-const tasks = ref<Task[] | null>(null);
+const tasks = ref<TodoTask[] | null>(null);
 
 const newTaskName = ref('');
-
-type Task = {
-  date: string;
-  label: string;
-  checked: boolean;
-}
 
 watch(
   () => authStore.uid,
@@ -116,7 +111,7 @@ watch(
   { immediate: true },
 );
 
-let previous: Task[] | null = null;
+let previous: TodoTask[] | null = null;
 
 watch(
   tasks,
@@ -131,7 +126,7 @@ watch(
 )
 
 
-const debouncedSave = debounce((newData: Task[]) => {
+const debouncedSave = debounce((newData: TodoTask[]) => {
   saveTodo(authStore.uid, newData).catch((err) => console.error(err));
 }, 1000);
 
@@ -140,7 +135,7 @@ const addTask = () => {
   if (!tasks.value) {
     tasks.value = [];
   }
-  const newTask: Task = {
+  const newTask: TodoTask = {
     date: new Date().toISOString(),
     label: newTaskName.value,
     checked: false,
@@ -163,7 +158,7 @@ tasks.value?.forEach(task => {
 });
 };
 
-const sortedTask = computed((): Task[] => {
+const sortedTask = computed((): TodoTask[] => {
   if (tasks.value?.length) {
     return tasks.value.slice().sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
   }

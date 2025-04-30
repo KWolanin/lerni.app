@@ -4,17 +4,7 @@ import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore"
 import { firebaseConfig } from '../fbConfig.js';
 import type { DocumentData } from 'firebase/firestore'
 import type {User } from 'firebase/auth'
-import type { Widget } from "src/types.js";
-
-interface Preferences {
-  [key: string]: unknown
-}
-
-type Task = {
-  date: string;
-  label: string;
-  checked: boolean;
-}
+import type { KanbanColumn, KanbanTask, Preferences, TodoTask, Widget } from "src/types.js";
 
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
@@ -60,7 +50,7 @@ export const saveStarters = async (uid: string, starters: Record<string, boolean
   await setDoc(startersDoc, starters, { merge: true })
 }
 
-export const loadTodo = async (uid: string): Promise<Task[] | null> => {
+export const loadTodo = async (uid: string): Promise<TodoTask[] | null> => {
   if (!uid) return null
   const todoDoc = doc(db, 'users', uid, 'todos', 'todos')
   const docSnap = await getDoc(todoDoc)
@@ -71,7 +61,7 @@ export const loadTodo = async (uid: string): Promise<Task[] | null> => {
   return null
 }
 
-export const saveTodo = async (uid: string, todo: Task[]) => {
+export const saveTodo = async (uid: string, todo: TodoTask[]) => {
   if (!uid) return
   const todoDoc = doc(db, 'users', uid, 'todos', 'todos')
   await setDoc(todoDoc, { list: todo }, { merge: true })
@@ -149,3 +139,27 @@ export const listenToAuthState = (onUser: { (user: User): Promise<void>; (arg0: 
     if (user) void onUser(user)
   })
 }
+export const saveKanbanTasks = async (uid: string, columns: KanbanColumn[]) => {
+  if (!uid) return;
+
+  const tasksData = columns.reduce((acc: Record<string, KanbanTask[]>, column) => {
+    acc[column.id] = column.tasks;
+    return acc;
+  }, {} as Record<string, KanbanTask[]>);
+
+  const kanbanDocRef = doc(db, 'users', uid, 'kanban', 'tasks');
+  await setDoc(kanbanDocRef, tasksData, { merge: true });
+};
+
+export const loadKanban = async (uid: string): Promise<Record<string, KanbanTask[]> | null> => {
+  if (!uid) return null;
+
+  const kanbanDocRef = doc(db, 'users', uid, 'kanban', 'tasks');
+  const docSnap = await getDoc(kanbanDocRef);
+
+  if (docSnap.exists()) {
+    return docSnap.data() as Record<string, KanbanTask[]>;
+  }
+
+  return null;
+};

@@ -49,11 +49,14 @@ import { debounce, isEqual } from 'lodash';
 import { useAuthStore } from '../stores/auth';
 import { loadLayout, loadSelectedWidgets, saveLayout } from 'src/service/firebase';
 import type { Widget } from 'src/types';
-import { onMounted, onUnmounted, reactive, ref, watch } from 'vue';
+import { onMounted, onUnmounted, reactive, ref, watch, computed } from 'vue';
 // @ts-expect-error('no types')
 import { GridLayout, GridItem } from 'vue-grid-layout-v3';
 import defaults from '../defaults'
 import eventBus from '../eventBus'
+import { useQuasar } from 'quasar'
+
+const $q = useQuasar()
 
 
 const authStore = useAuthStore();
@@ -76,7 +79,7 @@ const state = reactive({
   colNum: 12,
   index: 0,
   marginX: 15,
-  marginY: 15,
+  marginY: 30,
   breakpoints: { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 },
   useCssTransforms: true,
 });
@@ -98,8 +101,9 @@ function layoutUpdatedEvent(newLayout: Widget[]) {
 const defaultWidget = (name: string): Widget | null => {
   const found = defaults.find(w => w.name === name)
   if (!found) return null
-  return JSON.parse(JSON.stringify(found))
+  return structuredClone(found)
 }
+
 
 watch(
   () => authStore.uid,
@@ -117,35 +121,116 @@ const debouncedSave = debounce((newData: Widget[]) => {
   saveLayout(authStore.uid, newData).catch((err) => console.error(err));
 }, 1000);
 
+const gridColumns = computed(() => {
+  if ($q.screen.lt.sm) return 1
+  if ($q.screen.lt.md) return 3
+  return 12
+})
+
 function setLayout(newUid: string) {
   loadLayout(newUid)
     .then(async (data) => {
-      const selected = await loadSelectedWidgets(newUid);
+      const selected = await loadSelectedWidgets(newUid)
 
-      const allWidgets: Widget[] = [];
+      const allWidgets: Widget[] = []
+      const occupied: boolean[][] = []
+      const cols = gridColumns.value
+
+      data?.forEach(w => {
+        markAreaOccupied(occupied, w.x, w.y, w.w, w.h)
+      })
 
       selected?.forEach((name) => {
-        const existing = data?.find((w) => w.name === name);
+        const existing = data?.find(w => w.name === name)
         if (existing) {
-          allWidgets.push(existing);
+          allWidgets.push(existing)
         } else {
-          const widget = defaultWidget(name);
+          const widget = defaultWidget(name)
           if (widget) {
-            allWidgets.push(widget);
+            const widgetCopy = structuredClone(widget)
+
+            if (widgetCopy.w > cols) {
+              console.warn(`Widget "${name}" jest szerszy niż siatka (${widgetCopy.w} > ${cols})`)
+              widgetCopy.x = 0
+              widgetCopy.y = occupied.length
+            } else {
+              const pos = findNextFreePosition(occupied, widgetCopy.w, widgetCopy.h, cols)
+              widgetCopy.x = pos.x
+              widgetCopy.y = pos.y
+              markAreaOccupied(occupied, pos.x, pos.y, widgetCopy.w, widgetCopy.h)
+            }
+
+            allWidgets.push(widgetCopy)
           }
         }
-      });
+      })
 
-      widgets.value = allWidgets;
-      console.log('widgets', widgets.value);
-      state.layout = JSON.parse(JSON.stringify(allWidgets));
-      state.index = allWidgets.length;
+      widgets.value = allWidgets
+      state.layout = JSON.parse(JSON.stringify(allWidgets))
+      state.index = allWidgets.length
     })
     .catch((err) => {
-      console.error(err);
-      widgets.value = [];
-      state.layout = [];
-    });
+      console.error(err)
+      widgets.value = []
+      state.layout = []
+    })
+}
+
+
+
+function isAreaFree(
+  occupied: boolean[][],
+  startX: number,
+  startY: number,
+  w: number,
+  h: number,
+  cols: number
+): boolean {
+  for (let y = startY; y < startY + h; y++) {
+    for (let x = startX; x < startX + w; x++) {
+      if (x >= cols || occupied[y]?.[x]) {
+        return false
+      }
+    }
+  }
+  return true
+}
+
+function markAreaOccupied(
+  occupied: boolean[][],
+  startX: number,
+  startY: number,
+  w: number,
+  h: number
+) {
+  for (let y = startY; y < startY + h; y++) {
+    if (!occupied[y]) {
+      occupied[y] = []
+    }
+    const row = occupied[y]!
+
+    for (let x = startX; x < startX + w; x++) {
+      row[x] = true
+    }
+  }
+}
+
+
+
+function findNextFreePosition(
+  occupied: boolean[][],
+  w: number,
+  h: number,
+  cols: number
+): { x: number, y: number } {
+  for (let y = 0; y < 100; y++) {
+    for (let x = 0; x <= cols - w; x++) {
+      if (isAreaFree(occupied, x, y, w, h, cols)) {
+        return { x, y }
+      }
+    }
+  }
+  return { x: 0, y: 100 }
 }
 
 const refreshDashboard = () => {

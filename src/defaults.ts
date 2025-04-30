@@ -15,7 +15,7 @@ const widgets = [
   },
   {
     name: 'TimeSelector',
-    x: 3,
+    x: 0,
     y: 0,
     w: 2,
     h: 5.5,
@@ -27,7 +27,7 @@ const widgets = [
   },
   {
     name: 'UserTodo',
-    x: 5,
+    x: 0,
     y: 0,
     w: 3,
     h: 8,
@@ -39,7 +39,7 @@ const widgets = [
   },
   {
     name: 'StartTodo',
-    x: 8,
+    x: 0,
     y: 0,
     w: 3,
     h: 9,
@@ -52,7 +52,7 @@ const widgets = [
   {
     name: 'MusicPlayer',
     x: 0,
-    y: 6,
+    y: 0,
     w: 2,
     h: 4,
     i: '4',
@@ -64,8 +64,8 @@ const widgets = [
   },
   {
     name: 'UserNote',
-    x: 2,
-    y: 6,
+    x: 0,
+    y: 0,
     w: 3,
     h: 3.5,
     i: '5',
