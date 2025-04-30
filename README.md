@@ -19,11 +19,11 @@ Your friend to help to focus and learn things!
 * Move components around on the dashboard
 * Use Todo list
 * Use Starter (aka 'Easy start') list
+* Use full color & theme customization
 
 **Planned features include:**
 
-* Full color theme customization
-* Starter List – a customizable pre-work preparation checklist
+
 * Music playback – either local files or via YouTube/Spotify integration
 * Quick notes for personal reminders
 * ...and more!
