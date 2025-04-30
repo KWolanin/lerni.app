@@ -7,7 +7,7 @@
       dense
       content-class="bg-second-transparent user-font"
       toolbar-text-color="user-font"
-      toolbar-toggle-color="blue-5"
+      toolbar-toggle-color="accent"
       toolbar-outline
       :toolbar="[
         ['bold', 'italic', 'strike', 'underline'],
@@ -18,13 +18,15 @@
 </template>
 
 <script setup lang="ts">
-import {  ref, watch, computed } from 'vue';
+import {  ref, watch } from 'vue';
 import { loadNote, saveNote } from '../service/firebase';
 import { useAuthStore } from '../stores/auth';
 import { debounce, isEqual } from 'lodash';
 import { useFontColorStore } from 'src/stores/fontColor';
+import { setCssVar } from 'quasar'
 
-const fontStore = useFontColorStore()
+
+const fontStore = useFontColorStore();
 
 const authStore = useAuthStore();
 
@@ -66,11 +68,23 @@ const debouncedSave = debounce((newData: string) => {
   saveNote(authStore.uid, newData).catch((err) => console.error(err));
 }, 1000);
 
+watch(() => fontStore.fontColor, (newVal) => {
+  setCssVar('accent', invertRgb(newVal))
+})
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const color = computed(() =>{
-  return fontStore.fontColor
-} )
+function invertRgb(color: string): string {
+  const regex = /rgb\((\d+),\s*(\d+),\s*(\d+)\)/;
+  const match = color.match(regex);
+  if (match) {
+    const r = 255 - parseInt(match[1] || '0')
+    const g = 255 - parseInt(match[2] || '0')
+    const b = 255 - parseInt(match[3] || '0')
+    const toHex = (n: number) => n.toString(16).padStart(2, '0')
+    return `#${toHex(r)}${toHex(g)}${toHex(b)}`
+  } else {
+    throw new Error('Invalid RGB color format')
+  }
+}
 
 </script>
 

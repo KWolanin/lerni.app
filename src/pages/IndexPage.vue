@@ -104,7 +104,6 @@ const defaultWidget = (name: string): Widget | null => {
   return structuredClone(found)
 }
 
-
 watch(
   () => authStore.uid,
   (newUid) => {
