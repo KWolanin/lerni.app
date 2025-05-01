@@ -97,6 +97,7 @@ import { usePreferencesStore } from '../stores/preferences';
 import { useAuthStore } from '../stores/auth';
 // import { colors } from 'quasar';
 import winkSound from '/audio/wink.mp3';
+import { savePomoSession } from 'src/service/firebase';
 
 const pingEnabled = ref<boolean>(true);
 
@@ -158,7 +159,11 @@ onMounted(async () => {
 });
 
 onBeforeUnmount(() => {
-  resizeObserver.disconnect()
+  resizeObserver.disconnect();
+  if (timerId) {
+    clearInterval(timerId as number);
+    timerId = null;
+  }
 })
 
 watch(
@@ -202,6 +207,7 @@ const startTimer = (): void => {
         if (wholeCycle.value >= preferences.value.limit) {
           resetTimer();
           // todo: save completed session to stats!
+          addPomoSession(wholeCycle.value, Number(preferences.value.workTime));
           return;
         }
       }
@@ -293,6 +299,20 @@ const formattedTime = computed(() => {
   return `${formattedMinutes}:${formattedSeconds}`;
 });
 
+
+function addPomoSession(sessions: number, workTime: number) {
+  console.log(typeof workTime);
+  const session = {
+    date: new Date(),
+    sessions,
+    workTime
+  };
+  savePomoSession(authStore.uid, session).then(() => {
+    console.log('Stat saved successfully');
+  }).catch((error) => {
+    console.error('Error saving stat:', error);
+  });
+}
 </script>
 
 <style scoped>

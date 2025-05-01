@@ -79,7 +79,7 @@ const state = reactive({
   colNum: 12,
   index: 0,
   marginX: 15,
-  marginY: 30,
+  marginY: 15,
   breakpoints: { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 },
   useCssTransforms: true,
 });

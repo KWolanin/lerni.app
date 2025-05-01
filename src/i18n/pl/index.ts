@@ -35,6 +35,9 @@ export default {
   done: 'gotowe',
   change_font_color: 'zmień kolor czcionki',
   customize_language: 'wybierz język',
+  date: 'data',
+  minutes: 'minuty',
+  time: 'czas pomodoro',
 };
 
 

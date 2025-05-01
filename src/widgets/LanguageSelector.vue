@@ -1,7 +1,7 @@
 <template>
   <q-dialog backdrop-filter="blur(4px) saturate(150%) brightness(50%)">
     <q-card class="bg radius-15 q-pa-sm">
-      <q-card-section class="row items-center q-pb-none text-h6 user-font">
+      <q-card-section class="row justify-center q-pb-none text-h6 user-font">
         {{ $t('customize_language') }}
       </q-card-section>
       <q-card-section>

@@ -88,6 +88,18 @@ const widgets = [
     static: false,
     dragIgnoreFrom: 'VueDraggable, .draggable, input',
     responsive: true,
+  },
+  {
+    name: 'PomoStats',
+    x: 0,
+    y: 0,
+    w: 3,
+    h: 3,
+    i: '7',
+    resizable: false,
+    draggable: true,
+    static: false,
+    responsive: true,
   }
 ];
 

@@ -6,69 +6,80 @@ interface Theme {
 
 
 export const themes : Theme[] = [
-  {
+/*   {
     name: 'Sunset',
     preview: 'themes/sunset.jpg',
     css_background: `linear-gradient(43deg,rgba(131, 58, 180, 1) 0%,rgba(253, 29, 29, 0.5226541300113796) 50%,rgba(252, 176, 69, 1) 100%)`
+  }, */
+  {
+    name: 'Sunset',
+    preview: 'themes/sunset2.jpg',
+    css_background: `linear-gradient(43deg,rgb(182, 114, 228) 0%,rgba(253, 29, 29, 0.5226541300113796) 50%,rgb(255, 207, 141) 100%)`
   },
   {
     name: 'Morning sky',
     preview: 'themes/morning-sky.jpg',
-    css_background: `linear-gradient(90deg, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%)`
+    css_background: `linear-gradient(to top, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%)`
   },
-  {
+/*   {
     name: 'Intensive',
     preview: 'themes/intensive.jpg',
-    css_background: `linear-gradient(328deg,rgba(246, 90, 143, 0.7943628134847689) 42%,rgba(105, 230, 255, 1) 72%)`
-  },
+    css_background: `linear-gradient(43deg,rgba(255, 130, 172, 0.79) 42%,rgb(166, 235, 248) 72%)`
+  }, */
   {
     name: 'Purple night',
     preview: 'themes/purple-night.jpg',
-    css_background: `linear-gradient(to right, #ad5389, #3c1053)`
+    css_background: `linear-gradient(43deg, #ad5389, #3c1053)`
   },
   {
     name: 'Ocean',
     preview: 'themes/ocean.jpg',
-    css_background: `linear-gradient(to right, #a8c0ff, #3f2b96)`
+    css_background: `linear-gradient(43deg, #a8c0ff, #3f2b96)`
   },
   {
-    name: 'Pure lust',
-    preview: 'themes/pure-lust.jpg',
-    css_background: `linear-gradient(to right, #333333, #dd1818)`
+    name: 'Deep red',
+    preview: 'themes/deep_red.jpg',
+    css_background: `linear-gradient(to bottom,rgb(121, 38, 38), #dd1818)`
   },
   {
     name: 'Rainbow',
     preview: 'themes/rainbow.jpg',
-    css_background: `linear-gradient(to right, #40e0d0, #ff8c00, #ff0080)`
+    css_background: `linear-gradient(43deg,rgb(108, 235, 222),rgb(253, 163, 53),rgb(255, 57, 156))`
   },
-  {name: 'Mint fresh',
+  {
+    name: 'Mint',
     preview: 'themes/mint-fresh.jpg',
-    css_background: `linear-gradient(to right, #11998e, #38ef7d)`
+    css_background: `linear-gradient(43deg, #11998e,rgb(126, 247, 173))`
   },
   {
     name: 'Sunkiss',
     preview: 'themes/sunkiss.jpg',
-    css_background: `linear-gradient(to right, #f2994a, #f2c94c)`
+    css_background: `linear-gradient(to right,rgb(252, 167, 94),rgb(250, 215, 109))`
   },
   {
     name: 'Mirage',
     preview: 'themes/Mirage.jpg',
-    css_background: `linear-gradient(to right, #16222a, #3a6073)`
+    css_background: `linear-gradient(43deg, #16222a, #3a6073)`
   },
   {
-    name: 'Black',
+    name: 'Plain Black',
     preview: 'themes/black.jpg',
     css_background: `rgb(63, 63, 63)`
   },
   {
+    name: 'Plain White',
+    preview: 'themes/white.jpg',
+    css_background: `rgb(248, 248, 248)`
+  },
+/*   {
     name: 'Mango',
     preview: 'themes/Mango.jpg',
     css_background: `linear-gradient(to right, #ffe259, #ffa751)`
-  },
+  }, */
   {
-    name: 'Under the lake',
+    name: 'Green lake',
     preview: 'themes/under-the-lake.jpg',
-    css_background: `linear-gradient(to bottom, #093028, #237a57)`
+    css_background: `linear-gradient(to top, #093028, #237a57)`
   },
   {
     name: 'Honey dew',

@@ -4,7 +4,7 @@ import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore"
 import { firebaseConfig } from '../fbConfig.js';
 import type { DocumentData } from 'firebase/firestore'
 import type {User } from 'firebase/auth'
-import type { KanbanColumn, KanbanTask, Preferences, TodoTask, Widget } from "src/types.js";
+import type { KanbanColumn, KanbanTask, PomoSession, Preferences, TodoTask, Widget } from "src/types.js";
 
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
@@ -163,3 +163,26 @@ export const loadKanban = async (uid: string): Promise<Record<string, KanbanTask
 
   return null;
 };
+
+export const savePomoSession = async (uid: string, session: PomoSession) => {
+  if (!uid) return
+  const sessionDoc = doc(db, 'users', uid, 'sessions', 'sessions')
+  const docSnap = await getDoc(sessionDoc)
+
+  const existingSessions = docSnap.exists() ? (docSnap.data().sessions || []) : []
+  const updatedSessions = [...existingSessions, session]
+
+  await setDoc(sessionDoc, { sessions: updatedSessions }, { merge: true })
+}
+
+
+export const loadPomoSession = async (uid: string): Promise<PomoSession[] | null> => {
+  if (!uid) return null
+  const sessionDoc = doc(db, 'users', uid, 'sessions', 'sessions')
+  const docSnap = await getDoc(sessionDoc)
+  if (docSnap.exists()) {
+    const data = docSnap.data()
+    return data?.sessions ?? []
+  }
+  return null
+}

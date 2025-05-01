@@ -1,3 +1,5 @@
+import type { Timestamp } from "firebase/firestore";
+
 export interface Widget {
   name: string;
   x: number;
@@ -46,4 +48,10 @@ export type TodoTask = {
 
 export type Preferences = {
   [key: string]: unknown
+}
+
+export type PomoSession = {
+  sessions: number;
+  date: Date | Timestamp;
+  workTime: number;
 }

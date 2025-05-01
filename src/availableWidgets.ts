@@ -63,5 +63,13 @@ export const availableWidgets: Widget[] = [
     desc_DE: 'Ihr Kanban-Board',
     desc_UA: 'Ваша дошка Kanban',
   },
+  {
+    label: 'Pomodoro stats',
+    widgetName: 'PomoStats',
+    desc_EN: 'Your pomodoro stats',
+    desc_PL: 'Twoje statystyki pomodoro',
+    desc_DE: 'Ihre Pomodoro-Statistiken',
+    desc_UA: 'Ваші статистичні дані Pomodoro',
+  }
 ];
 
