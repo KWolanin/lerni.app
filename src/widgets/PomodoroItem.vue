@@ -111,7 +111,6 @@ let timerId: unknown = null;
 
 const isRunning = ref<boolean>(false);
 
-
 let resizeObserver: ResizeObserver
 const wrapper = ref(null)
 const progressSize = ref(0)
@@ -196,7 +195,7 @@ const startTimer = (): void => {
     if (remainingTime.value <= 0) {
       if (pingEnabled.value) void playSound();
       if (currentCycle.value === 'work') {
-        if (workCycles.value < 4) {
+        if (workCycles.value < preferences.value.limit) {
           workCycles.value++;
           wholeCycle.value++;
         }
@@ -207,7 +206,7 @@ const startTimer = (): void => {
         }
       }
 
-      if (workCycles.value >= 4) {
+      if (workCycles.value >= preferences.value.limit) {
         if (currentCycle.value === 'work') {
           currentCycle.value = 'relax';
           duration = preferences.value.longerRelaxTime * 60;
@@ -294,9 +293,6 @@ const formattedTime = computed(() => {
   return `${formattedMinutes}:${formattedSeconds}`;
 });
 
-// const color = computed((): string => {
-//   return colors.changeAlpha('#ffffff', -0.3);
-// });
 </script>
 
 <style scoped>

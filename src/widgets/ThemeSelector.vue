@@ -18,7 +18,7 @@
               <img :src="theme.preview" width="150px" height="100px" />
             </q-item-section>
             <q-item-section>
-              <q-item-label class="user-font text-bold">{{ theme.name }}</q-item-label>
+              <q-item-label class="user-font text-bold text-center">{{ theme.name }}</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
@@ -40,6 +40,7 @@ defineProps({
 })
 
 const saveSelected = (theme: string) => {
+  console.log('Selected theme:', theme);
   emit('changeTheme', theme);
 };
 

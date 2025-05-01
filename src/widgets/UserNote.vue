@@ -89,8 +89,6 @@ function invertRgb(color: string): string {
 </script>
 
 <style scoped>
-
-
 ::v-deep(.q-editor) {
   background-color: transparent;
 }
@@ -102,5 +100,4 @@ function invertRgb(color: string): string {
 ::v-deep(.q-editor__toolbar) {
   border-bottom: none;
 }
-
 </style>

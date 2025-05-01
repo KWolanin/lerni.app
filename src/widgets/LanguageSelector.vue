@@ -18,7 +18,7 @@
               <img :src="language.flag" width="150px" height="100px" />
             </q-item-section>
             <q-item-section>
-              <q-item-label class="user-font text-bold">{{ language.name }}</q-item-label>
+              <q-item-label class="user-font text-bold text-center">{{ language.name }}</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>

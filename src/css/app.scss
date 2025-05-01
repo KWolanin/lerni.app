@@ -1,6 +1,6 @@
 .radius-15 {
   border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  // box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
 }
 
@@ -9,10 +9,19 @@ h6 {
 }
 
 .bg {
-  background: rgba(255, 255, 255, 0.2) !important;
-  backdrop-filter: blur(2px) saturate(100%) contrast(95%) brightness(100%);
-  -webkit-backdrop-filter: blur(2px);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.1)
+  );
+  backdrop-filter: blur(4px) saturate(120%) contrast(90%) brightness(105%);
+  -webkit-backdrop-filter: blur(4px);
+  // border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  // transition: all 0.3s ease;
 }
+
 
 .bg-more {
   background: rgba(255, 255, 255, 0.1) !important;
@@ -35,16 +44,14 @@ h6 {
   background: color-mix(in srgb, var(--user-font-color) 10%, transparent);
 }
 
-.text-blur {
-  color: rgba(255, 255, 255, 0.4) !important;
-}
+// .text-blur {
+//   color: rgba(255, 255, 255, 0.4) !important;
+// }
 
 // grid placeholder override
 
 .vue-grid-item.vue-grid-placeholder {
-  // background: rgba(255, 255, 255, 0.4) !important;
   background: none !important;
-  // border-radius: 15px !important;
 }
 
 :root {

@@ -69,7 +69,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted, defineAsyncComponent } from 'vue';
 import {
   loginWithGoogle,
   logout,
@@ -81,15 +81,16 @@ import { usePreferencesStore } from '../stores/preferences';
 import { useAuthStore } from '../stores/auth';
 import { getAuth, type User } from 'firebase/auth';
 import { loadTheme, saveTheme } from '../service/firebase';
-import WidgetSelector from 'src/widgets/WidgetSelector.vue';
-import ThemeSelector from 'src/widgets/ThemeSelector.vue';
-import ColorSelector from 'src/widgets/ColorSelector.vue';
-import LanguageSelector from 'src/widgets/LanguageSelector.vue';
 import { debounce, isEqual } from 'lodash';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { themes } from 'src/themes';
 import { useFontColorStore } from 'stores/fontColor'
+
+const ThemeSelector = defineAsyncComponent(() => import('src/widgets/ThemeSelector.vue'))
+const WidgetSelector = defineAsyncComponent(() => import('src/widgets/WidgetSelector.vue'))
+const ColorSelector = defineAsyncComponent(() => import('src/widgets/ColorSelector.vue'))
+const LanguageSelector = defineAsyncComponent(() => import('src/widgets/LanguageSelector.vue'))
 
 const fontStore = useFontColorStore()
 
