@@ -39,7 +39,7 @@ const widgets = [
     dragIgnoreFrom: '.q-editor__content, .q-scrollarea__thumb, .q-scrollarea__thumb--v, .absolute-right, .q-scrollarea__thumb--invisible',
   },
   {
-    name: 'StartTodo',
+    name: 'EasyStart',
     x: 0,
     y: 0,
     w: 3,

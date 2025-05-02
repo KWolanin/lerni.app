@@ -19,7 +19,7 @@
               />
             </q-item-section>
             <q-item-section>
-              <q-item-label class="user-font text-bold">{{ widget.label }}</q-item-label>
+              <q-item-label class="user-font text-bold">{{ getWidgetNameI18n(widget.label) }}</q-item-label>
               <q-item-label class="user-font" caption>{{ getWidgetDescI18n(widget.label) }}</q-item-label>
             </q-item-section>
           </q-item>
@@ -79,6 +79,21 @@ const getWidgetDescI18n = (label: string) => {
       return availableWidgets.find((widget) => widget.label === label)?.desc_UA;
     default:
       return availableWidgets.find((widget) => widget.label === label)?.desc_EN;
+  }
+};
+
+const getWidgetNameI18n = (label: string) => {
+  switch (locale.value) {
+    case 'en_US':
+      return availableWidgets.find((widget) => widget.label === label)?.label_EN;
+    case 'de':
+      return availableWidgets.find((widget) => widget.label === label)?.label_DE;
+    case 'pl':
+      return availableWidgets.find((widget) => widget.label === label)?.label_PL;
+    case 'ua':
+      return availableWidgets.find((widget) => widget.label === label)?.label_UA;
+    default:
+      return availableWidgets.find((widget) => widget.label === label)?.label_EN;
   }
 };
 

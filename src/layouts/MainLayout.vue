@@ -87,10 +87,10 @@ import { useRouter } from 'vue-router';
 import { themes } from 'src/themes';
 import { useFontColorStore } from 'stores/fontColor'
 
-const ThemeSelector = defineAsyncComponent(() => import('src/widgets/ThemeSelector.vue'))
-const WidgetSelector = defineAsyncComponent(() => import('src/widgets/WidgetSelector.vue'))
-const ColorSelector = defineAsyncComponent(() => import('src/widgets/ColorSelector.vue'))
-const LanguageSelector = defineAsyncComponent(() => import('src/widgets/LanguageSelector.vue'))
+const ThemeSelector = defineAsyncComponent(() => import('src/components/ThemeSelector.vue'))
+const WidgetSelector = defineAsyncComponent(() => import('src/components/WidgetSelector.vue'))
+const ColorSelector = defineAsyncComponent(() => import('src/components/ColorSelector.vue'))
+const LanguageSelector = defineAsyncComponent(() => import('src/components/LanguageSelector.vue'))
 
 const fontStore = useFontColorStore()
 
