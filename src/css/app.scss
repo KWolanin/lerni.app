@@ -71,8 +71,13 @@ h6 {
   src: url(./fonts/CalSans-Regular.woff2);
 }
 
-// declare a class which applies it
+@font-face {
+  font-family: 'Manrope';
+  src: url(./fonts/Manrope-ExtraBold.woff2);
+  font-weight: bold;
+}
+
 .calsans-font {
-  font-family: 'CalSans', sans-serif;
+  font-family: 'CalSans', 'Manrope', sans-serif;
 }
 
