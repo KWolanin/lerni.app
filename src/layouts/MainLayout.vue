@@ -1,69 +1,38 @@
 <template>
   <q-layout view="lHh Lpr lFf" :style="gradientBackground">
-    <q-header v-if="authStore.loggedIn" elevated class="glass-panel">
+    <q-header v-if="authStore.loggedIn" elevated class="glass-panel calsans-font">
       <q-toolbar>
-        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
         <q-toolbar-title> Lerni.app </q-toolbar-title>
-        <q-btn
-          icon="dashboard"
-          flat
-          @click="openWidgetSelector = !openWidgetSelector"
-        />
-        <q-btn
-          icon="palette"
-          flat
-          @click="openThemeSelector = !openThemeSelector"
-        />
-        <q-btn
-          icon="format_color_text"
-          flat
-          @click="openColorSelector = !openColorSelector"
-        />
-        <q-btn
-          icon="translate"
-          flat
-          @click="openLanguageSelector = !openLanguageSelector"
-        />
-        <q-img class="user-icon q-ml-sm" :src="authStore.photoURL" width="30px" height="30px" />
+        <q-btn icon="dashboard" flat @click="openWidgetSelector = !openWidgetSelector" />
+        <q-btn icon="palette" flat @click="openThemeSelector = !openThemeSelector" />
+        <q-btn icon="format_color_text" flat @click="openColorSelector = !openColorSelector" />
+        <q-btn icon="translate" flat @click="openLanguageSelector = !openLanguageSelector" />
+
+        <q-img
+            :src="authStore.photoURL"
+            width="30px"
+            height="30px"
+            class="user-icon q-ml-sm cursor-pointer">
+        <q-menu class="calsans-font bg user-font">
+          <q-list style="min-width: 100px">
+            <q-item clickable v-close-popup @click="handleLogout">
+              <q-item-section>Logout</q-item-section>
+            </q-item>
+          </q-list>
+        </q-menu>
+      </q-img>
       </q-toolbar>
     </q-header>
-
-    <q-drawer v-if="authStore.loggedIn" :width="200" v-model="leftDrawerOpen" class="glass-panel">
-      <q-list
-        bordered
-        padding
-        style="height: 100%"
-        class="user-font flex column items-center justify-evenly"
-      >
-        <q-item clickable v-ripple>
-          <q-item-section avatar>
-            <q-icon name="settings" />
-          </q-item-section>
-          <q-item-section> Staticstics </q-item-section>
-        </q-item>
-        <q-item clickable v-ripple>
-          <q-item-section avatar>
-            <q-icon name="settings" />
-          </q-item-section>
-          <q-item-section> Settings </q-item-section>
-        </q-item>
-        <q-space />
-        <q-item class="flex justify-center">
-          <q-btn outline v-if="!authStore.loggedIn" @click="login">Login via Google Account</q-btn>
-          <div v-else class="flex column justify-center">
-            <p>{{ authStore.displayName }}</p>
-            <q-btn outline @click="handleLogout">Logout</q-btn>
-          </div>
-        </q-item>
-      </q-list>
-    </q-drawer>
-
     <q-page-container>
       <router-view />
     </q-page-container>
     <widget-selector v-model="openWidgetSelector" />
-    <theme-selector v-model="openThemeSelector" :current-theme="currentTheme" @change-theme="changeTheme" />
-    <color-selector v-model="openColorSelector"/>
+    <theme-selector
+      v-model="openThemeSelector"
+      :current-theme="currentTheme"
+      @change-theme="changeTheme"
+    />
+    <color-selector v-model="openColorSelector" />
     <language-selector v-model="openLanguageSelector" @change-language="changeLanguage" />
   </q-layout>
 </template>
@@ -71,7 +40,6 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, defineAsyncComponent } from 'vue';
 import {
-  loginWithGoogle,
   logout,
   listenToAuthState,
   loadLanguage,
@@ -85,14 +53,14 @@ import { debounce, isEqual } from 'lodash';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { themes } from 'src/themes';
-import { useFontColorStore } from 'stores/fontColor'
+import { useFontColorStore } from 'stores/fontColor';
 
-const ThemeSelector = defineAsyncComponent(() => import('src/components/ThemeSelector.vue'))
-const WidgetSelector = defineAsyncComponent(() => import('src/components/WidgetSelector.vue'))
-const ColorSelector = defineAsyncComponent(() => import('src/components/ColorSelector.vue'))
-const LanguageSelector = defineAsyncComponent(() => import('src/components/LanguageSelector.vue'))
+const ThemeSelector = defineAsyncComponent(() => import('src/components/ThemeSelector.vue'));
+const WidgetSelector = defineAsyncComponent(() => import('src/components/WidgetSelector.vue'));
+const ColorSelector = defineAsyncComponent(() => import('src/components/ColorSelector.vue'));
+const LanguageSelector = defineAsyncComponent(() => import('src/components/LanguageSelector.vue'));
 
-const fontStore = useFontColorStore()
+const fontStore = useFontColorStore();
 
 const router = useRouter();
 const { locale } = useI18n({ useScope: 'global' });
@@ -101,7 +69,6 @@ const openWidgetSelector = ref<boolean>(false);
 const openThemeSelector = ref<boolean>(false);
 const openColorSelector = ref<boolean>(false);
 const openLanguageSelector = ref<boolean>(false);
-
 
 watch(
   locale,
@@ -123,22 +90,11 @@ onMounted(() => {
   fontStore.initFontColor();
 });
 
-const leftDrawerOpen = ref(false);
 
-function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value;
-}
+
 
 const authStore = useAuthStore();
-const preferencesStore = usePreferencesStore();
 
-async function login() {
-  const user = await loginWithGoogle();
-  if (user?.uid) {
-    authStore.setUser(user);
-    await preferencesStore.init(user.uid);
-  }
-}
 
 async function handleLogout() {
   await logout();
@@ -160,8 +116,8 @@ listenToAuthState(async (user: User) => {
 const currentTheme = ref<string>('');
 
 const gradientBackground = computed(() => {
-  const t = themes.find(t => t.name === currentTheme.value)
-  return 'background: ' + t?.css_background + ';'
+  const t = themes.find((t) => t.name === currentTheme.value);
+  return 'background: ' + t?.css_background + ';';
 });
 
 watch(
@@ -207,7 +163,6 @@ watch(
 
 let previous: string | null = null;
 
-
 const changeTheme = (theme: string) => {
   openThemeSelector.value = false;
   currentTheme.value = theme;
@@ -215,9 +170,8 @@ const changeTheme = (theme: string) => {
 
 const changeLanguage = (language: string) => {
   openLanguageSelector.value = false;
-  locale.value = language
-}
-
+  locale.value = language;
+};
 </script>
 
 <style scoped>
@@ -232,7 +186,6 @@ const changeLanguage = (language: string) => {
 }
 
 ::v-deep(.q-field__native) {
-  /* color: user-font; */
   color: var(--user-font-color);
 }
 

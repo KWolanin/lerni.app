@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center default-bg">
+  <q-page class="flex calsans-font flex-center text-white default-bg">
     <div class="background-grid">
       <!-- Placeholder cards -->
       <q-card
@@ -17,12 +17,12 @@
       <div class="icon-wrapper">
         <q-icon name="person" size="50px" class="icon-center" />
       </div>
-      <p class="text-center user-font text-h3 text-weight-bolder">Welcome to Lerni.app</p>
-      <p class="text-center user-font text-h6">Your daily study dashboard</p>
+      <p class="text-center  text-h3 ">Welcome to Lerni.app</p>
+      <p class="text-center  text-h6">Your daily study dashboard</p>
       <div class="icon-wrapper">
-        <q-icon name="dashboard" size="10rem" color="blur" class="icon-lightbulb" />
+        <q-icon name="dashboard" size="10rem" color="blur" class="icon-lightbulb q-mt-sm" />
       </div>
-      <p class="text-center user-font text-description">Please log in to continue.</p>
+      <p class="text-center  text-description">Please log in to continue.</p>
       <div class="flex row justify-center">
         <q-btn outline size="lg" class="q-ma-md" color="white" @click="login">Login via Google</q-btn>
       </div>
@@ -92,7 +92,6 @@ const cardPositions = generateUniquePositions(20, 10)
 .placeholder-card {
   width: 100px;
   height: 100px;
-  background-color: #e0e0e0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -124,6 +123,7 @@ const cardPositions = generateUniquePositions(20, 10)
 .icon-lightbulb {
   border-radius: 50%;
   padding: 10px;
+  color:  rgba(255, 255, 255, 0.4);
 }
 
 @media (max-width: 600px) {
