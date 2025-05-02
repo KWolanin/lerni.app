@@ -1,5 +1,5 @@
 <template>
-  <q-card class="q-pa-sm flex column justify-center radius-15 bg">
+  <q-card class="q-pa-sm flex column justify-center radius-15 bg calsans-font">
     <Bar :data="data" :options="chartOptions" />
   </q-card>
 </template>
@@ -43,7 +43,10 @@ const chartOptions = computed(() => ({
   plugins: {
       legend: {
         labels: {
-          color: chartColor.value
+          color: chartColor.value,
+          font: {
+          family: 'CalSans',
+        }
         }
       }
     },
@@ -58,9 +61,15 @@ const chartOptions = computed(() => ({
         display: true,
         text: t('date'),
         color: chartColor.value,
+        font: {
+          family: 'CalSans',
+        }
       },
       ticks: {
         color: chartColor.value,
+        font: {
+          family: 'CalSans',
+        }
       },
     },
     y: {
@@ -69,9 +78,15 @@ const chartOptions = computed(() => ({
         display: true,
         text: t('minutes'),
         color: chartColor.value,
+        font: {
+          family: 'CalSans',
+        }
       },
       ticks: {
         color: chartColor.value,
+        font: {
+          family: 'CalSans',
+        }
       },
     },
   },

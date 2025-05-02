@@ -1,7 +1,7 @@
 <template>
   <q-card class="q-pa-sm flex column justify-center radius-15 bg">
-    <p class="q-ma-sm text-italic text-bold user-font">{{ $t('set_preferences') }}</p>
-    <q-form class="q-ma-sm flex column justify-center" @submit.prevent="savePreferences">
+    <p class="q-ma-sm calsans-font user-font">{{ $t('set_preferences') }}</p>
+    <q-form class="q-ma-sm flex column justify-center calsans-font" @submit.prevent="savePreferences">
       <q-input
         standout="transparent text-user-font"
         :label="$t('work_time')"

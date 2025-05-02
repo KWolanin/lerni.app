@@ -1,5 +1,5 @@
 <template>
-  <q-card class="q-pa-sm q-ma-sm flex column justify-between radius-15 bg" style="height: 100%">
+  <q-card class="q-pa-sm q-ma-sm flex column justify-between radius-15 bg calsans-font" style="height: 100%">
       <q-scroll-area class="full-height full-width">
         <q-editor
         v-model="note"

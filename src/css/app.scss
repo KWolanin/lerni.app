@@ -66,5 +66,13 @@ h6 {
   color: var(--user-font-color);
 }
 
+@font-face {
+  font-family: 'CalSans';
+  src: url(./fonts/CalSans-Regular.woff2);
+}
 
+// declare a class which applies it
+.calsans-font {
+  font-family: 'CalSans', sans-serif;
+}
 

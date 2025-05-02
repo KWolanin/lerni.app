@@ -4,7 +4,7 @@ export default {
   stop: 'stop',
   restart: 'restart',
   skip: 'do następnego',
-  pomo_end: 'Koniec Pomodoro! Bądź z ciebie dumny!', // todo: genders
+  pomo_end: 'Koniec Pomodoro! Bądź z siebie dumny!', // todo: genders
   work_time: 'czas pracy',
   relax_time: 'czas przerwy',
   longer_relax_time: 'czas dłuższej przerwy',
@@ -25,7 +25,7 @@ export default {
   work: 'pracę',
   relax: 'przerwę',
   must_be_positive: 'musi być na plusie',
-  ping_sound_enable: "enable / disable ping sound when timer ends",
+  ping_sound_enable: "włącz / wyłącz dźwięk powiadomienia, gdy czas się skończy",
   customize_dashboard: 'dostosuj dashboard',
   language: 'język',
   theme: 'motyw',

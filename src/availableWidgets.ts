@@ -21,7 +21,7 @@ export const availableWidgets: Widget[] = [
     label_EN: "Pomodoro",
     label_PL: "Pomodoro",
     label_DE: "Pomodoro",
-    label_UA: "Pomodoro"
+    label_UA: "Помодоро"
   },
   {
     label: 'Sound player',

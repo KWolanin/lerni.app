@@ -35,7 +35,7 @@ export default {
   done: 'виконано',
   change_font_color: 'змінити колір шрифту',
   customize_language: 'вибрати мову',
-  date: 'date',
-  minutes: 'minutes',
-  time: 'pomodoro time',
+  date: 'дата',
+  minutes: 'хвилини',
+  time: 'помодоро час',
 }

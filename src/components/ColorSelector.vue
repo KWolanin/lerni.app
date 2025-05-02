@@ -1,6 +1,6 @@
 <template>
   <q-dialog backdrop-filter="blur(4px) saturate(150%) brightness(50%)">
-    <q-card class="bg radius-15 q-pa-sm">
+    <q-card class="bg radius-15 q-pa-sm calsans-font">
       <q-card-section class="row justify-center q-pb-none text-h6 user-font">
         {{ $t('change_font_color') }}
       </q-card-section>

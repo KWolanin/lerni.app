@@ -3,7 +3,7 @@
     <div class="row q-col-gutter-md">
       <div v-for="column in columns" :key="column.id" class="col-4">
         <q-card flat class="radius-15 bg-second-transparent">
-          <q-card-section class="user-font">
+          <q-card-section class="user-font calsans-font">
             <div class="text-subtitle2">{{ getTitle(column) }}</div>
           </q-card-section>
           <q-separator />
@@ -14,7 +14,8 @@
               item-key="id"
               class="q-mb-md draggable"
             >
-              <q-card flat v-for="task in column.tasks" :key="task.id" class="q-pa-sm q-ma-sm radius-15 bg-more user-font">
+              <q-card flat v-for="task in column.tasks" :key="task.id"
+              class="q-pa-sm q-ma-sm radius-15 bg-more user-font calsans-font">
                 <div>{{ task.title }}</div>
               </q-card>
             </VueDraggable>
@@ -22,7 +23,7 @@
             <q-input
               v-model="newTaskTitles[column.id]"
               :label="$t('new_task_placeholder')"
-              class="q-mb-sm q-mt-sm"
+              class="q-mb-sm q-mt-sm calsans-font"
               dense
               standout="transparent"
               @keyup.enter="addTask(column.id, newTaskTitles[column.id]!)"

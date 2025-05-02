@@ -3,7 +3,7 @@
 
     <!-- HEADER -->
     <div class="flex row items-center q-mb-sm">
-      <p class="q-ma-sm text-italic user-font text-subtitle2">{{ $t('starter') }}</p>
+      <p class="q-ma-sm calsans-font user-font text-subtitle2">{{ $t('starter') }}</p>
       <q-space />
       <q-btn
         size="sm"
@@ -13,7 +13,7 @@
         class="q-ml-sm"
         @click="clear"
       >
-        <q-tooltip class="bg-blur text-weight-bold" anchor="center left" self="center right">
+        <q-tooltip class="bg-blur calsans-font" anchor="center left" self="center right">
           clear all
         </q-tooltip>
       </q-btn>
@@ -25,7 +25,7 @@
         class="q-ml-sm"
         disabled
       >
-        <q-tooltip class="bg-blur text-weight-bold" anchor="center left" self="center right">
+        <q-tooltip class="bg-blur calsans-font" anchor="center left" self="center right">
           customize
         </q-tooltip>
       </q-btn>
@@ -43,7 +43,7 @@
         >
           <q-item-section>
             <q-checkbox
-              class="text-caption user-font"
+              class="text-caption user-font calsans-font"
               :class="{ strike: checked }"
               dense
               keep-color

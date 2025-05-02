@@ -1,9 +1,9 @@
 <template>
-  <q-card class="q-pa-sm bg flex column fit justify-between radius-15">
+  <q-card class="q-pa-sm bg flex column fit justify-between radius-15 calsans-font">
 
     <!-- HEADER -->
     <div class="flex row items-center q-mb-sm">
-      <p class="q-ma-sm text-italic user-font text-subtitle2">{{ $t('todo') }}</p>
+      <p class="q-ma-sm user-font text-subtitle2">{{ $t('todo') }}</p>
       <q-space />
       <q-btn
         size="sm"

@@ -10,7 +10,7 @@
         flat
         @click="pingEnabled = !pingEnabled"
       >
-        <q-tooltip anchor="center left" self="center right" class="bg-blur text-weight-bold">{{
+        <q-tooltip anchor="center left" self="center right" class="bg-blur calsans-font">{{
           $t('ping_sound_enable')
         }}</q-tooltip>
       </q-btn>
@@ -32,14 +32,14 @@
         rounded
       >
         <div class="flex column justify-center">
-          <p class="q-mb-sm text-center user-font text-weight-bolder text-h3">{{ formattedTime }}</p>
+          <p class="q-mb-sm text-center user-font text-weight-bolder text-h3 calsans-font">{{ formattedTime }}</p>
           <p
             v-if="wholeCycle < preferences.limit"
-            class="q-mb-sm text-center text-italic user-font text-subtitle2"
+            class="q-mb-sm text-center user-font text-subtitle2 calsans-font"
           >
             {{ $t('time_for') }} {{ currentCycle == 'work' ? $t('work') : $t('relax') }}
           </p>
-          <p v-else class="q-ma-sm text-center user-font text-italic wrap text-subtitle2">
+          <p v-else class="q-ma-sm text-center user-font calsans-fontc wrap text-subtitle2">
             {{ $t('pomo_end') }}
           </p>
           <div class="flex row wrap justify-center">
@@ -65,7 +65,7 @@
         :disabled="isRunning"
         class="q-mr-sm"
       >
-        <q-tooltip class="bg-blur text-weight-bold" anchor="center left" self="center right"
+        <q-tooltip class="bg-blur calsans-font" anchor="center left" self="center right"
           >{{ $t('start') }} pomodoro</q-tooltip
         >
       </q-btn>
@@ -77,17 +77,17 @@
         :disabled="!isRunning"
         class="q-mr-sm"
       >
-        <q-tooltip class="bg-blur text-weight-bold" anchor="center left" self="center right"
+        <q-tooltip class="bg-blur calsans-font" anchor="center left" self="center right"
           >{{ $t('stop') }} pomodoro</q-tooltip
         >
       </q-btn>
       <q-btn @click="resetTimer" icon="restart_alt" outline color="user-font" class="q-mr-sm">
-        <q-tooltip class="bg-blur text-weight-bold" anchor="center left" self="center right"
+        <q-tooltip class="bg-blur calsans-font" anchor="center left" self="center right"
           >{{ $t('restart') }} pomodoro</q-tooltip
         >
       </q-btn>
       <q-btn outline @click="nextCycle" icon="next_plan" color="user-font">
-        <q-tooltip class="bg-blur text-weight-bold" anchor="center left" self="center right">{{
+        <q-tooltip class="bg-blur calsans-font" anchor="center left" self="center right">{{
           $t('skip')
         }}</q-tooltip>
       </q-btn>

@@ -9,9 +9,10 @@
         :options="sounds"
         :label="$t('now_playing')"
         :option-label="getLabelField"
+        class="calsans-font"
       />
       <div class="flex justify-center q-mb-sm q-mr-sm q-ml-sm">
-        <div class="full-width q-mt-sm">
+        <div class="full-width q-mt-sm calsans-font">
           <AudioPlayer :option="audioOptions" />
         </div>
       </div>
