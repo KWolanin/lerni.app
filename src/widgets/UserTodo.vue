@@ -3,7 +3,7 @@
 
     <!-- HEADER -->
     <div class="flex row items-center q-mb-sm">
-      <h6 class="q-ma-sm text-italic user-font">{{ $t('todo') }}</h6>
+      <p class="q-ma-sm text-italic user-font text-subtitle2">{{ $t('todo') }}</p>
       <q-space />
       <q-btn
         size="sm"
@@ -176,6 +176,9 @@ const sortedTask = computed((): TodoTask[] => {
   color: var(--user-font-color);
 }
 ::v-deep(.q-field__native) {
+  color: var(--user-font-color);
+}
+::v-deep(.q-field--standout.q-field--highlighted .q-field__native) {
   color: var(--user-font-color);
 }
 

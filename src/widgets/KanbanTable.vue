@@ -4,7 +4,7 @@
       <div v-for="column in columns" :key="column.id" class="col-4">
         <q-card flat class="radius-15 bg-second-transparent">
           <q-card-section class="user-font">
-            <div class="text-h6">{{ getTitle(column) }}</div>
+            <div class="text-subtitle2">{{ getTitle(column) }}</div>
           </q-card-section>
           <q-separator />
           <q-card-section>
@@ -119,6 +119,9 @@ watch(
   color: var(--user-font-color);
 }
 ::v-deep(.q-field__native) {
+  color: var(--user-font-color);
+}
+::v-deep(.q-field--standout.q-field--highlighted .q-field__native) {
   color: var(--user-font-color);
 }
 </style>

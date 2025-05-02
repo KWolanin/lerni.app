@@ -36,6 +36,7 @@ const widgets = [
     draggable: true,
     static: false,
     responsive: true,
+    dragIgnoreFrom: '.q-editor__content, .q-scrollarea__thumb, .q-scrollarea__thumb--v, .absolute-right, .q-scrollarea__thumb--invisible',
   },
   {
     name: 'StartTodo',
@@ -48,6 +49,7 @@ const widgets = [
     draggable: true,
     static: false,
     responsive: true,
+    dragIgnoreFrom: '.q-editor__content, .q-scrollarea__thumb, .q-scrollarea__thumb--v, .absolute-right, .q-scrollarea__thumb--invisible',
   },
   {
     name: 'MusicPlayer',
@@ -73,7 +75,7 @@ const widgets = [
     draggable: true,
     static: false,
     responsive: true,
-    dragIgnoreFrom: '.q-editor__content',
+    dragIgnoreFrom: '.q-editor__content, .q-scrollarea__thumb, .q-scrollarea__thumb--v, .absolute-right, .q-scrollarea__thumb--invisible',
 
   },
   {
@@ -93,7 +95,7 @@ const widgets = [
     name: 'PomoStats',
     x: 0,
     y: 0,
-    w: 3,
+    w: 2,
     h: 3,
     i: '7',
     resizable: false,

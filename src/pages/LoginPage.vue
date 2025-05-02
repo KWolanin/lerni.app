@@ -17,8 +17,8 @@
       <div class="icon-wrapper">
         <q-icon name="person" size="50px" class="icon-center" />
       </div>
-      <h3 class="text-center user-font text-h3 text-weight-bolder">Welcome to Lerni.app</h3>
-      <h6 class="text-center user-font text-h6">Your daily study dashboard</h6>
+      <p class="text-center user-font text-h3 text-weight-bolder">Welcome to Lerni.app</p>
+      <p class="text-center user-font text-h6">Your daily study dashboard</p>
       <div class="icon-wrapper">
         <q-icon name="dashboard" size="10rem" color="blur" class="icon-lightbulb" />
       </div>

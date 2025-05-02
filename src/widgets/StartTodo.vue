@@ -3,7 +3,7 @@
 
     <!-- HEADER -->
     <div class="flex row items-center q-mb-sm">
-      <h6 class="q-ma-sm text-italic user-font">{{ $t('starter') }}</h6>
+      <p class="q-ma-sm text-italic user-font text-subtitle2">{{ $t('starter') }}</p>
       <q-space />
       <q-btn
         size="sm"
