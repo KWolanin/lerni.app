@@ -40,7 +40,6 @@ defineProps({
 })
 
 const saveSelected = (theme: string) => {
-  console.log('Selected theme:', theme);
   emit('changeTheme', theme);
 };
 

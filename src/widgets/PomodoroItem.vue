@@ -311,18 +311,13 @@ function handleTick() {
 }
 
 
-// add pomodoro session to stats
 function addPomoSession(sessions: number, workTime: number) {
-  console.log(typeof workTime);
   const session = {
     date: new Date(),
     sessions,
     workTime,
   };
   savePomoSession(authStore.uid, session)
-    .then(() => {
-      console.log('Stat saved successfully');
-    })
     .catch((error) => {
       console.error('Error saving stat:', error);
     });
