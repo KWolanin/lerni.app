@@ -1,34 +1,42 @@
 <template>
-  <q-card class="q-pa-md bg radius-15" style="height: 100%">
-    <div class="row q-col-gutter-md">
-      <div v-for="column in columns" :key="column.id" class="col-4">
-        <q-card flat class="radius-15 bg-second-transparent">
-          <q-card-section class="user-font calsans-font">
-            <div class="text-subtitle2">{{ getTitle(column) }}</div>
+  <q-card class="q-pa-md bg radius-15 full-height column">
+    <div class="row q-col-gutter-md full-height">
+      <div v-for="column in columns" :key="column.id" class="col">
+        <q-card flat class="radius-15 bg-second-transparent full-height column">
+          <q-card-section class="user-font calsans-font q-pb-none">
+            <span class="text-subtitle2">{{ getTitle(column) }}</span>
           </q-card-section>
-          <q-separator />
-          <q-card-section>
-            <VueDraggable
-              v-model="column.tasks"
-              group="tasks"
-              item-key="id"
-              class="q-mb-md draggable"
-            >
-              <q-card flat v-for="task in column.tasks" :key="task.id"
-              class="q-pa-sm q-ma-sm radius-15 bg-more user-font calsans-font">
-                <div>{{ task.title }}</div>
-              </q-card>
-            </VueDraggable>
 
-            <q-input
-              v-model="newTaskTitles[column.id]"
-              :label="$t('new_task_placeholder')"
-              class="q-mb-sm q-mt-sm calsans-font"
-              dense
-              standout="transparent"
-              @keyup.enter="addTask(column.id, newTaskTitles[column.id]!)"
-            />
-          </q-card-section>
+          <div class="column q-pa-sm" style="flex: 1 1 auto; min-height: 0">
+            <q-scroll-area style="flex: 1 1 auto; min-height: 0">
+              <VueDraggable
+                v-model="column.tasks"
+                group="tasks"
+                item-key="id"
+                class="q-mb-md draggable"
+              >
+                <q-card
+                  flat
+                  v-for="task in column.tasks"
+                  :key="task.id"
+                  class="q-pa-sm q-ma-sm radius-15 bg-more user-font calsans-font"
+                >
+                  <div>{{ task.title }}</div>
+                </q-card>
+              </VueDraggable>
+            </q-scroll-area>
+
+            <div class="q-mt-sm">
+              <q-input
+                v-model="newTaskTitles[column.id]"
+                :label="$t('new_task_placeholder')"
+                class="calsans-font"
+                dense
+                standout="transparent"
+                @keyup.enter="addTask(column.id, newTaskTitles[column.id]!)"
+              />
+            </div>
+          </div>
         </q-card>
       </div>
     </div>
@@ -39,7 +47,7 @@
 import { ref, watch } from 'vue';
 import { VueDraggable } from 'vue-draggable-plus';
 import { useI18n } from 'vue-i18n';
-import { saveKanbanTasks, loadKanban } from '../service/firebase';  // Importujemy metodę
+import { saveKanbanTasks, loadKanban } from '../service/firebase'; // Importujemy metodę
 import { useAuthStore } from '../stores/auth';
 import { debounce } from 'lodash';
 import type { Column } from 'src/types';
@@ -59,16 +67,18 @@ watch(
   () => authStore.uid,
   (newUid) => {
     if (newUid) {
-      loadKanban(newUid).then((data) => {
-        columns.value.forEach((column) => {
-          column.tasks = data ? data[column.id] ?? [] : [];
+      loadKanban(newUid)
+        .then((data) => {
+          columns.value.forEach((column) => {
+            column.tasks = data ? (data[column.id] ?? []) : [];
+          });
+        })
+        .catch((err) => {
+          console.error(err);
         });
-      }).catch((err) => {
-        console.error(err);
-      });
     }
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 function addTask(columnId: string, task: string) {
@@ -111,7 +121,7 @@ watch(
       previousTasksState = newState;
     }
   },
-  { deep: true }
+  { deep: true },
 );
 </script>
 
