@@ -2,7 +2,7 @@
   <q-card class="q-pa-md bg radius-15 full-height column">
     <div class="row q-col-gutter-md full-height">
       <div v-for="column in columns" :key="column.id" class="col">
-        <q-card flat class="radius-15 bg-second-transparent full-height column">
+        <q-card flat bordered class="radius-15 bg-second-transparent full-height column">
           <q-card-section class="user-font calsans-font q-pb-none">
             <span class="text-subtitle2">{{ getTitle(column) }}</span>
           </q-card-section>
@@ -14,19 +14,22 @@
                 group="tasks"
                 item-key="id"
                 class="q-mb-md draggable"
+                :empty-insert-threshold="80"
               >
                 <q-card
                   flat
                   v-for="task in column.tasks"
                   :key="task.id"
-                  class="q-pa-sm q-ma-sm radius-15 bg-more user-font calsans-font"
+                  class="q-pa-sm q-ma-sm radius-15 bg-more user-font calsans-font row items-center"
                 >
-                  <div>{{ task.title }}</div>
+                  <div class="q-ml-sm">{{ task.title }}</div>
+                  <q-space/>
+                  <q-btn icon="delete" size="sm" flat round color="user-font" @click="deleteTask(column.id, task.id)"/>
                 </q-card>
               </VueDraggable>
             </q-scroll-area>
 
-            <div class="q-mt-sm">
+            <div class="q-my-sm">
               <q-input
                 v-model="newTaskTitles[column.id]"
                 :label="$t('new_task_placeholder')"
@@ -82,6 +85,7 @@ watch(
 );
 
 function addTask(columnId: string, task: string) {
+  if (task.trim() === '') return;
   const column = columns.value.find((c) => c.id === columnId);
   if (!column) return;
 
@@ -91,6 +95,12 @@ function addTask(columnId: string, task: string) {
     title: task,
   });
   newTaskTitles.value[columnId] = '';
+}
+
+const deleteTask = (columnId: string, taskId : string) => {
+  const column = columns.value.find((c) => c.id === columnId);
+  if (!column) return;
+  column.tasks = column.tasks.filter(task => task.id !== taskId);
 }
 
 const getTitle = (column: Column) => {
@@ -123,6 +133,10 @@ watch(
   },
   { deep: true },
 );
+
+
+
+
 </script>
 
 <style scoped>
@@ -135,4 +149,9 @@ watch(
 ::v-deep(.q-field--standout.q-field--highlighted .q-field__native) {
   color: var(--user-font-color);
 }
+/*
+ .draggable {
+  min-height: 100% !important;
+}  */
+
 </style>
