@@ -1,28 +1,16 @@
 <template>
-  <q-layout view="lHh Lpr lFf" :style="gradientBackground">
-    <q-header v-if="authStore.loggedIn" elevated class="glass-panel calsans-font">
-      <q-toolbar>
-        <q-toolbar-title> Lerni.app </q-toolbar-title>
-        <q-btn icon="dashboard" flat @click="openWidgetSelector = !openWidgetSelector" />
-        <q-btn icon="palette" flat @click="openThemeSelector = !openThemeSelector" />
-        <q-btn icon="format_color_text" flat @click="openColorSelector = !openColorSelector" />
-        <q-btn icon="translate" flat @click="openLanguageSelector = !openLanguageSelector" />
-
-        <q-img
-            :src="authStore.photoURL"
-            width="30px"
-            height="30px"
-            class="user-icon q-ml-sm cursor-pointer">
-        <q-menu class="calsans-font bg user-font">
-          <q-list style="min-width: 100px">
-            <q-item clickable v-close-popup @click="handleLogout">
-              <q-item-section>Logout</q-item-section>
-            </q-item>
-          </q-list>
-        </q-menu>
-      </q-img>
-      </q-toolbar>
-    </q-header>
+  <q-layout view="lHh Lpr fff" :style="gradientBackground">
+    <MyHeader
+      v-if="authStore.loggedIn"
+      :photo-url="authStore.photoURL"
+      @toggle-widget="openWidgetSelector = !openWidgetSelector"
+      @toggle-theme="openThemeSelector = !openThemeSelector"
+      @toggle-color="openColorSelector = !openColorSelector"
+      @toggle-language="openLanguageSelector = !openLanguageSelector"
+      @logout="handleLogout"
+    />
+    <MyFooter
+    v-if="authStore.loggedIn" />
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -39,12 +27,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, defineAsyncComponent } from 'vue';
-import {
-  logout,
-  listenToAuthState,
-  loadLanguage,
-  saveLanguage,
-} from '../service/firebase';
+import { logout, listenToAuthState, loadLanguage, saveLanguage } from '../service/firebase';
 import { usePreferencesStore } from '../stores/preferences';
 import { useAuthStore } from '../stores/auth';
 import { getAuth, type User } from 'firebase/auth';
@@ -54,6 +37,8 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { themes } from 'src/themes';
 import { useFontColorStore } from 'stores/fontColor';
+import MyFooter from './MyFooter.vue';
+import MyHeader from './MyHeader.vue';
 
 const ThemeSelector = defineAsyncComponent(() => import('src/components/ThemeSelector.vue'));
 const WidgetSelector = defineAsyncComponent(() => import('src/components/WidgetSelector.vue'));
@@ -90,11 +75,7 @@ onMounted(() => {
   fontStore.initFontColor();
 });
 
-
-
-
 const authStore = useAuthStore();
-
 
 async function handleLogout() {
   await logout();
@@ -175,9 +156,6 @@ const changeLanguage = (language: string) => {
 </script>
 
 <style scoped>
-.user-icon {
-  border-radius: 50%;
-}
 
 ::v-deep(aside) {
   background-color: rgba(0, 0, 0, 0.3) !important;

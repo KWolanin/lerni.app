@@ -1,5 +1,5 @@
 <template>
-  <q-dialog v-model="dialog" backdrop-filter="blur(4px) saturate(150%) brightness(50%)">
+  <q-dialog v-model="dialog" backdrop-filter="blur(4px) saturate(150%) brightness(100%)">
     <q-card class="bg radius-15 q-pa-sm calsans-font">
       <q-card-section class="row items-center q-pb-none text-h6 user-font">
         {{ $t('customize_dashboard') }}
@@ -19,15 +19,26 @@
               />
             </q-item-section>
             <q-item-section>
-              <q-item-label class="user-font text-bold">{{ getWidgetNameI18n(widget.label) }}</q-item-label>
-              <q-item-label class="user-font" caption>{{ getWidgetDescI18n(widget.label) }}</q-item-label>
+              <q-item-label class="user-font text-bold">{{
+                getWidgetNameI18n(widget.label)
+              }}</q-item-label>
+              <q-item-label class="user-font" caption>{{
+                getWidgetDescI18n(widget.label)
+              }}</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
       </q-card-section>
 
       <q-card-actions align="right">
-        <q-btn flat label="Close" color="user-font" class="text-bold" @click="saveSelected" v-close-popup />
+        <q-btn
+          flat
+          label="Close"
+          color="user-font"
+          class="text-bold"
+          @click="saveSelected"
+          v-close-popup
+        />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -37,7 +48,7 @@
 import { ref, watch } from 'vue';
 import { saveSelectedWidgets, loadSelectedWidgets } from 'src/service/firebase';
 import { useAuthStore } from 'src/stores/auth';
-import eventBus from '../eventBus'
+import eventBus from '../eventBus';
 import { availableWidgets } from 'src/availableWidgets';
 import { useI18n } from 'vue-i18n';
 
@@ -50,7 +61,7 @@ const widgets = ref<string[]>([]);
 
 const saveSelected = () => {
   saveSelectedWidgets(authStore.uid, widgets.value).catch((err) => console.error(err));
-  eventBus.emit('refresh-dashboard')
+  eventBus.emit('refresh-dashboard');
 };
 
 watch(
@@ -96,5 +107,4 @@ const getWidgetNameI18n = (label: string) => {
       return availableWidgets.find((widget) => widget.label === label)?.label_EN;
   }
 };
-
 </script>
