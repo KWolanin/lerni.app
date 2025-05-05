@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app"
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged  } from "firebase/auth"
-import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore"
+import { getFirestore, doc, setDoc, getDoc, updateDoc } from "firebase/firestore"
 import { firebaseConfig } from '../fbConfig.js';
 import type { DocumentData } from 'firebase/firestore'
 import type {User } from 'firebase/auth'
@@ -90,6 +90,20 @@ export const saveLanguage = async (uid: string, language: string) => {
   if (!uid) return
   const langDoc = doc(db, 'users', uid, 'defaults', 'language')
   await setDoc(langDoc, {language: language}, { merge: true })
+}
+
+export async function loadColor(uid: string): Promise<string | null> {
+  const userDoc = doc(db, 'users', uid)
+  const snapshot = await getDoc(userDoc)
+  if (snapshot.exists() && snapshot.data().fontColor) {
+    return snapshot.data().fontColor
+  }
+  return null
+}
+
+export async function saveColor(uid: string, color: string): Promise<void> {
+  const userDoc = doc(db, 'users', uid)
+  await updateDoc(userDoc, { fontColor: color })
 }
 
 export const loadNote = async (uid: string) :Promise<string | null> => {

@@ -4,9 +4,9 @@
       <span>© 2025 Katarzyna Wolanin</span>
       <q-space />
       <div class="q-py-sm row q-gutter-sm">
-        <router-link to="/credits">credits</router-link>
-        <router-link to="/about">about</router-link>
-        <router-link to="/contact">contact</router-link>
+        <router-link to="/credits">{{$t('credits')}}</router-link>
+        <router-link to="/about">{{$t('about')}}</router-link>
+        <router-link to="/contact">{{$t('contact')}}</router-link>
       </div>
     </q-toolbar>
   </q-footer>
@@ -19,5 +19,8 @@ a:hover,
 a:active {
   color: white;
   text-decoration: none;
+}
+.glass-panel {
+  background-color: rgba(0, 0, 0, 0.3) !important;
 }
 </style>

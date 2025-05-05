@@ -38,6 +38,10 @@ export default {
   date: 'date',
   minutes: 'minutes',
   time: 'pomodoro time',
+  close: 'close',
+  credits: 'credits',
+  about: 'about',
+  contact: 'contact'
 };
 
 

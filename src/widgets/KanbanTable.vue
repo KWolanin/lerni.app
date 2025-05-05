@@ -133,10 +133,6 @@ watch(
   },
   { deep: true },
 );
-
-
-
-
 </script>
 
 <style scoped>
@@ -149,9 +145,4 @@ watch(
 ::v-deep(.q-field--standout.q-field--highlighted .q-field__native) {
   color: var(--user-font-color);
 }
-/*
- .draggable {
-  min-height: 100% !important;
-}  */
-
 </style>

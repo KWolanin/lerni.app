@@ -1,7 +1,5 @@
 .radius-15 {
   border-radius: 15px;
-  // box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
 }
 
 h6 {
@@ -16,10 +14,8 @@ h6 {
   );
   backdrop-filter: blur(4px) saturate(120%) contrast(90%) brightness(105%);
   -webkit-backdrop-filter: blur(4px);
-  // border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  // transition: all 0.3s ease;
 }
 
 
@@ -43,10 +39,6 @@ h6 {
 .bg-second-transparent {
   background: color-mix(in srgb, var(--user-font-color) 3%, transparent);
 }
-
-// .text-blur {
-//   color: rgba(255, 255, 255, 0.4) !important;
-// }
 
 // grid placeholder override
 

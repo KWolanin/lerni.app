@@ -1,5 +1,5 @@
 <template>
-  <q-card class="q-pa-sm flex column justify-center radius-15 bg calsans-font">
+  <q-card class="fit q-pa-sm flex column justify-center radius-15 bg calsans-font" style="height: 100%">
     <Bar :data="data" :options="chartOptions" />
   </q-card>
 </template>
@@ -41,15 +41,15 @@ const data = ref<ChartData<'bar'>>({
 const chartOptions = computed(() => ({
   responsive: true,
   plugins: {
-      legend: {
-        labels: {
-          color: chartColor.value,
-          font: {
+    legend: {
+      labels: {
+        color: chartColor.value,
+        font: {
           family: 'CalSans',
-        }
-        }
-      }
+        },
+      },
     },
+  },
   scales: {
     x: {
       type: 'time' as const,
@@ -63,13 +63,13 @@ const chartOptions = computed(() => ({
         color: chartColor.value,
         font: {
           family: 'CalSans',
-        }
+        },
       },
       ticks: {
         color: chartColor.value,
         font: {
           family: 'CalSans',
-        }
+        },
       },
     },
     y: {
@@ -80,13 +80,13 @@ const chartOptions = computed(() => ({
         color: chartColor.value,
         font: {
           family: 'CalSans',
-        }
+        },
       },
       ticks: {
         color: chartColor.value,
         font: {
           family: 'CalSans',
-        }
+        },
       },
     },
   },
@@ -155,3 +155,10 @@ const chartData = (sessions: PomoSession[]) => {
   };
 };
 </script>
+
+<style scoped>
+.fit {
+  width: 100%;
+  height: 100%;
+}
+</style>

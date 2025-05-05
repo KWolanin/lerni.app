@@ -38,6 +38,10 @@ export default {
   date: 'data',
   minutes: 'minuty',
   time: 'czas pomodoro',
+  close: 'zamknij',
+  credits: 'twórca',
+about: 'O aplikacji',
+contact: 'kontakt'
 };
 
 

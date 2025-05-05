@@ -37,5 +37,9 @@ export default {
   customize_language: 'Sprache auswählen',
   date: 'Datum',
   minutes: 'Minuten',
-  time: 'Pomodoro-Zeit'
-}
+  time: 'Pomodoro-Zeit',
+  close: 'Schließen',
+  credits: 'Mitwirkende',
+  about: 'Über die App',
+  contact: 'Kontakt',
+};

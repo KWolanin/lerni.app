@@ -33,7 +33,7 @@
       <q-card-actions align="right">
         <q-btn
           flat
-          label="Close"
+          :label="$t('close')"
           color="user-font"
           class="text-bold"
           @click="saveSelected"

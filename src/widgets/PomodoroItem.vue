@@ -6,7 +6,6 @@
         size="sm"
         :icon="pingEnabled ? 'music_note' : 'music_off'"
         color="user-font"
-        class="q-mr-sm q-pr-sm"
         flat
         @click="pingEnabled = !pingEnabled"
       >

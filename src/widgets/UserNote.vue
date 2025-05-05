@@ -1,7 +1,10 @@
 <template>
-  <q-card class="q-pa-sm q-ma-sm flex column justify-between radius-15 bg calsans-font" style="height: 100%">
-      <q-scroll-area class="full-height full-width">
-        <q-editor
+  <q-card
+    class="fit q-pa-sm flex column justify-between radius-15 bg calsans-font"
+    style="height: 100%"
+  >
+    <q-scroll-area class="full-height full-width">
+      <q-editor
         v-model="note"
         min-height="9rem"
         class="full-width"
@@ -14,7 +17,7 @@
           ['bold', 'italic', 'strike', 'underline'],
           ['unordered', 'ordered'],
         ]"
-      /></q-scroll-area>
+    /></q-scroll-area>
   </q-card>
 </template>
 
@@ -93,16 +96,18 @@ function invertRgb(color: string): string {
 ::v-deep(.q-editor) {
   background-color: transparent;
   border: none;
-
 }
 
 ::v-deep(.q-editor__content) {
   border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 ::v-deep(.q-editor__toolbar) {
   border-bottom: none;
 }
-
-
+.fit {
+  width: 100%;
+  height: 100%;
+}
 </style>

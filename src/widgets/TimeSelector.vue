@@ -112,8 +112,5 @@ const savePreferences = async () => {
 }
 ::v-deep(.q-field--standout.q-field--highlighted .q-field__control) {
   background: color-mix(in srgb, var(--user-font-color) 10%, transparent);
-
 }
-
-
 </style>

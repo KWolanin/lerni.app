@@ -191,5 +191,4 @@ const sortedTask = computed((): TodoTask[] => {
   height: 100%;
 }
 
-
 </style>

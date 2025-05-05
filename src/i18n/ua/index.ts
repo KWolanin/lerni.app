@@ -38,4 +38,8 @@ export default {
   date: 'дата',
   minutes: 'хвилини',
   time: 'помодоро час',
-}
+  close: 'Закрити',
+  credits: 'Автори',
+  about: 'Про застосунок',
+  contact: 'Контакт',
+};

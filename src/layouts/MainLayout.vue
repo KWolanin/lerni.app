@@ -72,7 +72,7 @@ onMounted(() => {
   if (user) {
     authStore.setUser(user);
   }
-  fontStore.initFontColor();
+  void fontStore.initFontColor();
 });
 
 const authStore = useAuthStore();

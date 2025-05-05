@@ -26,31 +26,34 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from 'src/stores/auth'
-const authStore = useAuthStore()
+import { useAuthStore } from 'src/stores/auth';
+const authStore = useAuthStore();
 
 defineProps({
   photoUrl: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
 const emit = defineEmits([
   'toggle-widget',
   'toggle-theme',
   'toggle-color',
   'toggle-language',
-  'logout'
-])
+  'logout',
+]);
 
 function handleLogoutClick() {
-  emit('logout')
+  emit('logout');
 }
 </script>
 
 <style scoped>
-  .user-icon {
+.user-icon {
   border-radius: 50%;
+}
+.glass-panel {
+  background-color: rgba(0, 0, 0, 0.3) !important;
 }
 </style>
