@@ -55,3 +55,8 @@ export type PomoSession = {
   date: Date | Timestamp;
   workTime: number;
 }
+
+export type EasyTask = {
+  label: string;
+  checked: boolean;
+}

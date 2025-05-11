@@ -25,8 +25,8 @@ export default {
   work: 'pracę',
   relax: 'przerwę',
   must_be_positive: 'musi być na plusie',
-  ping_sound_enable: "włącz / wyłącz dźwięk powiadomienia, gdy czas się skończy",
-  customize_dashboard: 'dostosuj dashboard',
+  ping_sound_enable: 'dźwięk, gdy czas się skończy',
+  customize_dashboard: 'dostosuj panel',
   language: 'język',
   theme: 'motyw',
   customize_theme: 'wybierz motyw tła',
@@ -40,8 +40,12 @@ export default {
   time: 'czas pomodoro',
   close: 'zamknij',
   credits: 'twórca',
-about: 'O aplikacji',
-contact: 'kontakt'
+  about: 'O aplikacji',
+  contact: 'kontakt',
+  tools_desc: 'Użyj NARZĘDZI, aby dostosować swoje widgety',
+  widget_desc: 'Użyj WIDGETÓW do pracy',
+  plain_themes_desc: 'Proste motywy są szybkie i proste',
+  pattern_themes_desc: 'Motywy wzorów są ładne i gładkie',
+  gradient_themes_desc: 'Motywy gradientowe są kolorowe i jasne',
+  here_edit: 'Tutaj możesz edytować swoją łatwą listę',
 };
-
-

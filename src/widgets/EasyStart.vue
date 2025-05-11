@@ -7,26 +7,26 @@
       <q-space />
       <q-btn
         size="sm"
+        icon="check_circle"
+        color="user-font"
+        flat
+        class="q-ml-sm"
+        @click="switchMarks"
+      >
+        <q-tooltip class="bg-blur text-weight-bold" anchor="center left" self="center right">
+          {{ $t('mark_as') }}
+        </q-tooltip>
+      </q-btn>
+      <q-btn
+        size="sm"
         icon="delete"
         color="user-font"
         flat
         class="q-ml-sm"
         @click="clear"
       >
-        <q-tooltip class="bg-blur calsans-font" anchor="center left" self="center right">
-          clear all
-        </q-tooltip>
-      </q-btn>
-      <q-btn
-        size="sm"
-        icon="settings"
-        color="user-font"
-        flat
-        class="q-ml-sm"
-        disabled
-      >
-        <q-tooltip class="bg-blur calsans-font" anchor="center left" self="center right">
-          customize
+        <q-tooltip class="bg-blur text-weight-bold" anchor="center left" self="center right">
+          {{ $t('clear_list') }}
         </q-tooltip>
       </q-btn>
     </div>
@@ -38,18 +38,18 @@
           dense
           clickable
           v-ripple
-          v-for="([label, checked], index) in Object.entries(sortedStarters)"
+          v-for="(starter, index) in sortedStarters"
           :key="index"
         >
           <q-item-section>
             <q-checkbox
               class="text-caption user-font calsans-font"
-              :class="{ strike: checked }"
+              :class="{ strike: starter.checked }"
               dense
               keep-color
               color="user-font"
-              v-model="starters[label]"
-              :label="label"
+              v-model="starter.checked"
+              :label="starter.label"
               checked-icon="check_circle"
               unchecked-icon="radio_button_unchecked"
             />
@@ -62,15 +62,20 @@
 
 
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue';
+import { ref, watch, computed, onUnmounted, onMounted } from 'vue';
 import { loadStarters, saveStarters } from '../service/firebase';
-import type { DocumentData } from 'firebase/firestore';
 import { debounce, isEqual } from 'lodash';
 import { useAuthStore } from '../stores/auth';
+import {startersTask} from '../starters';
+import { useI18n } from 'vue-i18n';
+import type { EasyTask } from 'src/types';
+import eventBus from '../eventBus';
+
+const {locale} = useI18n();
 
 const authStore = useAuthStore();
 
-const starters = ref<DocumentData | null>(null);
+const starters = ref<EasyTask[]>([]);
 
 watch(
   () => authStore.uid,
@@ -78,47 +83,105 @@ watch(
     if (newUid) {
       loadStarters(newUid)
         .then((data) => {
-          starters.value = data;
+          starters.value = data?.length ? data : getStartersByLang(locale.value)
         })
         .catch((err) => {
           console.error(err);
-          starters.value = null;
+          starters.value = [];
         });
     }
   },
   { immediate: true },
 );
 
-let previous: Record<string, boolean> | null = null;
+let previous: EasyTask[] | null = null;
 
 watch(
-  starters,
+  () => starters.value,
   (newVal) => {
-    if (!newVal) return;
+    if (!newVal) return
     if (!isEqual(previous, newVal)) {
-      debouncedSave({ ...newVal });
-      previous = { ...newVal };
+      debouncedSave(newVal)
+      previous = JSON.parse(JSON.stringify(newVal))
     }
   },
-  { deep: true },
-);
+  { deep: true }
+)
 
-const debouncedSave = debounce((newData: Record<string, boolean>) => {
+
+const debouncedSave = debounce((newData: EasyTask[]) => {
   saveStarters(authStore.uid, newData).catch((err) => console.error(err));
 }, 1000);
 
 const sortedStarters = computed(() => {
-  const entries = Object.entries(starters.value || {}).sort(([keyA], [keyB]) =>
-    keyB.localeCompare(keyA),
-  );
-  return Object.fromEntries(entries);
+  return [...starters.value].sort((a, b) => b.label.localeCompare(a.label))
 });
 
-const clear = () => {
-  for (const property in starters.value) {
-    starters.value[property] = false;
-  }
+const switchMarks = () => {
+  const inverted: EasyTask[] = [];
+  starters.value.forEach((starter) => {
+    inverted.push({ label: starter.label, checked: !starter.checked });
+  });
+  starters.value = inverted;
 };
+
+const getStartersByLang = (lang: string) : EasyTask[] => {
+  const tasks : EasyTask[] = [];
+  switch (lang) {
+    case 'pl':
+      startersTask.PL.map((starter) => {
+        tasks.push({ label: starter, checked: false });
+      });
+      break;
+    case 'en_US':
+      startersTask.EN.map((starter) => {
+        tasks.push({ label: starter, checked: false });
+      });
+      break;
+    case 'de':
+      startersTask.DE.map((starter) => {
+        tasks.push({ label: starter, checked: false });
+      });
+      break;
+    case 'ua':
+      startersTask.UA.map((starter) => {
+        tasks.push({ label: starter, checked: false });
+      });
+      break;
+    default:
+      startersTask.EN.map((starter) => {
+        tasks.push({ label: starter, checked: false });
+      });
+      break;
+  }
+  return tasks;
+};
+
+const clear = () => {
+  starters.value = [];
+};
+
+
+onMounted(() => {
+  eventBus.on('refresh-easy', refresh)
+})
+
+onUnmounted(() => {
+  eventBus.off('refresh-easy', refresh)
+})
+
+
+const refresh = () => {
+  loadStarters(authStore.uid)
+    .then((data) => {
+      starters.value = data?.length ? data : getStartersByLang(locale.value)
+    })
+    .catch((err) => {
+      console.error(err);
+      starters.value = [];
+    });
+}
+
 </script>
 
 <style scoped>

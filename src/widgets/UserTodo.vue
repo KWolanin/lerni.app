@@ -19,7 +19,7 @@
       </q-btn>
       <q-btn
         size="sm"
-        icon="done"
+        icon="check_circle"
         color="user-font"
         flat
         class="q-ml-sm"

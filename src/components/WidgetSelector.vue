@@ -1,13 +1,44 @@
 <template>
-  <q-dialog v-model="dialog" backdrop-filter="blur(4px) saturate(150%) brightness(100%)">
+  <q-dialog v-model="dialog" backdrop-filter="blur(8px) saturate(150%) brightness(100%)">
     <q-card class="bg radius-15 q-pa-sm calsans-font">
       <q-card-section class="row items-center q-pb-none text-h6 user-font">
         {{ $t('customize_dashboard') }}
       </q-card-section>
 
       <q-card-section>
+        <q-item class="user-font q-ma-sm text-bold flex row items-center">
+          <q-icon name="widgets" size="20px" color="blur" class="icon-lightbulb q-mr-sm" />
+          <span>{{ $t('widget_desc') }}</span>
+        </q-item>
         <q-list>
-          <q-item v-for="widget in availableWidgets" :key="widget.widgetName" tag="label" v-ripple>
+          <q-item v-for="widget in filteredWidgets" :key="widget.widgetName" tag="label" v-ripple>
+            <q-item-section avatar>
+              <q-checkbox
+                keep-color
+                color="user-font"
+                checked-icon="check_circle"
+                unchecked-icon="radio_button_unchecked"
+                v-model="widgets"
+                :val="widget.widgetName"
+              />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label class="user-font text-bold">{{
+                getWidgetNameI18n(widget.label)
+              }}</q-item-label>
+              <q-item-label class="user-font" caption>{{
+                getWidgetDescI18n(widget.label)
+              }}</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
+        <q-separator />
+        <q-item class="user-font q-ma-sm text-bold flex row items-center">
+          <q-icon name="settings" size="20px" color="blur" class="icon-lightbulb q-mr-sm" />
+          <span>{{ $t('tools_desc') }}</span>
+        </q-item>
+        <q-list>
+          <q-item v-for="widget in filteredTools" :key="widget.widgetName" tag="label" v-ripple>
             <q-item-section avatar>
               <q-checkbox
                 keep-color
@@ -49,7 +80,7 @@ import { ref, watch } from 'vue';
 import { saveSelectedWidgets, loadSelectedWidgets } from 'src/service/firebase';
 import { useAuthStore } from 'src/stores/auth';
 import eventBus from '../eventBus';
-import { availableWidgets } from 'src/availableWidgets';
+import { availableWidgets, Type } from 'src/availableWidgets';
 import { useI18n } from 'vue-i18n';
 
 const { locale } = useI18n({ useScope: 'global' });
@@ -107,4 +138,7 @@ const getWidgetNameI18n = (label: string) => {
       return availableWidgets.find((widget) => widget.label === label)?.label_EN;
   }
 };
+
+const filteredTools = availableWidgets.filter((widget) => widget.type === Type.TOOL);
+const filteredWidgets = availableWidgets.filter((widget) => widget.type === Type.WIDGET);
 </script>

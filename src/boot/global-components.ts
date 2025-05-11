@@ -6,6 +6,7 @@ import UserNote from 'src/widgets/UserNote.vue'
 import UserTodo from 'src/widgets/UserTodo.vue'
 import KanbanTable from 'src/widgets/KanbanTable.vue'
 import PomoStats from 'src/widgets/PomoStats.vue'
+import EasyStartCustomizer from 'src/components/EasyStartCustomizer.vue'
 import type { App } from 'vue'
 
 export default ({ app }: { app: App }) => {
@@ -17,4 +18,5 @@ export default ({ app }: { app: App }) => {
   app.component('UserTodo', UserTodo)
   app.component('KanbanTable', KanbanTable)
   app.component('PomoStats', PomoStats)
+  app.component('EasyStartCustomizer', EasyStartCustomizer)
 }

@@ -9,7 +9,14 @@ interface Widget {
   desc_PL: string;
   desc_DE: string;
   desc_UA: string;
+  type: Type;
 }
+
+export enum Type {
+  TOOL,
+  WIDGET
+}
+
 export const availableWidgets: Widget[] = [
   {
     label: 'Pomodoro',
@@ -21,7 +28,8 @@ export const availableWidgets: Widget[] = [
     label_EN: "Pomodoro",
     label_PL: "Pomodoro",
     label_DE: "Pomodoro",
-    label_UA: "Помодоро"
+    label_UA: "Помодоро",
+    type: Type.WIDGET
   },
   {
     label: 'Sound player',
@@ -33,7 +41,8 @@ export const availableWidgets: Widget[] = [
     label_EN: "Sound player",
     label_PL: "Odtwarzacz dźwięku",
     label_DE: "Soundplayer",
-    label_UA: "Аудіоплеєр"
+    label_UA: "Аудіоплеєр",
+    type: Type.WIDGET
   },
   {
     label: 'Simple start',
@@ -45,7 +54,8 @@ export const availableWidgets: Widget[] = [
     label_EN: "Simple start",
     label_PL: "Prosty start",
     label_DE: "Einfacher Start",
-    label_UA: "Простий старт"
+    label_UA: "Простий старт",
+    type: Type.WIDGET
   },
   {
     label: 'Set pomodoro',
@@ -57,7 +67,8 @@ export const availableWidgets: Widget[] = [
     label_EN: "Set pomodoro",
     label_PL: "Ustaw pomodoro",
     label_DE: "Pomodoro einstellen",
-    label_UA: "Встановити помодоро"
+    label_UA: "Встановити помодоро",
+    type: Type.TOOL
   },
   {
     label: 'Quick note',
@@ -69,7 +80,8 @@ export const availableWidgets: Widget[] = [
     label_EN: "Quick note",
     label_PL: "Szybka notatka",
     label_DE: "Schnelle Notiz",
-    label_UA: "Швидка нотатка"
+    label_UA: "Швидка нотатка",
+    type: Type.WIDGET
   },
   {
     label: 'Todo',
@@ -81,7 +93,8 @@ export const availableWidgets: Widget[] = [
     label_EN: "Todo",
     label_PL: "Lista zadań",
     label_DE: "Aufgaben",
-    label_UA: "Список справ"
+    label_UA: "Список справ",
+    type: Type.WIDGET
   },
   {
     label: 'Kanban',
@@ -93,7 +106,8 @@ export const availableWidgets: Widget[] = [
     label_EN: "Kanban",
     label_PL: "Kanban",
     label_DE: "Kanban",
-    label_UA: "Канбан"
+    label_UA: "Канбан",
+    type: Type.WIDGET
   },
   {
     label: 'Pomodoro stats',
@@ -105,7 +119,21 @@ export const availableWidgets: Widget[] = [
     label_EN: "Pomodoro stats",
     label_PL: "Statystyki pomodoro",
     label_DE: "Pomodoro-Statistiken",
-    label_UA: "Статистика Pomodoro"
+    label_UA: "Статистика Помодоро",
+    type: Type.WIDGET
+  },
+  {
+    label: 'Set Easy Start list',
+    widgetName: 'EasyStartCustomizer',
+    desc_EN: 'Customize your Easy start todo list',
+    desc_PL: 'Dostosuj swoją listę zadań na start',
+    desc_DE: 'Passe deine Start-To-do-Liste an',
+    desc_UA: 'Налаштуйте свій список завдань для початку',
+    label_EN: 'Customize Easy Start list',
+    label_PL: 'Dostosuj swoją listę Prosty start',
+    label_DE: 'Anpassung der Easy-Start-Liste',
+    label_UA: 'Налаштування списку Простий старт',
+    type: Type.TOOL
   }
 ];
 

@@ -25,7 +25,7 @@ export default {
   work: 'work',
   relax: 'relax',
   must_be_positive: 'number must be positive',
-  ping_sound_enable: "play sound when timer ends",
+  ping_sound_enable: "sound when timer ends",
   customize_dashboard: 'customize dashboard',
   language: 'language',
   theme: 'theme',
@@ -41,7 +41,13 @@ export default {
   close: 'close',
   credits: 'credits',
   about: 'about',
-  contact: 'contact'
+  contact: 'contact',
+  tools_desc: 'Use TOOLS to customize your widgets',
+  widget_desc: 'Use WIDGETS to work',
+  plain_themes_desc: 'Plain themes are simple and fast',
+  pattern_themes_desc: 'Pattern themes are nice and smooth',
+  gradient_themes_desc: 'Gradient themes are colorful and bright',
+  here_edit: 'Here you can edit your Easy List'
 };
 
 

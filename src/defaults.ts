@@ -102,6 +102,18 @@ const widgets = [
     draggable: true,
     static: false,
     responsive: true,
+  },
+  {
+    name: 'EasyStartCustomizer',
+    x: 0,
+    y: 0,
+    w: 3,
+    h: 9,
+    i: '8',
+    resizable: false,
+    draggable: true,
+    static: false,
+    responsive: true,
   }
 ];
 
