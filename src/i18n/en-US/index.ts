@@ -47,7 +47,8 @@ export default {
   plain_themes_desc: 'Plain themes are simple and fast',
   pattern_themes_desc: 'Pattern themes are nice and smooth',
   gradient_themes_desc: 'Gradient themes are colorful and bright',
-  here_edit: 'Here you can edit your Easy List'
+  here_edit: 'Here you can edit your Easy List',
+  bring_defaults_back: 'Bring back default easy list',
 };
 
 

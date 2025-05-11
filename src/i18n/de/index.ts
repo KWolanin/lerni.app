@@ -48,4 +48,5 @@ export default {
   pattern_themes_desc: 'Muster-Themen sind schön und geschmeidig',
   gradient_themes_desc: 'Gradient-Themen sind bunt und hell',
   here_edit: 'Hier kannst du deine einfache Liste bearbeiten',
+  bring_defaults_back: 'Standard-Easy-Liste wiederherstellen',
 };

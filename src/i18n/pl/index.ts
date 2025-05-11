@@ -48,4 +48,5 @@ export default {
   pattern_themes_desc: 'Motywy wzorów są ładne i gładkie',
   gradient_themes_desc: 'Motywy gradientowe są kolorowe i jasne',
   here_edit: 'Tutaj możesz edytować swoją łatwą listę',
+  bring_defaults_back: 'Przywróć domyślną łatwą listę',
 };

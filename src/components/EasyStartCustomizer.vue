@@ -2,6 +2,11 @@
   <q-card class="fit q-pa-sm column radius-15 bg calsans-font">
     <q-item class="user-font q-ma-sm text-bold flex row items-center">
     <span>{{ $t('here_edit') }}</span>
+    <q-space />
+     <q-btn icon="refresh" size="sm" flat round color="user-font" @click="bringDefaultsBack">
+      <q-tooltip class="bg-blur text-weight-bold user-font" anchor="center left" self="center right">
+        {{ $t('bring_defaults_back') }} </q-tooltip>
+      </q-btn>
   </q-item>
     <q-scroll-area class="q-mt-sm full-width" style="flex: 1 1 auto; min-height: 0">
       <q-list v-if="localStarters">
@@ -21,6 +26,7 @@
             class="full-width"
             @change="(value: string) => saveStarter(index, value)"
           />
+            <q-btn icon="delete" size="sm" flat round color="user-font" @click="removeTask(starter.label)" />
         </q-item>
       </q-list>
     </q-scroll-area>
@@ -131,6 +137,18 @@ const addTask = () => {
   localStarters.value.push(newTask)
   newEasyTask.value = '';
   debouncedSave()
+};
+
+const removeTask = (label: string) => {
+  const index = localStarters.value.findIndex((task) => task.label === label);
+  if (index !== -1) {
+    localStarters.value.splice(index, 1);
+    debouncedSave();
+  }
+};
+const bringDefaultsBack = () => {
+  localStarters.value = getStartersByLang(locale.value);
+  debouncedSave();
 };
 </script>
 
