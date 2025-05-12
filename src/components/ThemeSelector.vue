@@ -57,10 +57,8 @@ const props = defineProps({
 const saveSelected = (theme: string) => {
   const selectedTheme = themes.find((t) => t.name === theme);
   if (selectedTheme?.premium && !props.isPremium) {
-    console.log('Premium theme selected, but user is not premium.');
     return;
   }
-
   emit('changeTheme', theme);
 };
 

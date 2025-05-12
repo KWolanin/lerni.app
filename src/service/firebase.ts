@@ -72,7 +72,6 @@ export const syncUserWithFirestore = async (user: User) => {
     authStore.isPremium = false
   } else {
     const data = userSnap.data()
-    console.log('User data:', data)
     authStore.isPremium = !!data.isPremium
   }
 

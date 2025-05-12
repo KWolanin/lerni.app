@@ -43,7 +43,6 @@ watch(
     if (newUid) {
       getPremiumStatus(newUid)
       .then((premiumStatus) => {
-        console.log('Premium status fetched:', premiumStatus);
         isPremium.value = premiumStatus;
       })
       .catch((error) => {
@@ -56,9 +55,7 @@ watch(
 
 watch(isPremium, (newValue) => {
   changePremiumStatus(authStore.uid, newValue)
-  .then(() => {
-    console.log('Premium status updated successfully');
-  }).catch((error) => {
+  .catch((error) => {
     console.error('Error updating premium status:', error);
   });
 });
