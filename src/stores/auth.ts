@@ -15,7 +15,6 @@ export const useAuthStore = defineStore('auth', () => {
     displayName.value = user.displayName || ''
     photoURL.value = user.photoURL || ''
     loggedIn.value = true
-    // isPremium.value = user.isPremium || false
   }
 
   function reset() {

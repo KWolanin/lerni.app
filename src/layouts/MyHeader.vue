@@ -1,5 +1,5 @@
 <template>
-  <q-header class="glass-panel calsans-font min-height">
+  <q-header class="glass-panel calsans-font">
     <q-toolbar>
       <q-toolbar-title>
         <q-btn flat to="/">
@@ -19,7 +19,7 @@
         height="30px"
         class="user-icon q-ml-sm cursor-pointer"
       >
-        <q-menu class="calsans-font bg user-font">
+        <q-menu class="calsans-font glass-panel bg user-font">
           <q-list style="min-width: 100px">
             <q-item clickable v-close-popup @click="handleLogoutClick">
               <q-item-section>Logout</q-item-section>

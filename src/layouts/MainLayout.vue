@@ -18,7 +18,7 @@
     <theme-selector
       v-model="openThemeSelector"
       :current-theme="currentTheme"
-      :is-premium="authStore.isPremium"
+      :is-premium="premiumStatus"
       @change-theme="changeTheme"
     />
     <color-selector v-model="openColorSelector" />
@@ -33,13 +33,14 @@ import { usePreferencesStore } from '../stores/preferences';
 import { useAuthStore } from '../stores/auth';
 import { getAuth, type User } from 'firebase/auth';
 import { loadTheme, saveTheme } from '../service/firebase';
-import { debounce, isEqual } from 'lodash';
+import { debounce,isEqual } from 'lodash';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { themes } from 'src/themes';
 import { useFontColorStore } from 'stores/fontColor';
 import MyFooter from './MyFooter.vue';
 import MyHeader from './MyHeader.vue';
+import { getPremiumStatus } from '../service/firebase';
 
 const ThemeSelector = defineAsyncComponent(() => import('src/components/ThemeSelector.vue'));
 const WidgetSelector = defineAsyncComponent(() => import('src/components/WidgetSelector.vue'));
@@ -55,6 +56,7 @@ const openWidgetSelector = ref<boolean>(false);
 const openThemeSelector = ref<boolean>(false);
 const openColorSelector = ref<boolean>(false);
 const openLanguageSelector = ref<boolean>(false);
+const premiumStatus = ref<boolean>(false);
 
 watch(
   locale,
@@ -67,13 +69,16 @@ watch(
   { immediate: true },
 );
 
-onMounted(() => {
+onMounted(async () => {
   const auth = getAuth();
   const user = auth.currentUser;
   if (user) {
     authStore.setUser(user);
   }
   void fontStore.initFontColor();
+  await getPremiumStatus(authStore.uid).then((premium) => {
+    premiumStatus.value = premium;
+  });
 });
 
 const authStore = useAuthStore();

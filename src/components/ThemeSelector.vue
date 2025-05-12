@@ -30,7 +30,7 @@
         />
         <q-separator v-if="!isPremium" />
         <q-item v-if="!isPremium" class="flex row items-center justify-center user-font">
-          <q-btn icon="star" to="premium">{{ $t('unlock_all_themes') }}</q-btn>
+          <q-btn icon="star" flat to="premium">{{ $t('unlock_all_themes') }}</q-btn>
         </q-item>
       </q-card-section>
     </q-card>
@@ -51,6 +51,7 @@ const props = defineProps({
   isPremium: {
     type: Boolean,
     default: false,
+    required: true,
   },
 });
 
