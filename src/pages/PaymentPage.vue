@@ -10,7 +10,7 @@
           {{ isPremium ? $t('premium_status_active') : $t('premium_status_inactive') }}
         </span>
       </q-card-section>
-      <q-card-secton>
+      <q-card-section>
         <span>
           <p>[Cheat mode] enable your premium here:</p>
           <q-checkbox
@@ -22,7 +22,7 @@
 {{ isPremium ? 'now you have access to all premium themes' : '' }}
           </p>
         </span>
-      </q-card-secton>
+      </q-card-section>
     </q-card>
   </div>
 </template>
