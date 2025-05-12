@@ -1,10 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { loadPreferences, savePreferences } from '../service/firebase'
-
-interface Preferences {
-  [key: string]: unknown
-}
+import type { Preferences } from 'src/types'
 
 export const usePreferencesStore = defineStore('preferences', () => {
   const uid = ref('')

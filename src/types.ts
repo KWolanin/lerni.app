@@ -47,7 +47,7 @@ export type TodoTask = {
 }
 
 export type Preferences = {
-  [key: string]: unknown
+  [key: string]: number
 }
 
 export type PomoSession = {
@@ -59,4 +59,14 @@ export type PomoSession = {
 export type EasyTask = {
   label: string;
   checked: boolean;
+}
+
+export type Language = {
+  name: string,
+  value: string,
+  flag: string,
+  name_EN: string,
+  name_PL: string,
+  name_DE: string,
+  name_UA: string,
 }

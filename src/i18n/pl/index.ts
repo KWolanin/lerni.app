@@ -49,4 +49,9 @@ export default {
   gradient_themes_desc: 'Motywy gradientowe są kolorowe i jasne',
   here_edit: 'Tutaj możesz edytować swoją łatwą listę',
   bring_defaults_back: 'Przywróć domyślną łatwą listę',
+  unlock_all_themes: 'Odblokuj wszystkie motywy',
+  premium_account: 'Konto premium',
+  premium_status: 'Twój status premium to:',
+  premium_status_active: 'aktywne',
+  premium_status_inactive: 'nieaktywne',
 };

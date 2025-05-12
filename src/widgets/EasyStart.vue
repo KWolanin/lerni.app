@@ -10,6 +10,7 @@
         icon="check_circle"
         color="user-font"
         flat
+        round
         class="q-ml-sm"
         @click="switchMarks"
       >
@@ -22,6 +23,7 @@
         icon="delete"
         color="user-font"
         flat
+        round
         class="q-ml-sm"
         @click="clear"
       >
@@ -66,16 +68,15 @@ import { ref, watch, computed, onUnmounted, onMounted } from 'vue';
 import { loadStarters, saveStarters } from '../service/firebase';
 import { debounce, isEqual } from 'lodash';
 import { useAuthStore } from '../stores/auth';
-import {startersTask} from '../starters';
 import { useI18n } from 'vue-i18n';
 import type { EasyTask } from 'src/types';
 import eventBus from '../eventBus';
+import { getStartersByLang } from '../service/easy_start';
 
 const {locale} = useI18n();
-
 const authStore = useAuthStore();
-
 const starters = ref<EasyTask[]>([]);
+let previousList: EasyTask[] | null = null;
 
 watch(
   () => authStore.uid,
@@ -94,15 +95,15 @@ watch(
   { immediate: true },
 );
 
-let previous: EasyTask[] | null = null;
+
 
 watch(
   () => starters.value,
   (newVal) => {
     if (!newVal) return
-    if (!isEqual(previous, newVal)) {
+    if (!isEqual(previousList, newVal)) {
       debouncedSave(newVal)
-      previous = JSON.parse(JSON.stringify(newVal))
+      previousList = JSON.parse(JSON.stringify(newVal))
     }
   },
   { deep: true }
@@ -125,42 +126,9 @@ const switchMarks = () => {
   starters.value = inverted;
 };
 
-const getStartersByLang = (lang: string) : EasyTask[] => {
-  const tasks : EasyTask[] = [];
-  switch (lang) {
-    case 'pl':
-      startersTask.PL.map((starter) => {
-        tasks.push({ label: starter, checked: false });
-      });
-      break;
-    case 'en_US':
-      startersTask.EN.map((starter) => {
-        tasks.push({ label: starter, checked: false });
-      });
-      break;
-    case 'de':
-      startersTask.DE.map((starter) => {
-        tasks.push({ label: starter, checked: false });
-      });
-      break;
-    case 'ua':
-      startersTask.UA.map((starter) => {
-        tasks.push({ label: starter, checked: false });
-      });
-      break;
-    default:
-      startersTask.EN.map((starter) => {
-        tasks.push({ label: starter, checked: false });
-      });
-      break;
-  }
-  return tasks;
-};
-
 const clear = () => {
   starters.value = [];
 };
-
 
 onMounted(() => {
   eventBus.on('refresh-easy', refresh)
@@ -183,11 +151,3 @@ const refresh = () => {
 }
 
 </script>
-
-<style scoped>
-
-.strike {
-  text-decoration: line-through;
-}
-
-</style>

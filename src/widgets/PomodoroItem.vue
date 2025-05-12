@@ -7,6 +7,7 @@
         :icon="pingEnabled ? 'music_note' : 'music_off'"
         color="user-font"
         flat
+        round
         @click="pingEnabled = !pingEnabled"
       >
         <q-tooltip anchor="center left" self="center right" class="bg-blur calsans-font">{{
@@ -54,43 +55,14 @@
         </div>
       </q-circular-progress>
     </div>
-
-    <div class="flex row justify-center q-mb-md">
-      <q-btn
-        @click="startTimer"
-        icon="play_circle"
-        color="user-font"
-        outline
-        :disabled="isRunning"
-        class="q-mr-sm"
-      >
-        <q-tooltip class="bg-blur calsans-font" anchor="center left" self="center right"
-          >{{ $t('start') }} pomodoro</q-tooltip
-        >
-      </q-btn>
-      <q-btn
-        @click="stopTimer"
-        icon="stop_circle"
-        outline
-        color="user-font"
-        :disabled="!isRunning"
-        class="q-mr-sm"
-      >
-        <q-tooltip class="bg-blur calsans-font" anchor="center left" self="center right"
-          >{{ $t('stop') }} pomodoro</q-tooltip
-        >
-      </q-btn>
-      <q-btn @click="resetTimer" icon="restart_alt" outline color="user-font" class="q-mr-sm">
-        <q-tooltip class="bg-blur calsans-font" anchor="center left" self="center right"
-          >{{ $t('restart') }} pomodoro</q-tooltip
-        >
-      </q-btn>
-      <q-btn outline @click="nextCycle" icon="next_plan" color="user-font">
-        <q-tooltip class="bg-blur calsans-font" anchor="center left" self="center right">{{
-          $t('skip')
-        }}</q-tooltip>
-      </q-btn>
-    </div>
+    <pomodoro-buttons
+    :is-running="isRunning"
+    :start-timer="startTimer"
+    :stop-timer="stopTimer"
+    :reset-timer="resetTimer"
+    :next-cycle="nextCycle"
+    :work-cycles="workCycles"
+    />
   </q-card>
 </template>
 
@@ -99,8 +71,9 @@ import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue';
 import { usePreferencesStore } from '../stores/preferences';
 import { useAuthStore } from '../stores/auth';
 import winkSound from '/audio/wink.mp3';
-import { savePomoSession } from 'src/service/firebase';
 import TimerWorker from './timerWorker.ts?worker';
+import PomodoroButtons from './PomodoroButtons.vue';
+import { addPomoSession } from '../service/pomo_sessions';
 
 const preferencesStore = usePreferencesStore();
 const authStore = useAuthStore();
@@ -158,6 +131,7 @@ const loadPreferences = async () => {
 };
 
 onMounted(async () => {
+  preferences.value = { ...defaultPreferences };
   await loadPreferences();
   if (wrapper.value) {
     resizeObserver = new ResizeObserver((entries) => {
@@ -206,8 +180,6 @@ watch(
 );
 
 const preferencesLoaded = ref(false);
-
-
 
 const startTimer = () => {
   if (isRunning.value || !preferencesLoaded.value || !timerWorker) return;
@@ -309,18 +281,6 @@ function handleTick() {
   }
 }
 
-
-function addPomoSession(sessions: number, workTime: number) {
-  const session = {
-    date: new Date(),
-    sessions,
-    workTime,
-  };
-  savePomoSession(authStore.uid, session)
-    .catch((error) => {
-      console.error('Error saving stat:', error);
-    });
-}
 </script>
 
 <style scoped>

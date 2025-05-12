@@ -10,6 +10,7 @@
         icon="delete"
         color="user-font"
         flat
+        round
         class="q-ml-sm"
         @click="clear"
       >
@@ -22,6 +23,7 @@
         icon="check_circle"
         color="user-font"
         flat
+        round
         class="q-ml-sm"
         @click="switchMarks"
       >
@@ -180,10 +182,6 @@ const sortedTask = computed((): TodoTask[] => {
 }
 ::v-deep(.q-field--standout.q-field--highlighted .q-field__native) {
   color: var(--user-font-color);
-}
-
-.strike {
-  text-decoration: line-through;
 }
 
 .fit {

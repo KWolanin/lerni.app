@@ -1,14 +1,20 @@
 <template>
-  <q-header class="glass-panel calsans-font">
+  <q-header class="glass-panel calsans-font min-height">
     <q-toolbar>
-      <q-toolbar-title> Lerni.app </q-toolbar-title>
+      <q-toolbar-title>
+        <q-btn flat to="/">
+            Lerni.app
+        </q-btn>
+
+       </q-toolbar-title>
       <q-btn icon="dashboard" flat @click="emit('toggle-widget')" />
       <q-btn icon="palette" flat @click="emit('toggle-theme')" />
       <q-btn icon="format_color_text" flat @click="emit('toggle-color')" />
       <q-btn icon="translate" flat @click="emit('toggle-language')" />
 
       <q-img
-        :src="authStore.photoURL"
+        :src="hasError ? 'icons/error_temp.jpg' : authStore.photoURL"
+        @error="hasError = true"
         width="30px"
         height="30px"
         class="user-icon q-ml-sm cursor-pointer"
@@ -27,7 +33,10 @@
 
 <script setup lang="ts">
 import { useAuthStore } from 'src/stores/auth';
+import { ref } from 'vue';
 const authStore = useAuthStore();
+const hasError = ref(false)
+
 
 defineProps({
   photoUrl: {

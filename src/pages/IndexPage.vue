@@ -52,7 +52,7 @@ import type { Widget } from 'src/types';
 import { onMounted, onUnmounted, reactive, ref, watch, computed } from 'vue';
 // @ts-expect-error('no types')
 import { GridLayout, GridItem } from 'vue-grid-layout-v3';
-import defaults from '../defaults'
+import{ widgets as defaultWidgets} from '../defaults'
 import eventBus from '../eventBus'
 import { useQuasar } from 'quasar'
 
@@ -99,7 +99,7 @@ function layoutUpdatedEvent(newLayout: Widget[]) {
 }
 
 const defaultWidget = (name: string): Widget | null => {
-  const found = defaults.find(w => w.name === name)
+  const found = defaultWidgets.find(w => w.name === name)
   if (!found) return null
   return structuredClone(found)
 }

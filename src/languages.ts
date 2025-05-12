@@ -1,12 +1,5 @@
-interface Language {
-  name: string,
-  value: string,
-  flag: string,
-  name_EN: string,
-  name_PL: string,
-  name_DE: string,
-  name_UA: string,
-}
+import type { Language } from "./types";
+
 
 export const languages :Language[] = [
   {

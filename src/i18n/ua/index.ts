@@ -49,4 +49,9 @@ export default {
   gradient_themes_desc: 'Градієнтні теми кольорові та яскраві',
   here_edit: 'Тут ви можете редагувати свій легкий список',
   bring_defaults_back: 'Повернути назад стандартний легкий список',
+  unlock_all_themes: 'Відкрити всі теми',
+  premium_account: 'Преміум-акаунт',
+  premium_status: 'Ваш статус преміум:',
+  premium_status_active: 'активний',
+  premium_status_inactive: 'неактивний',
 };

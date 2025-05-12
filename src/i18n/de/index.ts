@@ -49,4 +49,9 @@ export default {
   gradient_themes_desc: 'Gradient-Themen sind bunt und hell',
   here_edit: 'Hier kannst du deine einfache Liste bearbeiten',
   bring_defaults_back: 'Standard-Easy-Liste wiederherstellen',
+  unlock_all_themes: 'Alle Themen freischalten',
+  premium_account: 'Premium-Konto',
+  premium_status: 'Dein Premium-Status ist:',
+  premium_status_active: 'aktiv',
+  premium_status_inactive: 'inaktiv',
 };

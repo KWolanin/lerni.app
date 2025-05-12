@@ -1,5 +1,5 @@
 <template>
-  <q-footer class="glass-panel calsans-font">
+  <q-footer class="glass-panel calsans-font min-height">
     <q-toolbar>
       <span>© 2025 Katarzyna Wolanin</span>
       <q-space />
@@ -23,4 +23,9 @@ a:active {
 .glass-panel {
   background-color: rgba(0, 0, 0, 0.3) !important;
 }
+
+::v-deep(.q-toolbar) {
+  min-height: 15px;
+}
+
 </style>

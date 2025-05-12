@@ -19,10 +19,12 @@ import type {
   TodoTask,
   Widget,
 } from 'src/types.js';
+import { useAuthStore } from 'src/stores/auth.js';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const authStore = useAuthStore()
 
 const provider = new GoogleAuthProvider();
 
@@ -38,6 +40,44 @@ export const loginWithGoogle = async () => {
 export const logout = async () => {
   await signOut(auth);
 };
+
+export const changePremiumStatus = async (uid: string, isPremium: boolean) => {
+  if (!uid) return;
+  const userRef = doc(db, 'users', uid);
+  await setDoc(userRef, { isPremium }, { merge: true });
+  authStore.isPremium = isPremium;
+};
+
+export const getPremiumStatus = async (uid: string): Promise<boolean> => {
+  if (!uid) return false;
+  const userRef = doc(db, 'users', uid);
+  const docSnap = await getDoc(userRef);
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+    return data.isPremium || false;
+  }
+  return false;
+};
+
+export const syncUserWithFirestore = async (user: User) => {
+  const userRef = doc(db, 'users', user.uid)
+  const userSnap = await getDoc(userRef)
+
+  if (!userSnap.exists()) {
+    await setDoc(userRef, {
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      isPremium: false
+    })
+    authStore.isPremium = false
+  } else {
+    const data = userSnap.data()
+    console.log('User data:', data)
+    authStore.isPremium = !!data.isPremium
+  }
+
+  authStore.setUser(user)
+}
 
 export const savePreferences = async (uid: string, preferences: Preferences) => {
   if (!uid) return;

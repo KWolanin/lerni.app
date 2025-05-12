@@ -31,14 +31,15 @@
 </template>
 
 <script setup lang="ts">
-import { loginWithGoogle } from '../service/firebase'
+import { loginWithGoogle, syncUserWithFirestore } from '../service/firebase'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
 async function login() {
-  const success = await loginWithGoogle()
-  if (success) {
+  const user = await loginWithGoogle()
+  if (user) {
+    await syncUserWithFirestore(user)
     await router.push('/')
   }
 }
@@ -141,8 +142,5 @@ const cardPositions = generateUniquePositions(20, 10)
   }
 }
 
-.default-bg {
-  background: linear-gradient(43deg,rgba(131, 58, 180, 1) 0%,rgba(253, 29, 29, 0.5226541300113796) 50%,rgba(252, 176, 69, 1) 100%);
-}
 
 </style>

@@ -65,7 +65,7 @@ const getLabelField = computed(() => {
     case 'ua':
       return 'label_UA';
     default:
-    return 'label_EN';
+      return 'label_EN';
   }
 });
 
@@ -94,7 +94,7 @@ const audioOptions = computed(() => {
 
 ::v-deep(.audio__player-time span) {
   font-size: 0.3rem;
-  color: var(--user-font-color);
+  color: var(--user-font-color) !important;
 }
 
 ::v-deep(.audio__player-progress-container) {

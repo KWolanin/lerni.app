@@ -1,4 +1,6 @@
-const widgets = [
+import type { Preferences } from "./types";
+
+export const widgets = [
   {
     name: 'PomodoroItem',
     x: 0,
@@ -95,7 +97,7 @@ const widgets = [
     name: 'PomoStats',
     x: 0,
     y: 0,
-    w: 2,
+    w: 3,
     h: 3,
     i: '7',
     resizable: false,
@@ -117,4 +119,9 @@ const widgets = [
   }
 ];
 
-export default widgets;
+export const defaultPreferences : Preferences = {
+  workTime: 25,
+  relaxTime: 5,
+  longerRelaxTime: 20,
+  limit: 4,
+};

@@ -1,5 +1,5 @@
 <template>
-  <div class="fullscreen bg-blue user-font text-center q-pa-md flex flex-center">
+  <div class="fullscreen default-bg user-font text-center q-pa-md flex flex-center calsans-font">
     <div>
       <div style="font-size: 30vh">
         404
@@ -12,7 +12,7 @@
       <q-btn
         class="q-mt-xl"
         color="user-font"
-        text-color="blue"
+        text-color="white"
         unelevated
         to="/"
         label="Go Home"
@@ -21,7 +21,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-//
-</script>

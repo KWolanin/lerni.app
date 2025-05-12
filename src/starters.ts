@@ -1,6 +1,6 @@
 
-export const startersTask = {
-  DE: [
+export const startersTask: {[lang: string] : string[]} = {
+  "de": [
     "Alles bereit? Los geht's! 🚀",
     'Prüfung: Fühlst du dich wohl? 💺',
     'Prüfung: Hast du keinen Hunger? 🥙',
@@ -17,7 +17,7 @@ export const startersTask = {
     'Stelle deinen Pomodoro 🍅 ein',
     'Schalte das WLAN auf deinem Handy aus 📵',
   ],
-  PL: [
+  "pl": [
     'Wszystko gotowe? Zaczynajmy! 🚀',
     'Sprawdź: Czy czujesz się komfortowo? 💺',
     'Sprawdź: Czy nie jesteś głodny? 🥙',
@@ -34,7 +34,7 @@ export const startersTask = {
     'Ustaw swój pomodoro 🍅',
     'Wyłącz Wi-Fi w telefonie 📵',
   ],
-  UA: [
+  "ua": [
     'Все готово? Починаймо! 🚀',
     'Перевірка: Чи комфортно тобі? 💺',
     'Перевірка: Ти не голодний? 🥙',
@@ -51,7 +51,7 @@ export const startersTask = {
     'Встановіть свій помодоро 🍅',
     'Вимкніть Wi-Fi на своєму телефоні 📵',
   ],
-  EN: [
+  "en-US": [
     'All set? Go! 🚀',
     'Check: Are you feeling comfortable? 💺',
     'Check: Are you not hungry? 🥙',

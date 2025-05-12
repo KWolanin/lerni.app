@@ -5,7 +5,7 @@
         {{ $t('change_font_color') }}
       </q-card-section>
       <q-card-section>
-        <q-color v-model="hex" no-header no-footer class="my-picker" />
+        <q-color v-model="color" no-header no-footer class="my-picker" />
       </q-card-section>
     </q-card>
   </q-dialog>
@@ -16,18 +16,17 @@ import{ ref, watch } from 'vue'
 import { useFontColorStore } from 'stores/fontColor'
 
 const fontColorStore = useFontColorStore()
-const hex = ref(fontColorStore.fontColor)
+const color = ref(fontColorStore.fontColor)
 
-watch(hex, (newColor) => {
+watch(color, (newColor) => {
   fontColorStore.setFontColor(newColor)
 })
 </script>
 
 <style scoped>
-
+/* bar color */
 ::v-deep(.q-color-picker .q-tab-panels) {
-  background: var(--user-font-color) !important;
+  background: var(--user-font-color);
 }
-
 </style>
 

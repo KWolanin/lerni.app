@@ -11,10 +11,18 @@
       v-ripple
       style="width: 50%"
       clickable
+      :disable="!isUserPremium && theme.premium"
       @click="saveSelected(theme.name)"
     >
       <q-item-section thumbnail>
         <img :src="theme.preview" width="150px" height="100px" />
+        <q-icon
+          v-if="theme.premium"
+          name="star"
+          color="amber"
+          size="16px"
+          class="absolute-top-right q-mt-xs q-mr-xs"
+        />
       </q-item-section>
       <q-item-section>
         <q-item-label class="user-font text-center">{{ theme.name }}</q-item-label>
@@ -42,6 +50,10 @@ defineProps({
   icon: {
     type: String,
     default: '',
+  },
+  isUserPremium: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>

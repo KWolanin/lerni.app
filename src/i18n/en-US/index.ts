@@ -49,6 +49,9 @@ export default {
   gradient_themes_desc: 'Gradient themes are colorful and bright',
   here_edit: 'Here you can edit your Easy List',
   bring_defaults_back: 'Bring back default easy list',
+  unlock_all_themes: 'Unlock all themes',
+  premium_account: 'Premium account',
+  premium_status: 'Your premium status is:',
+  premium_status_active: 'active',
+  premium_status_inactive: 'inactive'
 };
-
-

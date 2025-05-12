@@ -18,6 +18,7 @@
     <theme-selector
       v-model="openThemeSelector"
       :current-theme="currentTheme"
+      :is-premium="authStore.isPremium"
       @change-theme="changeTheme"
     />
     <color-selector v-model="openColorSelector" />

@@ -63,7 +63,7 @@ export const themes: Theme[] = [
     preview: 'themes/rainbow.jpg',
     css_background: `linear-gradient(43deg,rgb(108, 235, 222),rgb(253, 163, 53),rgb(255, 57, 156))`,
     type: ThemeType.GRADIENT,
-    premium: false
+    premium: true
   },
   {
     name: 'Mint',
@@ -84,7 +84,7 @@ export const themes: Theme[] = [
     preview: 'themes/Mirage.jpg',
     css_background: `linear-gradient(43deg, #16222a, #3a6073)`,
     type: ThemeType.GRADIENT,
-    premium: false
+    premium: true
   },
   {
     name: 'Plain Black',
@@ -110,21 +110,21 @@ export const themes: Theme[] = [
     preview: 'themes/under-the-lake.jpg',
     css_background: `linear-gradient(to top, #093028, #237a57)`,
     type: ThemeType.GRADIENT,
-    premium: false
+    premium: true
   },
   {
     name: 'Honey dew',
     preview: 'themes/honey-dew.jpg',
     css_background: `linear-gradient(to bottom, #43c6ac, #f8ffae)`,
     type: ThemeType.GRADIENT,
-    premium: false
+    premium: true
   },
   {
     name: 'Purple scales',
     preview: 'themes/purple_scales.jpg',
     css_background: `#330055 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg %3E%3Ccircle fill='%23330055' cx='50' cy='0' r='50'/%3E%3Cg fill='%233a015d' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%23410165' cx='50' cy='100' r='50'/%3E%3Cg fill='%2348026e' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%23500376' cx='50' cy='200' r='50'/%3E%3Cg fill='%2357047e' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%235f0587' cx='50' cy='300' r='50'/%3E%3Cg fill='%2367068f' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%236f0798' cx='50' cy='400' r='50'/%3E%3Cg fill='%237707a0' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%238008a9' cx='50' cy='500' r='50'/%3E%3Cg fill='%238909b1' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%239109ba' cx='50' cy='600' r='50'/%3E%3Cg fill='%239a09c3' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%23a309cb' cx='50' cy='700' r='50'/%3E%3Cg fill='%23ad09d4' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%23b608dc' cx='50' cy='800' r='50'/%3E%3Cg fill='%23c007e5' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%23c905ee' cx='50' cy='900' r='50'/%3E%3Cg fill='%23d303f6' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%23D0F' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E") repeat center / 100px auto`,
     type: ThemeType.PATTERN,
-    premium: false
+    premium: true
   },
   {
     name: 'Symbols red',
